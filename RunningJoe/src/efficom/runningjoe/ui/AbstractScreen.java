@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -35,12 +36,15 @@ public abstract class AbstractScreen implements Screen
 
     public AbstractScreen(RunningJoe game )
     {
+    	
         this.game = game;
         int width = ( isGameScreen() ? GAME_VIEWPORT_WIDTH : MENU_VIEWPORT_WIDTH );
         int height = ( isGameScreen() ? GAME_VIEWPORT_HEIGHT : MENU_VIEWPORT_HEIGHT );
         
         this.stage = new Stage(width, height, true);
-        //Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(this.stage);
+        //this.inputMultiplexer = new InputMultiplexer(stage);
+        //Gdx.input.setInputProcessor(inputMultiplexer);
         
         //Button style
         this.buttonStyle = new TextButtonStyle();
@@ -48,6 +52,16 @@ public abstract class AbstractScreen implements Screen
         this.buttonStyle.fontColor = Color.WHITE;
         this.buttonStyle.pressedOffsetY = 1f;
         this.buttonStyle.downFontColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+        
+        //Label style        
+        LabelStyle labelStyle = new LabelStyle();
+        labelStyle.font = new BitmapFont();
+        labelStyle.fontColor = Color.WHITE;
+        
+        //Creation du skin
+        this.skin = new Skin();
+        skin.add("default", labelStyle);
+        
     }
 
     protected String getName()
@@ -99,6 +113,7 @@ public abstract class AbstractScreen implements Screen
     {
         if( table == null ) {
             table = new Table();
+            table.setSkin(this.getSkin());
             table.setFillParent( true );
             if( RunningJoe.DEV_MODE ) {
                 table.debug();
