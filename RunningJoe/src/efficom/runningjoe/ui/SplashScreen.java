@@ -23,11 +23,9 @@ public class SplashScreen extends AbstractScreen
     @Override
     public void show()
     {
-        super.show();
-        
+        super.show();        
         spriteBatch = new SpriteBatch();
         splash = new Texture(Gdx.files.internal("images/splash.png"));
-
         // start playing the menu music
         //game.getMusicManager().play( RunningJoeMusic.MENU );
     }

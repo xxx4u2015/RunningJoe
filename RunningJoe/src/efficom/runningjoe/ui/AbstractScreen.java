@@ -1,6 +1,7 @@
 package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -33,6 +34,8 @@ public abstract class AbstractScreen implements Screen
     private SpriteBatch batch;
     private Skin skin;
     private TextureAtlas atlas;
+    private InputMultiplexer inputMultiplexer;
+
 
     public AbstractScreen(RunningJoe game )
     {
@@ -42,10 +45,9 @@ public abstract class AbstractScreen implements Screen
         int height = ( isGameScreen() ? GAME_VIEWPORT_HEIGHT : MENU_VIEWPORT_HEIGHT );
         
         this.stage = new Stage(width, height, true);
-        Gdx.input.setInputProcessor(this.stage);
-        //this.inputMultiplexer = new InputMultiplexer(stage);
-        //Gdx.input.setInputProcessor(inputMultiplexer);
-        
+        //inputMultiplexer = new InputMultiplexer(stage);
+        Gdx.input.setInputProcessor(stage);
+                
         //Button style
         this.buttonStyle = new TextButtonStyle();
         this.buttonStyle.font = new BitmapFont();
@@ -62,6 +64,11 @@ public abstract class AbstractScreen implements Screen
         this.skin = new Skin();
         skin.add("default", labelStyle);
         
+    }
+    
+    protected InputMultiplexer getInputMultiplexer()
+    {
+    	return this.inputMultiplexer;
     }
 
     protected String getName()
