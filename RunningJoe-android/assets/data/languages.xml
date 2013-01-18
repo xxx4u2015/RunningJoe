@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+   <!-- English -->
+   <language name="en_UK" >
+      <!--  Menu  -->
+      <string key="High scores" value="Timetrial mode" />
+      <string key="Play" value="Play" />
+      <string key="Options" value="Options" />
+      <string key="Exit" value="Exit" />
+      <string key="Cancel" value="Cancel" />
+      <string key="Save" value="Save" />
+   </language>
+   
+   <!-- Spanish -->
+   <language name="fr_FR" >
+      <!--  Menu  -->
+      <string key="High scores" value="Meilleurs scores" />
+      <string key="Play" value="Jouer" />
+      <string key="Options" value="Options" />
+      <string key="Exit" value="Quitter" />
+      <string key="Cancel" value="Annuler" />
+      <string key="Save" value="Sauvegarder" />
+   </language>
+</languages>

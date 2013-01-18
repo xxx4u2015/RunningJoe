@@ -23,7 +23,10 @@ public class MenuScreen extends AbstractScreen
         this.getTable().row();
         
         // register the button "start game"
-        TextButton startGameButton = new TextButton( "Start game", this.buttonStyle );        
+        TextButton startGameButton = new TextButton( 
+        		this.getLanguagesManager().getString("Play"), 
+        		this.buttonStyle 
+        );        
         startGameButton.addListener( new InputListener() {         	    		
         	@Override
             public boolean touchDown( InputEvent event, float x, float y, int pointer, int button )
@@ -39,7 +42,10 @@ public class MenuScreen extends AbstractScreen
         this.getTable().row();
         
         // register the button "options"
-        TextButton optionsButton = new TextButton( "Options", this.buttonStyle );
+        TextButton optionsButton = new TextButton( 
+        		this.getLanguagesManager().getString("Options"), 
+        		this.buttonStyle 
+        );
         super.getTable().add(optionsButton).size(300, 60).uniform().spaceBottom(10);
         super.getTable().row();
         optionsButton.addListener( new InputListener() {
@@ -55,7 +61,10 @@ public class MenuScreen extends AbstractScreen
         } );
 
         // register the button "high scores"
-        TextButton highScoresButton = new TextButton( "High Scores", this.buttonStyle );
+        TextButton highScoresButton = new TextButton( 
+        		this.getLanguagesManager().getString("High scores"), 
+        		this.buttonStyle 
+        );
         super.getTable().add(highScoresButton).uniform().fill().spaceBottom( 10 );
         super.getTable().row();
         highScoresButton.addListener( new InputListener() {
@@ -70,7 +79,10 @@ public class MenuScreen extends AbstractScreen
             }
         } );
         
-        TextButton exitButton = new TextButton( "Exit", this.buttonStyle );
+        TextButton exitButton = new TextButton( 
+        		this.getLanguagesManager().getString("Exit"), 
+        		this.buttonStyle 
+        );
         super.getTable().add(exitButton).uniform().fill().spaceBottom( 10 );
         super.getTable().row();
         exitButton.addListener( new InputListener() {

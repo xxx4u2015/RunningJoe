@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import efficom.runningjoe.services.LanguagesManager;
 
 import efficom.runningjoe.RunningJoe;
 
@@ -29,6 +30,7 @@ public abstract class AbstractScreen implements Screen
     protected final TextButtonStyle buttonStyle; 
     protected final Stage stage;
     
+    private LanguagesManager languageManager;    
     private Table table;
     private BitmapFont font;
     private SpriteBatch batch;
@@ -43,6 +45,9 @@ public abstract class AbstractScreen implements Screen
         this.game = game;
         int width = ( isGameScreen() ? GAME_VIEWPORT_WIDTH : MENU_VIEWPORT_WIDTH );
         int height = ( isGameScreen() ? GAME_VIEWPORT_HEIGHT : MENU_VIEWPORT_HEIGHT );
+        
+        // Language manager
+        this.languageManager = LanguagesManager.getInstance();
         
         this.stage = new Stage(width, height, true);
         //inputMultiplexer = new InputMultiplexer(stage);
@@ -69,6 +74,11 @@ public abstract class AbstractScreen implements Screen
     protected InputMultiplexer getInputMultiplexer()
     {
     	return this.inputMultiplexer;
+    }
+    
+    protected LanguagesManager getLanguagesManager()
+    {
+    	return this.languageManager;
     }
 
     protected String getName()
