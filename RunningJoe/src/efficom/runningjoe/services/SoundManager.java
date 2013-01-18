@@ -1,34 +1,19 @@
 package efficom.runningjoe.services;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 import efficom.runningjoe.RunningJoe;
+import efficom.runningjoe.services.LRUCache;
+import efficom.runningjoe.services.LRUCache.CacheEntryRemovedListener;
+import efficom.runningjoe.services.RunningJoeSound;
 
 /**
  * A service that manages the sound effects.
  */
-public class SoundManager implements  Disposable
-{    
-	/**
-	 * The available sound files.
-	 */
-	public enum RunningJoeSound
-	{
-	    CLICK( "sound/click.wav" );
-
-	    private final String fileName;
-
-	    private RunningJoeSound( String fileName )
-	    {
-	        this.fileName = fileName;
-	    }
-
-	    public String getFileName()
-	    {
-	        return fileName;
-	    }
-	}
-
+public class SoundManager implements CacheEntryRemovedListener<RunningJoeSound,Sound>, Disposable
+{   
     /**
      * The volume to be set on the sound.
      */
@@ -38,14 +23,19 @@ public class SoundManager implements  Disposable
      * Whether the sound is enabled.
      */
     private boolean enabled = true;
-
     
+    /**
+     * The sound cache.
+     */
+    private final LRUCache<RunningJoeSound, Sound> soundCache;    
 
     /**
      * Creates the sound manager.
      */
     public SoundManager()
     {
+    	soundCache = new LRUCache<RunningJoeSound, Sound>( 10 );
+        soundCache.setEntryRemovedListener( this );
     }
 
     /**
@@ -55,11 +45,18 @@ public class SoundManager implements  Disposable
     {
         // check if the sound is enabled
         if( ! enabled ) return;
-
-       
-
+        
+        // try and get the sound from the cache
+        Sound soundToPlay = soundCache.get( sound );
+        if( soundToPlay == null ) {
+            FileHandle soundFile = Gdx.files.internal( sound.getFileName() );
+            soundToPlay = Gdx.audio.newSound( soundFile );
+            soundCache.add( sound, soundToPlay );
+        }
+        
         // play the sound
         Gdx.app.log( RunningJoe.LOG, "Playing sound: " + sound.name() );
+        soundToPlay.play(volume);
     }
 
     /**
@@ -85,6 +82,15 @@ public class SoundManager implements  Disposable
     {
         this.enabled = enabled;
     }   
+    
+    // EntryRemovedListener implementation
+    @Override
+    public void notifyEntryRemoved( RunningJoeSound key,Sound value )
+    {
+        Gdx.app.log( RunningJoe.LOG, "Disposing sound: " + key.name() );
+        value.dispose();
+    }
+
 
     /**
      * Disposes the sound manager.
@@ -92,5 +98,9 @@ public class SoundManager implements  Disposable
     public void dispose()
     {
         Gdx.app.log( RunningJoe.LOG, "Disposing sound manager" );
+        for( Sound sound : soundCache.retrieveAll() ) {
+            sound.stop();
+            sound.dispose();
+        }
     }
 }
