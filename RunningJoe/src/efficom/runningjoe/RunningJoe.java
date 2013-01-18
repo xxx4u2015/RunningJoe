@@ -64,20 +64,20 @@ public class RunningJoe extends Game
         Gdx.app.log( RunningJoe.LOG, "Creating game on " + Gdx.app.getType() );
 
         // create the preferences manager
-        preferencesManager = new PreferencesManager();
+        preferencesManager = PreferencesManager.getInstance();
 
         // create the music manager
-        musicManager = new MusicManager();
+        musicManager = MusicManager.getInstance();
         musicManager.setVolume( preferencesManager.getVolume() );
         musicManager.setEnabled( preferencesManager.isMusicEnabled() );
 
         // create the sound manager
-        soundManager = new SoundManager();
+        soundManager = SoundManager.getInstance();
         soundManager.setVolume( preferencesManager.getVolume() );
         soundManager.setEnabled( preferencesManager.isSoundEnabled() );
 
         // create the profile manager
-        profileManager = new ProfileManager();
+        profileManager = ProfileManager.getInstance();
         profileManager.retrieveProfile();
 
         // create the helper objects

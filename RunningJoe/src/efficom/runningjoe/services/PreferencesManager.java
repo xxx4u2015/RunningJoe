@@ -13,9 +13,21 @@ public class PreferencesManager
     private static final String PREF_MUSIC_ENABLED = "music.enabled";
     private static final String PREF_SOUND_ENABLED = "sound.enabled";
     private static final String PREFS_NAME = "tyrian";
+    private static volatile PreferencesManager instance = null;
 
-    public PreferencesManager()
+    private PreferencesManager()
     {
+    }
+    
+    public final static PreferencesManager getInstance() {
+    	if (instance == null) {
+            synchronized(PreferencesManager.class) {
+              if (instance == null) {
+                instance = new PreferencesManager();
+              }
+            }
+         }                
+        return instance;
     }
 
     protected Preferences getPrefs()

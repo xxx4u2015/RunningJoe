@@ -10,9 +10,7 @@ import efficom.runningjoe.RunningJoe;
  * <p>
  * Only one music may be playing at a given time.
  */
-public class MusicManager
-    implements
-        Disposable
+public class MusicManager implements Disposable
 {
     /**
      * The available music files.
@@ -46,6 +44,8 @@ public class MusicManager
             this.musicResource = musicBeingPlayed;
         }
     }
+    
+    private static volatile MusicManager instance = null;
 
     /**
      * Holds the music currently being played, if any.
@@ -65,8 +65,19 @@ public class MusicManager
     /**
      * Creates the music manager.
      */
-    public MusicManager()
+    private MusicManager()
     {
+    }
+    
+    public final static MusicManager getInstance() {
+    	if (instance == null) {
+            synchronized(MusicManager.class) {
+              if (instance == null) {
+                instance = new MusicManager();
+              }
+            }
+         }                
+        return instance;
     }
 
     /**

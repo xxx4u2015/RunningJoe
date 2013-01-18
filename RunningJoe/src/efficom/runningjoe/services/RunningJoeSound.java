@@ -5,8 +5,9 @@ package efficom.runningjoe.services;
  */
 public enum RunningJoeSound
 {
-    CLICK( "sounds/click.wav" );
-
+    CLICK( "sounds/click.wav" ),
+    JUMP( "sounds/jump.wav" );
+    
     private final String fileName;
 
     private RunningJoeSound( String fileName )

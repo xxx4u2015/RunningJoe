@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import efficom.runningjoe.RunningJoe;
-import efficom.runningjoe.ui.MenuScreen;
+import efficom.runningjoe.ui.MainScreen;
 
 /**
  * Shows a splash image and moves on to the next screen.
@@ -39,6 +39,6 @@ public class SplashScreen extends AbstractScreen
         spriteBatch.end();
         
         if(Gdx.input.justTouched())
-                this.game.setScreen(new MenuScreen(this.game));
+                this.game.setScreen(new MainScreen(this.game));
     }
 }

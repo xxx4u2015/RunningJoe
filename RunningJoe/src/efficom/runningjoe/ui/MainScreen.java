@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 
-public class MenuScreen extends AbstractScreen
+public class MainScreen extends AbstractScreen
 {
-    public MenuScreen(RunningJoe game )
+    public MainScreen(RunningJoe game )
     {
         super( game );       
     }

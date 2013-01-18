@@ -7,52 +7,55 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class LanguagesManager {
-	private static LanguagesManager _instance = null;
+	private static LanguagesManager instance = null;
         
     private static final String LANGUAGES_FILE = "data/languages.xml";
     private static final String DEFAULT_LANGUAGE = "fr_FR";
-    private HashMap<String, String> _language = null;
-    private String _languageName = null;
+    private HashMap<String, String> language = null;
+    private String languageName = null;
        
     private LanguagesManager() {
         // Create language map
-        _language = new HashMap<String, String>();
+        language = new HashMap<String, String>();
                
         // Try to load system language
         // If it fails, fallback to default language
-        _languageName = java.util.Locale.getDefault().toString();
-        if (!loadLanguage(_languageName)) {
+        languageName = java.util.Locale.getDefault().toString();
+        if (!loadLanguage(languageName)) {
         	loadLanguage(DEFAULT_LANGUAGE);
-            _languageName = DEFAULT_LANGUAGE;
+            languageName = DEFAULT_LANGUAGE;
             }
     }
         
-    public static LanguagesManager getInstance() {
-        if (_instance == null) {
-        _instance = new LanguagesManager();
-        }
+    public final static LanguagesManager getInstance() {
+    	if (instance == null) {
+            synchronized(LanguagesManager.class) {
+              if (instance == null) {
+                instance = new LanguagesManager();
+              }
+            }
+         }
                 
-        return _instance;
+        return instance;
     }
         
     public String getLanguage() {
-    	return _languageName;
+    	return languageName;
     }
 
     public String getString(String key) {
     	String string;
                 
-        if (_language != null) {
+        if (language != null) {
         	// Look for string in selected language
-            string = _language.get(key);
+            string = language.get(key);
                         
-            if (string != null) {
+            if (string != null) 
             	return string;
-                }
-            }
+        }
         
-            // Key not found, return the key itself
-            return key;
+        // Key not found, return the key itself
+        return key;
     }
         
     public String getString(String key, Object... args) {
@@ -72,11 +75,11 @@ public class LanguagesManager {
             int numLanguages = languages.getLength();
                         
             for (int i = 0; i < numLanguages; ++i) {
-            	Node language = languages.item(i);
+            	Node languageNode = languages.item(i);
                                 
-                if (language.getAttributes().getNamedItem("name").getTextContent().equals(languageName)) {
-                	_language.clear();
-                    Element languageElement = (Element)language;
+                if (languageNode.getAttributes().getNamedItem("name").getTextContent().equals(languageName)) {
+                	language.clear();
+                    Element languageElement = (Element)languageNode;
                     NodeList strings = languageElement.getElementsByTagName("string");
                     int numStrings = strings.getLength();
                                         
@@ -86,7 +89,7 @@ public class LanguagesManager {
                         String value = attributes.getNamedItem("value").getTextContent();
                         System.out.println(value);
                         value = value.replace("<br />", "\n");
-                        _language.put(key, value);
+                        language.put(key, value);
                     }
                                         
                     return true;

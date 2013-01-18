@@ -37,7 +37,7 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
 	           	game.getSoundManager().play( RunningJoeSound.CLICK );
-	           	game.setScreen( new MenuScreen( game ) );
+	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }
 	    });
@@ -54,7 +54,7 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 	        {
 	         	Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
 	           	game.getSoundManager().play( RunningJoeSound.CLICK );
-	           	game.setScreen( new MenuScreen( game ) );
+	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }
 	    } );

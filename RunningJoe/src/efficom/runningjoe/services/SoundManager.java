@@ -14,6 +14,7 @@ import efficom.runningjoe.services.RunningJoeSound;
  */
 public class SoundManager implements CacheEntryRemovedListener<RunningJoeSound,Sound>, Disposable
 {   
+	private static volatile SoundManager instance = null;
     /**
      * The volume to be set on the sound.
      */
@@ -32,10 +33,21 @@ public class SoundManager implements CacheEntryRemovedListener<RunningJoeSound,S
     /**
      * Creates the sound manager.
      */
-    public SoundManager()
+    private SoundManager()
     {
     	soundCache = new LRUCache<RunningJoeSound, Sound>( 10 );
         soundCache.setEntryRemovedListener( this );
+    }
+    
+    public final static SoundManager getInstance() {
+    	if (instance == null) {
+            synchronized(SoundManager.class) {
+              if (instance == null) {
+                instance = new SoundManager();
+              }
+            }
+         }                
+        return instance;
     }
 
     /**

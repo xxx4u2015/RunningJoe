@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import efficom.runningjoe.RunningJoe;
-import efficom.runningjoe.core.Profile;
+import efficom.runningjoe.user.Profile;
 
 /**
  * Profile operations.
@@ -14,6 +14,7 @@ public class ProfileManager
 {
     // the location of the profile data file
     private static final String PROFILE_DATA_FILE = "data/profile-v1.json";
+    private static volatile ProfileManager instance = null;
 
     // the loaded profile (may be null)
     private Profile profile;
@@ -21,9 +22,21 @@ public class ProfileManager
     /**
      * Creates the profile manager.
      */
-    public ProfileManager()
+    private ProfileManager()
     {
     }
+    
+    public final static ProfileManager getInstance() {
+    	if (instance == null) {
+            synchronized(ProfileManager.class) {
+              if (instance == null) {
+                instance = new ProfileManager();
+              }
+            }
+         }                
+        return instance;
+    } 
+    
 
     /**
      * Retrieves the player's profile, creating one if needed.
