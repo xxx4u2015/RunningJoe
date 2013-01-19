@@ -160,8 +160,8 @@ public abstract class AbstractScreen implements Screen
     	stage.act( delta );
     	
         // clear the screen with the given RGB color (black)
-        Gdx.gl.glClearColor( 0.5f, 0.5f, 0.5f, 1f );
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
+        //Gdx.gl.glClearColor( 0.5f, 0.5f, 0.5f, 1f );
+        //Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
         
         // draw the actors
         stage.draw();

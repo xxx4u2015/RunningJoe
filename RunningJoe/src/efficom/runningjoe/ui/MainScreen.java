@@ -5,20 +5,44 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
+import efficom.runningjoe.core.RjWorld;
 import efficom.runningjoe.services.RunningJoeSound;
 
 public class MainScreen extends AbstractScreen
 {
+	private RjWorld world;
+	
     public MainScreen(RunningJoe game )
     {
-        super( game );       
+        super( game ); 
+        world = new RjWorld(game);        
     }
-
+    
+    public RjWorld getWorld(){
+    	return this.world;
+    }
+    
+    @Override
+    public void render(float delta)
+    {
+    	this.world.render();  
+    	super.render(delta);    	
+    }     
+    
     @Override
     public void show()    {
         super.show();
-
-        // retrieve the default table actor
+        
+        //this.world.render();
+        
+        this.createMenu();
+        
+        
+    }
+    
+    public void createMenu()
+    {
+    	// retrieve the default table actor
         this.getTable().add( "Running Joe !" ).spaceBottom( 50 );
         this.getTable().row();
         
@@ -94,6 +118,6 @@ public class MainScreen extends AbstractScreen
             	Gdx.app.exit();
             	return true;
             }
-        } );
+        } );    	
     }
 }

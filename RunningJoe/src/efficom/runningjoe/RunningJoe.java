@@ -4,6 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.GdxNativesLoader;
+
+import efficom.runningjoe.core.RjWorld;
 import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
@@ -24,6 +32,8 @@ public class RunningJoe extends Game
     // a libgdx helper class that logs the current FPS each second
     private FPSLogger fpsLogger;
     
+    private RjWorld world;
+    
  	// services
     private PreferencesManager preferencesManager;
     private ProfileManager profileManager;
@@ -32,6 +42,8 @@ public class RunningJoe extends Game
 
     public RunningJoe()
     {
+    	GdxNativesLoader.load();
+    	world = new RjWorld(this);
     }
     
     // Services' getters
@@ -56,11 +68,19 @@ public class RunningJoe extends Game
         return soundManager;
     }
     
+    Box2DDebugRenderer debugRenderer;
+    
+    public Box2DDebugRenderer getDebugRenderer()
+    {
+    	return this.debugRenderer;
+    }
+    
     // Game-related methods
 
     @Override
     public void create()
     {
+    	debugRenderer = new Box2DDebugRenderer();
         Gdx.app.log( RunningJoe.LOG, "Creating game on " + Gdx.app.getType() );
 
         // create the preferences manager
@@ -82,6 +102,8 @@ public class RunningJoe extends Game
 
         // create the helper objects
         fpsLogger = new FPSLogger();
+        
+        
     }
 
     @Override
@@ -107,6 +129,8 @@ public class RunningJoe extends Game
         super.render();
         // output the current FPS
         if( DEV_MODE ) fpsLogger.log();
+        
+        //world.render();
     }
 
     @Override
