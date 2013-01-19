@@ -3,6 +3,7 @@ package efficom.runningjoe.core;
 import aurelienribon.bodyeditor.BodyEditorLoader;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -39,6 +40,7 @@ public class Joe extends AbstractGraphicItem {
 	    // 3. Create a Body, as usual.
 	    body = world.getWorld().createBody(bd);
 	    
+	    // Must be removed
 	    CircleShape dynamicCircle = new CircleShape();  
         dynamicCircle.setRadius(5f); 
         FixtureDef fixtureDef = new FixtureDef();  
@@ -46,14 +48,17 @@ public class Joe extends AbstractGraphicItem {
         fixtureDef.density = 10000.0f;  
         fixtureDef.friction = 0.2f;  
         fixtureDef.restitution = 0.1f;  
-        body.createFixture(fixtureDef); 
-	 
-	    
-	    
+        body.createFixture(fixtureDef);    
 	 
 	    // 4. Create the body fixture automatically by using the loader.
-	    //loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);
-	    
+	    //loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);	    
 	}
+	
+	public void Jump()
+    {
+    	Vector2 vel = this.body.getLinearVelocity();
+        vel.y = 100;//upwards - don't change x velocity
+        body.setLinearVelocity(vel);    	
+    }
 
 }
