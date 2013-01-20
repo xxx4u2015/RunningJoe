@@ -42,8 +42,7 @@ public class RunningJoe extends Game
 
     public RunningJoe()
     {
-    	GdxNativesLoader.load();
-    	world = new RjWorld(this);
+    	GdxNativesLoader.load();    	
     }
     
     // Services' getters
@@ -102,6 +101,8 @@ public class RunningJoe extends Game
 
         // create the helper objects
         fpsLogger = new FPSLogger();
+        
+        world = new RjWorld(this);
         
         
     }

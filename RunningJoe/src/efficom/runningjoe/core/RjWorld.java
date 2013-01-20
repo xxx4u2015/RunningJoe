@@ -26,7 +26,7 @@ public class RjWorld{
 	public RjWorld(RunningJoe game){
 		this.game = game;		
 		
-		gravity = new Vector2(0, -9.8f);
+		gravity = new Vector2(0, -19.8f);
 		world = new World(gravity, false);
 		camera = new OrthographicCamera();  
         camera.viewportHeight = 320;  
