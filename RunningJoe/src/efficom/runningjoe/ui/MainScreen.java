@@ -1,9 +1,12 @@
 package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
+
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
 import efficom.runningjoe.services.RunningJoeSound;
@@ -25,6 +28,7 @@ public class MainScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
+    	//if()
     	this.world.render();  
     	super.render(delta);    	
     }     
@@ -33,11 +37,13 @@ public class MainScreen extends AbstractScreen
     public void show()    {
         super.show();
         
-        //this.world.render();
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        	this.world.getJoe().Jump();
+        }
+        
+        this.world.render();
         
         this.createMenu();
-        
-        
     }
     
     public void createMenu()

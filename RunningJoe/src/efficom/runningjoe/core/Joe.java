@@ -15,7 +15,7 @@ import efficom.runningjoe.RunningJoe;
 
 public class Joe extends AbstractGraphicItem {
 	private Body body;
-	private static final float BODY_WIDTH=100f;
+	private static final float BODY_WIDTH=30f;
 	
 	
 	public Joe(RjWorld world){

@@ -39,6 +39,11 @@ public class RjWorld{
         this.Start();
 	}
 	
+	public Joe getJoe()
+	{
+		return this.joe;
+	}
+	
 	public World getWorld()
 	{
 		return this.world;
