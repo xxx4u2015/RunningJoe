@@ -27,7 +27,7 @@ public class RunningJoe extends Game
     public static final String LOG = RunningJoe.class.getSimpleName();
 
     // whether we are in development mode
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
 
     // a libgdx helper class that logs the current FPS each second
     private FPSLogger fpsLogger;
@@ -51,6 +51,8 @@ public class RunningJoe extends Game
     {
         return preferencesManager;
     }
+    
+    public RjWorld getWorld(){return this.world;}
 
     public ProfileManager getProfileManager()
     {
@@ -103,8 +105,6 @@ public class RunningJoe extends Game
         fpsLogger = new FPSLogger();
         
         world = new RjWorld(this);
-        
-        
     }
 
     @Override

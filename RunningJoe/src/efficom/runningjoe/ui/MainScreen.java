@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
-
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
 import efficom.runningjoe.services.RunningJoeSound;
@@ -18,7 +16,8 @@ public class MainScreen extends AbstractScreen
     public MainScreen(RunningJoe game )
     {
         super( game ); 
-        world = new RjWorld(game);        
+        world = game.getWorld();
+        //world = new RjWorld(game);        
     }
     
     public RjWorld getWorld(){
@@ -37,7 +36,7 @@ public class MainScreen extends AbstractScreen
     }     
     
     @Override
-    public void show()    {
+    public void show(){
         super.show();
         
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){

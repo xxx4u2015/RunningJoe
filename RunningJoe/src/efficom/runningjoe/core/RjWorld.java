@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import efficom.runningjoe.RunningJoe;
@@ -40,19 +39,11 @@ public class RjWorld{
         this.generateGroud();
 	}
 	
-	public boolean isStarded()
-	{
-		return this.started;
-	}
-	public Joe getJoe()
-	{
-		return this.joe;
-	}
-	
-	public World getWorld()
-	{
-		return this.world;
-	}
+	public boolean isStarded(){return this.started;}	
+	public Joe getJoe(){return this.joe;}	
+	public World getWorld(){return this.world;}
+	public RunningJoe getGame(){return this.game;}	
+	public OrthographicCamera getCamera(){return this.camera;}
 	
 	public void render()
 	{
@@ -62,7 +53,7 @@ public class RjWorld{
 			game.getDebugRenderer().render(world, camera.combined);
 		}
 		
-		//joe.render();
+		joe.render();
 	    world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 	}
 	
@@ -70,19 +61,11 @@ public class RjWorld{
 		if(game.DEV_MODE)
 			game.getDebugRenderer().render(world, camera.combined); 
 		
-	}
-	
-	public RunningJoe getGame()
-	{
-		return this.game;
-	}
-	
-	public OrthographicCamera getCamera(){
-		return this.camera;
-	}
+	}	
     
     private void generateGroud()
     {
+    	// Create the floor
     	BodyDef groundBodyDef =new BodyDef();  
         groundBodyDef.position.set(new Vector2(0, 10));  
         Body groundBody = world.createBody(groundBodyDef);  
@@ -90,6 +73,7 @@ public class RjWorld{
         groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
         groundBody.createFixture(groundBox, 0.0f);
         
+        // Create the roof
         BodyDef roofBodyDef =new BodyDef();  
         roofBodyDef.position.set(new Vector2(0, (camera.viewportHeight)-10));
         Body roofBody = world.createBody(roofBodyDef);  

@@ -52,5 +52,17 @@ public class Joe extends AbstractGraphicItem {
         vel.y = 100;//upwards - don't change x velocity
         body.setLinearVelocity(vel);    	
     }
+	
+	public void render()
+	{
+		this.run();
+	}
+	
+	private void run()
+	{
+		Vector2 vel = this.body.getLinearVelocity();
+        vel.x = 25;//upwards - don't change x velocity
+        body.setLinearVelocity(vel);  
+	}
 
 }
