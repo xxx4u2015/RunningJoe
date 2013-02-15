@@ -17,6 +17,7 @@ public class RjWorld{
 	World world;
 	OrthographicCamera camera;	
 	Vector2 gravity;
+	boolean started= false;
 	static final float BOX_STEP=1/60f;  
 	static final int BOX_VELOCITY_ITERATIONS=6;  
 	static final int BOX_POSITION_ITERATIONS=2;  
@@ -36,9 +37,13 @@ public class RjWorld{
         
         joe = new Joe(this);
         
-        this.Start();
+        this.generateGroud();
 	}
 	
+	public boolean isStarded()
+	{
+		return this.started;
+	}
 	public Joe getJoe()
 	{
 		return this.joe;
@@ -72,11 +77,6 @@ public class RjWorld{
 		return this.game;
 	}
 	
-	public void Start()
-    {
-    	this.generateGroud();
-    }
-	
 	public OrthographicCamera getCamera(){
 		return this.camera;
 	}
@@ -89,6 +89,11 @@ public class RjWorld{
         PolygonShape groundBox = new PolygonShape();  
         groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
         groundBody.createFixture(groundBox, 0.0f);
+    }
+    
+    public void Start()
+    {
+    	this.started = true;
     }
 	
 }

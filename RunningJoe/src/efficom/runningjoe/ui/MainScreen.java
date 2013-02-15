@@ -30,7 +30,10 @@ public class MainScreen extends AbstractScreen
     {
     	//if()
     	this.world.render();  
-    	super.render(delta);    	
+    	super.render(delta); 
+    	
+    	if(this.world.isStarded())
+    		this.getTable().clear();
     }     
     
     @Override
@@ -43,7 +46,8 @@ public class MainScreen extends AbstractScreen
         
         this.world.render();
         
-        this.createMenu();
+        if(!this.world.isStarded())        
+        	this.createMenu();
     }
     
     public void createMenu()
@@ -63,7 +67,8 @@ public class MainScreen extends AbstractScreen
             {
         		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
         		game.getSoundManager().play( RunningJoeSound.CLICK );
-                super.touchUp( event, x, y, pointer, button );                
+                super.touchUp( event, x, y, pointer, button );  
+                world.Start();
                 return true;
             }
         } );
