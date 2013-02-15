@@ -89,6 +89,13 @@ public class RjWorld{
         PolygonShape groundBox = new PolygonShape();  
         groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
         groundBody.createFixture(groundBox, 0.0f);
+        
+        BodyDef roofBodyDef =new BodyDef();  
+        roofBodyDef.position.set(new Vector2(0, (camera.viewportHeight)-10));
+        Body roofBody = world.createBody(roofBodyDef);  
+        PolygonShape roofBox = new PolygonShape();  
+        roofBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
+        roofBody.createFixture(roofBox, 0.0f);
     }
     
     public void Start()

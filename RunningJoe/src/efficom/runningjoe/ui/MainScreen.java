@@ -71,7 +71,7 @@ public class MainScreen extends AbstractScreen
                 world.Start();
                 return true;
             }
-        } );
+        });
         
         this.getTable().add(startGameButton).size(300, 60).uniform().spaceBottom(10);
         this.getTable().row();
