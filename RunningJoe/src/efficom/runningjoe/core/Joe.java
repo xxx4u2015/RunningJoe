@@ -30,7 +30,7 @@ public class Joe extends AbstractGraphicItem {
 	 
 	    // 1. Create a BodyDef, as usual.
 	    BodyDef bd = new BodyDef();
-	    bd.position.set(world.getCamera().viewportWidth/2, world.getCamera().viewportHeight/2);
+	    bd.position.set(world.getCamera().viewportWidth/2, 50);
 	    bd.type = BodyType.DynamicBody;
 	 
 	    // 2. Create a FixtureDef, as usual.
@@ -49,13 +49,14 @@ public class Joe extends AbstractGraphicItem {
 	public void Jump()
     {
     	Vector2 vel = this.body.getLinearVelocity();
-        vel.y = 100;//upwards - don't change x velocity
+        vel.y = 200;//upwards - don't change x velocity
         body.setLinearVelocity(vel);    	
     }
 	
 	public void render()
 	{
-		this.run();
+		if(this.world.isStarded())
+			this.run();
 	}
 	
 	private void run()

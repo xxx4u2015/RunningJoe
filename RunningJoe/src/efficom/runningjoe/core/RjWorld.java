@@ -3,6 +3,8 @@ package efficom.runningjoe.core;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -23,8 +25,15 @@ public class RjWorld{
 	static final float WORLD_TO_BOX=0.01f;  
 	static final float BOX_WORLD_TO=100f;
 	
+	SpriteBatch spriteBatch;	
+	Texture grass;
+	
 	public RjWorld(RunningJoe game){
-		this.game = game;		
+		this.game = game;	
+		
+		spriteBatch = new SpriteBatch();
+		grass = new Texture(Gdx.files.internal("images/grass.png"));
+		//grass
 		
 		gravity = new Vector2(0, -19.8f);
 		world = new World(gravity, false);
@@ -47,8 +56,13 @@ public class RjWorld{
 	
 	public void render()
 	{
-		Gdx.gl.glClearColor( 0f, 0f, 0f, 1f );
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);  
+		Gdx.gl.glClearColor( 0.4f, 0.4f, 0.4f, 0f );
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); 
+		
+		 spriteBatch.begin();
+	     spriteBatch.draw(grass, 0, 0);
+	     spriteBatch.end();
+	        
 		if(game.DEV_MODE){
 			game.getDebugRenderer().render(world, camera.combined);
 		}
@@ -70,7 +84,7 @@ public class RjWorld{
         groundBodyDef.position.set(new Vector2(0, 10));  
         Body groundBody = world.createBody(groundBodyDef);  
         PolygonShape groundBox = new PolygonShape();  
-        groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
+        groundBox.setAsBox((camera.viewportWidth) * 2, 15.0f);  
         groundBody.createFixture(groundBox, 0.0f);
         
         // Create the roof
