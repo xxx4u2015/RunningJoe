@@ -15,7 +15,7 @@ import efficom.runningjoe.RunningJoe;
 
 public class Joe extends AbstractGraphicItem {
 	private Body body;
-	private static final float BODY_WIDTH=30f;
+	private static final float BODY_WIDTH=40f;
 	
 	
 	public Joe(RjWorld world){
@@ -30,7 +30,7 @@ public class Joe extends AbstractGraphicItem {
 	 
 	    // 1. Create a BodyDef, as usual.
 	    BodyDef bd = new BodyDef();
-	    bd.position.set(world.getCamera().viewportWidth/2, 50);
+	    bd.position.set(world.getCamera().viewportWidth/2, 40);
 	    bd.type = BodyType.DynamicBody;
 	 
 	    // 2. Create a FixtureDef, as usual.
