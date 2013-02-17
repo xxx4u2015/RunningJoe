@@ -95,8 +95,8 @@ public class RjWorld{
 	        	
 	        	//float posX = 400;
 	        	Vector2 posBody = b.getPosition();
-	        	float posX = camOrigin.x ;
-	        	float posY = camOrigin.y ;
+	        	float posX = b.getPosition().x - camOrigin.x;
+	        	float posY = b.getPosition().y - camOrigin.y;
 	        	float angle = b.getAngularDamping();
 	        	infos.getSprite().setPosition(posX, posY);
 	        	infos.getSprite().setRotation(angle);
@@ -127,23 +127,20 @@ public class RjWorld{
         	if(groundBlocs.size() != 0){
         		Body body = groundBlocs.get(groundBlocs.size()-1);
         		posX = body.getPosition().x + grassTex.getTextureData().getWidth();
-        	}
-        		
-        	
-        	
+        	}        	
         	BodyDef groundBodyDef =new BodyDef();  
             groundBodyDef.position.set(new Vector2(posX, 0));  
             Body groundBody = world.createBody(groundBodyDef);  
             PolygonShape groundBox = new PolygonShape();  
             groundBox.setAsBox(grassTex.getTextureData().getWidth(), 20.0f);  
             groundBody.createFixture(groundBox, 0.0f);
-            GraphicItemInfos infosFloor = new GraphicItemInfos("Floor", new Sprite(grassTex));
+            GraphicItemInfos infosFloor = new GraphicItemInfos("Floor"+groundBlocs.size(), new Sprite(grassTex));
             groundBody.setUserData(infosFloor); 
             this.groundBlocs.addLast(groundBody);
         }
         
         while(groundBlocs.size()>0 && 
-        		groundBlocs.getFirst().getPosition().x < this.camera.position.x)
+        		groundBlocs.getFirst().getPosition().x + grassTex.getTextureData().getWidth() < this.camera.position.x - this.camera.viewportWidth/2)
         {
         	Body body = groundBlocs.getFirst();
         	body.setUserData(null);
