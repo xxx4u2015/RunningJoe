@@ -2,6 +2,7 @@ package efficom.runningjoe.services;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 import efficom.runningjoe.RunningJoe;
 
@@ -17,8 +18,7 @@ public class MusicManager implements Disposable
      */
     public enum RunningJoeMusic
     {
-        MENU( "music/menu.ogg" ),
-        LEVEL( "music/level.ogg" );
+        THEME( "sounds/RunningJoe-THEME.mp3" );
 
         private String fileName;
         private Music musicResource;
@@ -100,15 +100,15 @@ public class MusicManager implements Disposable
         stop();
 
         // start streaming the new music
-        /*FileHandle musicFile = Gdx.files.internal( music.getFileName() );
+        FileHandle musicFile = Gdx.files.internal( music.getFileName() );
         Music musicResource = Gdx.audio.newMusic( musicFile );
         musicResource.setVolume( volume );
         musicResource.setLooping( true );
-        musicResource.play();*/
+        musicResource.play();
 
         // set the music being played
-        //musicBeingPlayed = music;
-        //musicBeingPlayed.setMusicResource( musicResource );
+        musicBeingPlayed = music;
+        musicBeingPlayed.setMusicResource( musicResource );
     }
 
     /**

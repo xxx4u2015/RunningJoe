@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
+import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 import efficom.runningjoe.services.RunningJoeSound;
 
 public class MainScreen extends AbstractScreen
@@ -75,6 +76,8 @@ public class MainScreen extends AbstractScreen
 	        		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
 	        		game.getSoundManager().play( RunningJoeSound.CLICK );
 	                super.touchUp( event, x, y, pointer, button );  
+	                game.getMusicManager().setVolume(1);
+	                game.getMusicManager().play( RunningJoeMusic.THEME );
 	                world.Start();
 	                return true;
 	            }
