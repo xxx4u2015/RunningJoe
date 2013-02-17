@@ -71,10 +71,9 @@ public class RjWorld{
 			game.getDebugRenderer().render(world, camera.combined);
 		}
 		
-		joe.render();
-	    world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
-	    
 	    if(this.started){
+	    	joe.render();
+		    world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 	    	this.camera.translate(1, 0);
 		    this.camera.update();
 	    }
@@ -93,12 +92,8 @@ public class RjWorld{
 	        			this.camera.position.x - this.camera.viewportWidth/2,
 	        			this.camera.position.y - this.camera.viewportHeight/2);
 	        	
-	        	//float posX = 400;
-	        	Vector2 posBody = b.getPosition();
-	        	float posX = b.getPosition().x - camOrigin.x;
-	        	float posY = b.getPosition().y - camOrigin.y;
 	        	float angle = b.getAngularDamping();
-	        	infos.getSprite().setPosition(posX, posY);
+	        	infos.getSprite().setPosition(b.getPosition().x - camOrigin.x, b.getPosition().y - camOrigin.y);
 	        	infos.getSprite().setRotation(angle);
 	        	
 	        	spriteBatch.begin();   	        	
@@ -116,8 +111,7 @@ public class RjWorld{
 	}	
     
     private void generateGroud()
-    {   	
-            
+    {   	            
         while(groundBlocs.size() == 0 ||
         	  groundBlocs.getLast().getPosition().x < this.camera.position.x)
         {
@@ -168,6 +162,10 @@ public class RjWorld{
     public void Start()
     {
     	this.started = true;
+    }
+    
+    public void Pause(){
+    	this.started = false;
     }
 	
 }
