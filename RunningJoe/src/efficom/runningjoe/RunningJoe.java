@@ -29,7 +29,7 @@ public class RunningJoe extends Game
     public static final int GAME_VIEWPORT_WIDTH = 800, GAME_VIEWPORT_HEIGHT = 480;
 
     // whether we are in development mode
-    public static final boolean DEV_MODE = true;
+    public static final boolean DEV_MODE = false;
 
     // a libgdx helper class that logs the current FPS each second
     private FPSLogger fpsLogger;
@@ -44,7 +44,8 @@ public class RunningJoe extends Game
 
     public RunningJoe()
     {
-    	GdxNativesLoader.load();    	
+    	GdxNativesLoader.load();    
+    	
     }
     
     // Services' getters

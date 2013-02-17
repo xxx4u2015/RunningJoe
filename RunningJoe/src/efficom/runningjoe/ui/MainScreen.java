@@ -31,7 +31,7 @@ public class MainScreen extends AbstractScreen
     	if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
         	this.world.getJoe().Jump();
         
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
         	this.world.Pause();
         
     	this.world.render();  
