@@ -74,7 +74,7 @@ public class RjWorld{
 	    if(this.started){
 	    	joe.render();
 		    world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
-	    	this.camera.translate(1, 0);
+	    	this.camera.translate(this.joe.getSpeed() * BOX_STEP , 0);
 		    this.camera.update();
 	    }
 	    
@@ -106,8 +106,7 @@ public class RjWorld{
 	
 	public void RenderDebug(){
 		if(game.DEV_MODE)
-			game.getDebugRenderer().render(world, camera.combined); 
-		
+			game.getDebugRenderer().render(world, camera.combined);
 	}	
     
     private void generateGroud()

@@ -10,18 +10,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-
-import efficom.runningjoe.RunningJoe;
 
 public class Joe extends AbstractGraphicItem {
 	private Body body;
 	private static final float BODY_WIDTH=40;
 	SpriteBatch spriteBatch;	
 	Texture standing;
-	private int speed = 50;
+	private int speed = 100;
 	//private Box2DSpriteAdapter adapter;
 	
 	public Joe(RjWorld world, Texture texture){		
@@ -60,7 +57,7 @@ public class Joe extends AbstractGraphicItem {
 	public void Jump()
     {
     	Vector2 vel = this.body.getLinearVelocity();
-        vel.y = 200;//upwards - don't change x velocity
+        vel.y = 50;//upwards - don't change x velocity
         body.setLinearVelocity(vel);    	
     }
 	
@@ -76,5 +73,9 @@ public class Joe extends AbstractGraphicItem {
         vel.x = speed;//upwards - don't change x velocity
         body.setLinearVelocity(vel);  
 	} 
-
+	
+	public int getSpeed()
+	{
+		return this.speed;
+	}
 }
