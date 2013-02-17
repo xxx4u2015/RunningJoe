@@ -28,8 +28,8 @@ public class MainScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
-    	//if()
-    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+    	//if()    	
+    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
         	this.world.getJoe().Jump();
         
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
@@ -75,9 +75,8 @@ public class MainScreen extends AbstractScreen
 	            {
 	        		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
 	        		game.getSoundManager().play( RunningJoeSound.CLICK );
-	                super.touchUp( event, x, y, pointer, button );  
-	                game.getMusicManager().setVolume(1);
-	                game.getMusicManager().play( RunningJoeMusic.THEME );
+	                super.touchUp( event, x, y, pointer, button );                  
+	                
 	                world.Start();
 	                return true;
 	            }

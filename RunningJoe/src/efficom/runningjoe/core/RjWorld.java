@@ -17,7 +17,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import efficom.runningjoe.RunningJoe;
+import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 
 public class RjWorld{
 	RunningJoe game;
@@ -161,9 +164,11 @@ public class RjWorld{
     public void Start()
     {
     	this.started = true;
+    	game.getMusicManager().play( RunningJoeMusic.THEME );
     }
     
     public void Pause(){
+    	game.getMusicManager().stop();
     	this.started = false;
     }
 	

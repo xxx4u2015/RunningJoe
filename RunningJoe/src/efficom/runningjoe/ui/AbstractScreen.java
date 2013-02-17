@@ -41,13 +41,11 @@ public abstract class AbstractScreen implements Screen
     {
     	
         this.game = game;
-        int width = game.GAME_VIEWPORT_WIDTH ;
-        int height = game.GAME_VIEWPORT_HEIGHT ;
         
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
         
-        this.stage = new Stage(width, height, true);
+        this.stage = new Stage(game.GAME_VIEWPORT_WIDTH, game.GAME_VIEWPORT_HEIGHT, true);
         //inputMultiplexer = new InputMultiplexer(stage);
         Gdx.input.setInputProcessor(stage);
                 
