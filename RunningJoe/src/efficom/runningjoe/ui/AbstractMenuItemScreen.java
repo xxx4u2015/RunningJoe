@@ -42,7 +42,7 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 		super.show();
 		
 		// retrieve the default table actor
-        this.getTable().add( this.title ).spaceBottom( 50 ).center();
+        this.getTable().add( this.title ).spaceBottom( 20 ).center();
         this.getTable().row();
 		
         cancelButton = new TextButton( 

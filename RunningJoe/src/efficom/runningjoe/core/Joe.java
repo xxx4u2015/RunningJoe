@@ -5,6 +5,7 @@ import aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,18 +21,13 @@ public class Joe extends AbstractGraphicItem {
 	private static final float BODY_WIDTH=40;
 	SpriteBatch spriteBatch;	
 	Texture standing;
+	private int speed = 50;
+	//private Box2DSpriteAdapter adapter;
 	
-	
-	public Joe(RjWorld world){
-		super(world);		
-		
-		spriteBatch = new SpriteBatch();
+	public Joe(RjWorld world, Texture texture){		
+		super(world, "Joe", new Sprite(texture));
 		standing = new Texture(Gdx.files.internal("images/standingjoe.png"));
-		
-		
 		this.createStandingJoe();
-		
-		
 	}
 	
 	private void createStandingJoe() {
@@ -52,9 +48,13 @@ public class Joe extends AbstractGraphicItem {
 	    
 	    // 3. Create a Body, as usual.
 	    body = world.getWorld().createBody(bd);
+	    
 	 
 	    // 4. Create the body fixture automatically by using the loader.
-	    loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);	    
+	    loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);	
+	    
+	    	    
+	    body.setUserData(this.infos);
 	}
 	
 	public void Jump()
@@ -68,17 +68,12 @@ public class Joe extends AbstractGraphicItem {
 	{
 		if(this.world.isStarded())
 			this.run();
-		
-		Vector2 bodypos = body.getPosition();
-		spriteBatch.begin();
-	    spriteBatch.draw(standing, bodypos.x - BODY_WIDTH/2, bodypos.y);
-	    spriteBatch.end();
 	}
 	
 	private void run()
 	{
 		Vector2 vel = this.body.getLinearVelocity();
-        vel.x = 25;//upwards - don't change x velocity
+        vel.x = speed;//upwards - don't change x velocity
         body.setLinearVelocity(vel);  
 	} 
 

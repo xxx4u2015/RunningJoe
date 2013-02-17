@@ -1,11 +1,18 @@
 package efficom.runningjoe.core;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -19,33 +26,33 @@ public class RjWorld{
 	OrthographicCamera camera;	
 	Vector2 gravity;
 	boolean started= false;
-	static final float BOX_STEP=1/60f;  
-	static final int BOX_VELOCITY_ITERATIONS=6;  
-	static final int BOX_POSITION_ITERATIONS=2;  
-	static final float WORLD_TO_BOX=0.01f;  
+	static final float BOX_STEP = 1/60f;  
+	static final int BOX_VELOCITY_ITERATIONS = 6;  
+	static final int BOX_POSITION_ITERATIONS = 2;  
+	static final float WORLD_TO_BOX= 0.01f;  
 	static final float BOX_WORLD_TO=100f;
-	
-	SpriteBatch spriteBatch;	
-	Texture grass;
+	SpriteBatch spriteBatch;
+	private LinkedList<Body> groundBlocs;
+	Texture grassTex;
 	
 	public RjWorld(RunningJoe game){
 		this.game = game;	
 		
+		grassTex = new Texture(Gdx.files.internal("images/grass.png"));
+		
 		spriteBatch = new SpriteBatch();
-		grass = new Texture(Gdx.files.internal("images/grass.png"));
+		this.groundBlocs = new LinkedList<Body>();
 		//grass
 		
 		gravity = new Vector2(0, -19.8f);
 		world = new World(gravity, false);
-		camera = new OrthographicCamera();  
-        camera.viewportHeight = 320;  
-        camera.viewportWidth = 480;  
+		camera = new OrthographicCamera(game.GAME_VIEWPORT_WIDTH, game.GAME_VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);  
         camera.update();
         
-        joe = new Joe(this);
-        
-        this.generateGroud();
+        joe = new Joe(this, new Texture(Gdx.files.internal("images/standingjoe.png")));
+        spriteBatch = new SpriteBatch();        
+        //this.generateGroud();
 	}
 	
 	public boolean isStarded(){return this.started;}	
@@ -56,19 +63,50 @@ public class RjWorld{
 	
 	public void render()
 	{
+		this.generateGroud();
 		Gdx.gl.glClearColor( 0.4f, 0.4f, 0.4f, 0f );
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); 
 		
-		 spriteBatch.begin();
-	     spriteBatch.draw(grass, 0, 0);
-	     spriteBatch.end();
-	        
 		if(game.DEV_MODE){
 			game.getDebugRenderer().render(world, camera.combined);
 		}
 		
 		joe.render();
 	    world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
+	    
+	    if(this.started){
+	    	this.camera.translate(1, 0);
+		    this.camera.update();
+	    }
+	    
+	    Iterator<Body> bi = world.getBodies();
+        
+	    while (bi.hasNext()){
+	        Body b = bi.next();
+
+	        // Get the bodies user data - in this example, our user 
+	        // data is an instance of the Entity class
+	        GraphicItemInfos infos = (GraphicItemInfos)b.getUserData();
+
+	        if (infos != null && infos.getTexture() != null) {
+	        	Vector2 camOrigin = new Vector2(
+	        			this.camera.position.x - this.camera.viewportWidth/2,
+	        			this.camera.position.y - this.camera.viewportHeight/2);
+	        	
+	        	//float posX = 400;
+	        	Vector2 posBody = b.getPosition();
+	        	float posX = camOrigin.x ;
+	        	float posY = camOrigin.y ;
+	        	float angle = b.getAngularDamping();
+	        	infos.getSprite().setPosition(posX, posY);
+	        	infos.getSprite().setRotation(angle);
+	        	
+	        	spriteBatch.begin();   	        	
+	        	infos.getSprite().draw(spriteBatch);          
+	            spriteBatch.end();
+	        	
+	        }
+	    }
 	}
 	
 	public void RenderDebug(){
@@ -78,22 +116,56 @@ public class RjWorld{
 	}	
     
     private void generateGroud()
-    {
-    	// Create the floor
-    	BodyDef groundBodyDef =new BodyDef();  
-        groundBodyDef.position.set(new Vector2(0, 10));  
-        Body groundBody = world.createBody(groundBodyDef);  
-        PolygonShape groundBox = new PolygonShape();  
-        groundBox.setAsBox((camera.viewportWidth) * 2, 15.0f);  
-        groundBody.createFixture(groundBox, 0.0f);
+    {   	
+            
+        while(groundBlocs.size() == 0 ||
+        	  groundBlocs.getLast().getPosition().x < this.camera.position.x)
+        {
+        	
+        	float posX = 0;
+        	//Find the position of the previous bloc
+        	if(groundBlocs.size() != 0){
+        		Body body = groundBlocs.get(groundBlocs.size()-1);
+        		posX = body.getPosition().x + grassTex.getTextureData().getWidth();
+        	}
+        		
+        	
+        	
+        	BodyDef groundBodyDef =new BodyDef();  
+            groundBodyDef.position.set(new Vector2(posX, 0));  
+            Body groundBody = world.createBody(groundBodyDef);  
+            PolygonShape groundBox = new PolygonShape();  
+            groundBox.setAsBox(grassTex.getTextureData().getWidth(), 20.0f);  
+            groundBody.createFixture(groundBox, 0.0f);
+            GraphicItemInfos infosFloor = new GraphicItemInfos("Floor", new Sprite(grassTex));
+            groundBody.setUserData(infosFloor); 
+            this.groundBlocs.addLast(groundBody);
+        }
+        
+        while(groundBlocs.size()>0 && 
+        		groundBlocs.getFirst().getPosition().x < this.camera.position.x)
+        {
+        	Body body = groundBlocs.getFirst();
+        	body.setUserData(null);
+        	body = null;
+        	groundBlocs.removeFirst();        	        	
+        }
+        
+        if(groundBlocs.size() >= 5)
+        {
+        	Gdx.app.log( RunningJoe.LOG, "Too much ground blocs: " + groundBlocs.size() );        	
+        }
+
         
         // Create the roof
-        BodyDef roofBodyDef =new BodyDef();  
+        /*BodyDef roofBodyDef =new BodyDef();  
         roofBodyDef.position.set(new Vector2(0, (camera.viewportHeight)-10));
         Body roofBody = world.createBody(roofBodyDef);  
         PolygonShape roofBox = new PolygonShape();  
-        roofBox.setAsBox((camera.viewportWidth) * 2, 10.0f);  
+        roofBox.setAsBox(grassTex.getWidth(), 10.0f);  
         roofBody.createFixture(roofBox, 0.0f);
+        GraphicItemInfos infosRoof = new GraphicItemInfos("Roof", new Sprite(grassTex));
+        roofBody.setUserData(infosRoof);*/
     }
     
     public void Start()

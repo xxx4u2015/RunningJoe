@@ -23,9 +23,7 @@ import efficom.runningjoe.RunningJoe;
  */
 public abstract class AbstractScreen implements Screen
 {
-    // the fixed viewport dimensions (ratio: 1.6)
-    public static final int GAME_VIEWPORT_WIDTH = 400, GAME_VIEWPORT_HEIGHT = 240;
-    public static final int MENU_VIEWPORT_WIDTH = 800, MENU_VIEWPORT_HEIGHT = 480;
+    // the fixed viewport dimensions (ratio: 1.6)    
     protected final RunningJoe game;
     protected final TextButtonStyle buttonStyle; 
     protected final Stage stage;
@@ -43,8 +41,8 @@ public abstract class AbstractScreen implements Screen
     {
     	
         this.game = game;
-        int width = ( isGameScreen() ? GAME_VIEWPORT_WIDTH : MENU_VIEWPORT_WIDTH );
-        int height = ( isGameScreen() ? GAME_VIEWPORT_HEIGHT : MENU_VIEWPORT_HEIGHT );
+        int width = game.GAME_VIEWPORT_WIDTH ;
+        int height = game.GAME_VIEWPORT_HEIGHT ;
         
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
@@ -158,10 +156,6 @@ public abstract class AbstractScreen implements Screen
     public void render(float delta)
     {       
     	stage.act( delta );
-    	
-        // clear the screen with the given RGB color (black)
-        //Gdx.gl.glClearColor( 0.5f, 0.5f, 0.5f, 1f );
-        //Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
         
         // draw the actors
         stage.draw();

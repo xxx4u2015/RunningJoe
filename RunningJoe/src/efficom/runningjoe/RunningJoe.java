@@ -16,6 +16,7 @@ import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
 import efficom.runningjoe.services.ProfileManager;
+import efficom.runningjoe.ui.MainScreen;
 import efficom.runningjoe.ui.SplashScreen;
 
 /**
@@ -25,6 +26,7 @@ public class RunningJoe extends Game
 {
     // constant useful for logging
     public static final String LOG = RunningJoe.class.getSimpleName();
+    public static final int GAME_VIEWPORT_WIDTH = 800, GAME_VIEWPORT_HEIGHT = 480;
 
     // whether we are in development mode
     public static final boolean DEV_MODE = true;
@@ -116,11 +118,7 @@ public class RunningJoe extends Game
         // show the splash screen when the game is resized for the first time;
         // this approach avoids calling the screen's resize method repeatedly
         if( getScreen() == null ) {
-            if( DEV_MODE ) {
-                setScreen( new SplashScreen( this ) );
-            } else {
-                setScreen( new SplashScreen( this ) );
-            }
+        	setScreen( new MainScreen( this ) );
         }
     }
 

@@ -16,8 +16,7 @@ public class MainScreen extends AbstractScreen
     public MainScreen(RunningJoe game )
     {
         super( game ); 
-        world = game.getWorld();
-        //world = new RjWorld(game);        
+        world = game.getWorld();     
     }
     
     public RjWorld getWorld(){
