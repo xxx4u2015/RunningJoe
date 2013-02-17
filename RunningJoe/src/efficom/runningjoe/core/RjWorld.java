@@ -112,6 +112,21 @@ public class RjWorld{
 			game.getDebugRenderer().render(world, camera.combined);
 	}	
     
+	/**
+	 * Method generateGround
+	 * 
+	 * This Method spawns small Block Objects witch are used to display the ground (Grass picture's width is 512px).
+	 * 1 block = 32px.
+	 * 
+	 * TODO :
+	 * - 32 Blocks (in a List) are displayed at a time (32 blocks = 1024px).
+	 * - 10 first blocks (to the left) aren't fixed (so they are falling)
+	 * - 22 last blocks (to the right) are, so Joe can run on them.
+	 * - As soon as the last block's position is the extreme right of the screen :
+	 *		- the first block of the List is destroyed
+	 *		- another random block is generated and added at the end of the List
+	 * 
+	 */
     private void generateGroud()
     {   	            
         while(groundBlocs.size() == 0 ||
@@ -144,7 +159,7 @@ public class RjWorld{
         	groundBlocs.removeFirst();        	        	
         }
         
-        if(groundBlocs.size() >= 5)
+        if(groundBlocs.size() >= 32)
         {
         	Gdx.app.log( RunningJoe.LOG, "Too much ground blocs: " + groundBlocs.size() );        	
         }
