@@ -105,7 +105,7 @@ public class RunningJoe extends Game
         profileManager.retrieveProfile();
 
         // create the helper objects
-        fpsLogger = new FPSLogger();
+        this.fpsLogger = new FPSLogger();
         
         world = new RjWorld(this);
     }
@@ -128,7 +128,7 @@ public class RunningJoe extends Game
     {
         super.render();
         // output the current FPS
-        if( DEV_MODE ) fpsLogger.log();
+        if( DEV_MODE ) this.fpsLogger.log();
         
         //world.render();
     }

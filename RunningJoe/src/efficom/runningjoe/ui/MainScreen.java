@@ -2,6 +2,7 @@ package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -34,6 +35,13 @@ public class MainScreen extends AbstractScreen
         
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
         	this.world.Pause();
+        
+                
+        float x = Gdx.input.getAccelerometerY() * 100;
+        float y = -Gdx.input.getAccelerometerX();
+        
+        Vector2 vec = new Vector2(x,y); 
+        this.world.SetGravity(vec);
         
     	this.world.render();  
     	super.render(delta); 

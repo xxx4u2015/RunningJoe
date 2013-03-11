@@ -30,7 +30,7 @@ public class RjWorld{
 	OrthographicCamera camera;	
 	Vector2 gravity;
 	boolean started= false;
-	static final float BOX_STEP = 1/60f;  
+	static final float BOX_STEP = 1/20f;  
 	static final int BOX_VELOCITY_ITERATIONS = 6;  
 	static final int BOX_POSITION_ITERATIONS = 2;  
 	static final float WORLD_TO_BOX= 0.01f;  
@@ -47,7 +47,7 @@ public class RjWorld{
 		this.groundBlocs = new LinkedList<Body>();
 		//grass
 		
-		gravity = new Vector2(0, -19.8f);
+		gravity = new Vector2(0, -9.8f);
 		world = new World(gravity, false);
 		camera = new OrthographicCamera(game.GAME_VIEWPORT_WIDTH, game.GAME_VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);  
@@ -63,6 +63,10 @@ public class RjWorld{
 	public World getWorld(){return this.world;}
 	public RunningJoe getGame(){return this.game;}	
 	public OrthographicCamera getCamera(){return this.camera;}
+	
+	public void SetGravity(Vector2 vect){
+		this.world.setGravity(vect);
+	}
 	
 	public void render()
 	{
@@ -95,9 +99,8 @@ public class RjWorld{
 	        			this.camera.position.x - this.camera.viewportWidth/2,
 	        			this.camera.position.y - this.camera.viewportHeight/2);
 	        	
-	        	float angle = b.getAngularDamping();
 	        	infos.getSprite().setPosition(b.getPosition().x - camOrigin.x, b.getPosition().y - camOrigin.y);
-	        	infos.getSprite().setRotation(angle);
+	        	infos.getSprite().setRotation(MathUtils.radiansToDegrees*b.getAngle());
 	        	
 	        	spriteBatch.begin();   	        	
 	        	infos.getSprite().draw(spriteBatch);          
