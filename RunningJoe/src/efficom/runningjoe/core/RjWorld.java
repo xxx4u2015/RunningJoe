@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import efficom.runningjoe.RunningJoe;
@@ -35,14 +36,13 @@ public class RjWorld{
 	static final float WORLD_TO_BOX= 0.01f;  
 	static final float BOX_WORLD_TO=100f;
 	SpriteBatch spriteBatch;
-	private LinkedList<Body> groundBlocs;
+	protected LinkedList<Body> groundBlocs;
 	Texture grassTex;
 	
 	public RjWorld(RunningJoe game){
 		this.game = game;	
 		
-		grassTex = new Texture(Gdx.files.internal("images/grass.png"));
-		
+		grassTex = new Texture(Gdx.files.internal("images/grass2.png"));
 		spriteBatch = new SpriteBatch();
 		this.groundBlocs = new LinkedList<Body>();
 		//grass
@@ -116,7 +116,7 @@ public class RjWorld{
 	 * Method generateGround
 	 * 
 	 * This Method spawns small Block Objects witch are used to display the ground (Grass picture's width is 512px).
-	 * 1 block = 32px.
+	 * 1 block = 32px*32px.
 	 * 
 	 * TODO :
 	 * - 32 Blocks (in a List) are displayed at a time (32 blocks = 1024px).
@@ -128,15 +128,14 @@ public class RjWorld{
 	 * 
 	 */
     private void generateGroud()
-    {   	            
-        while(groundBlocs.size() == 0 ||
-        	  groundBlocs.getLast().getPosition().x < this.camera.position.x)
+    {   
+        while(this.groundBlocs.size() == 0 ||
+        		this.groundBlocs.getLast().getPosition().x < (this.camera.position.x + this.camera.viewportWidth))
         {
-        	
         	float posX = 0;
         	//Find the position of the previous bloc
-        	if(groundBlocs.size() != 0){
-        		Body body = groundBlocs.get(groundBlocs.size()-1);
+        	if(this.groundBlocs.size() != 0){
+        		Body body = this.groundBlocs.get(this.groundBlocs.size()-1);
         		posX = body.getPosition().x + grassTex.getTextureData().getWidth();
         	}        	
         	BodyDef groundBodyDef =new BodyDef();  
@@ -145,23 +144,25 @@ public class RjWorld{
             PolygonShape groundBox = new PolygonShape();  
             groundBox.setAsBox(grassTex.getTextureData().getWidth(), 20.0f);  
             groundBody.createFixture(groundBox, 0.0f);
-            GraphicItemInfos infosFloor = new GraphicItemInfos("Floor"+groundBlocs.size(), new Sprite(grassTex));
+            GraphicItemInfos infosFloor = new GraphicItemInfos("Floor"+this.groundBlocs.size(), new Sprite(grassTex));
             groundBody.setUserData(infosFloor); 
             this.groundBlocs.addLast(groundBody);
         }
-        
-        while(groundBlocs.size()>0 && 
-        		groundBlocs.getFirst().getPosition().x + grassTex.getTextureData().getWidth() < this.camera.position.x - this.camera.viewportWidth/2)
+       
+        // DELETE OUT OF RANGE BLOCKS
+        while(this.groundBlocs.size()>0 && 
+        		this.groundBlocs.getFirst().getPosition().x < (this.camera.position.x - this.camera.viewportWidth/4))
         {
-        	Body body = groundBlocs.getFirst();
+        	Body body = this.groundBlocs.getFirst();
+        	this.world.destroyBody(body);
         	body.setUserData(null);
         	body = null;
-        	groundBlocs.removeFirst();        	        	
+        	this.groundBlocs.removeFirst();
         }
         
-        if(groundBlocs.size() >= 32)
+        if(this.groundBlocs.size() >= 32)
         {
-        	Gdx.app.log( RunningJoe.LOG, "Too much ground blocs: " + groundBlocs.size() );        	
+        	Gdx.app.log( RunningJoe.LOG, "Too much ground blocs: " + this.groundBlocs.size() );        	
         }
 
         
