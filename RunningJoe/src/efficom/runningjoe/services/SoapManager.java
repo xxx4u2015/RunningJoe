@@ -1,5 +1,7 @@
 package efficom.runningjoe.services;
 
+import com.badlogic.gdx.Gdx;
+import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.ws.userapi.*;
 
 public class SoapManager {
@@ -9,9 +11,8 @@ public class SoapManager {
 	String name = null;
 	
 	private SoapManager(){
-		super();		
-		UserApiService userWsService = new UserApiService();		
-		userWs = userWsService.getUserApiPort();
+		super();
+		this.connect();		
 	}
 	
 	public final static SoapManager getInstance() {
@@ -24,6 +25,17 @@ public class SoapManager {
          }                
         return instance;
     }
+	
+	private void connect(){
+		try{
+			UserApiService userWsService = new UserApiService();		
+			userWs = userWsService.getUserApiPort();
+			
+		}catch(Exception e){
+			Gdx.app.log( RunningJoe.LOG, "Error while trying to connect : "
+					+ e.getMessage());			
+		}
+	}
 	
 	/**
 	 * @return Return true if the client is connected
@@ -52,11 +64,13 @@ public class SoapManager {
 				this.name = prmName;
 			}else{
 				ret = this.userWs.errordescription(
-						LanguagesManager.getInstance().getLanguage(), result);
+				LanguagesManager.getInstance().getLanguage(), result);
 			}
 			
 		}catch(Exception e){
 			ret = LanguagesManager.getInstance().getString("ConnectionProblem");
+			Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
+					+ e.getMessage());
 		}
 		
 		return ret;				
@@ -74,21 +88,19 @@ public class SoapManager {
 		try{
 			int result = userWs.recordscore(this.name, score);
 			
-			/*if(result < 0){								
+			if(result < 0){								
 				ret = this.userWs.errordescription(
 						LanguagesManager.getInstance().getLanguage(), result);
 				Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
 						+ ret);
 			}else{
-				Gdx.app.log( RunningJoe.LOG, 
-						"Score recorded");				
-			}*/
+				Gdx.app.log( RunningJoe.LOG, "Score recorded");				
+			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
 			ret = LanguagesManager.getInstance().getString("ConnectionProblem");
-			//Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
-			//		+ e.getMessage());
+			Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
+					+ e.getMessage());
 		}
 		
 		return ret;			
