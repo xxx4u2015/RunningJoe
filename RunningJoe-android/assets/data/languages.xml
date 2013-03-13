@@ -9,9 +9,16 @@
       <string key="Exit" value="Exit" />
       <string key="Cancel" value="Cancel" />
       <string key="Save" value="Save" />
+      <string key="Playername" value="Player name" />
+      <string key="Password" value="Password" />
+      <string key="Connect" value="Connection" />
+      <string key="Continue" value="Continue" />
+      
+      <!-- Errors -->
+      <string key="ConnectionProblem" value="Server connection failed." />
    </language>
    
-   <!-- Spanish -->
+   <!-- French -->
    <language name="fr_FR" >
       <!--  Menu  -->
       <string key="High scores" value="Meilleurs scores" />
@@ -20,5 +27,12 @@
       <string key="Exit" value="Quitter" />
       <string key="Cancel" value="Annuler" />
       <string key="Save" value="Sauvegarder" />
+      <string key="Playername" value="Joueur" />
+      <string key="Password" value="Mot de passe" />
+      <string key="Connect" value="Connexion" />
+      <string key="Continue" value="Continer" />
+      
+      <!-- Errors -->
+      <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />
    </language>
 </languages>

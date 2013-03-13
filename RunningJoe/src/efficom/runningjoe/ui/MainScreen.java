@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
-import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 import efficom.runningjoe.services.RunningJoeSound;
 
 public class MainScreen extends AbstractScreen
@@ -29,14 +28,12 @@ public class MainScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
-    	//if()    	
     	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
         	this.world.getJoe().Jump();
         
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
         	this.world.Pause();
-        
-                
+                        
         float x = Gdx.input.getAccelerometerY() * 100;
         float y = -Gdx.input.getAccelerometerX();
         
@@ -51,8 +48,7 @@ public class MainScreen extends AbstractScreen
     		this.menuDawn = false;
     	}else{
     		this.createMenu();
-    	}
-    	
+    	}    	
     }     
     
     @Override
