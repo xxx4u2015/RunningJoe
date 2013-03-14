@@ -5,12 +5,12 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -30,6 +30,7 @@ public abstract class AbstractScreen implements Screen
     protected final Stage stage;
     protected final LabelStyle labelStyle;
     protected final TextFieldStyle textFieldStyle;
+    protected final SelectBoxStyle selectBoxStyle;
     
     private LanguagesManager languageManager;    
     private Table table;
@@ -41,8 +42,7 @@ public abstract class AbstractScreen implements Screen
 
 
     public AbstractScreen(RunningJoe game )
-    {
-    	
+    {    	
         this.game = game;
         
         // Language manager
@@ -68,6 +68,11 @@ public abstract class AbstractScreen implements Screen
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = new BitmapFont();
         textFieldStyle.fontColor = Color.WHITE;
+        
+        // Select Box style
+        this.selectBoxStyle = new SelectBoxStyle();
+        this.selectBoxStyle.font = new BitmapFont();
+        this.selectBoxStyle.fontColor = Color.WHITE;
         
         //Creation du skin
         this.skin = new Skin();

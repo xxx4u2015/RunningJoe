@@ -54,8 +54,6 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }
-	    });	 
+	    });
 	}
-
-
 }
