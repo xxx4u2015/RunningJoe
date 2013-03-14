@@ -133,6 +133,21 @@ public interface UserApiPortType {
 
     /**
      * 
+     * @param limit
+     * @param offset
+     * @return
+     *     returns efficom.runningjoe.ws.userapi.ArrayOfString
+     */
+    @WebMethod(action = "http://efficom/runningjoe/ws/UserApi/highscoresstring")
+    @WebResult(partName = "return")
+    public ArrayOfString highscoresstring(
+        @WebParam(name = "limit", partName = "limit")
+        int limit,
+        @WebParam(name = "offset", partName = "offset")
+        int offset);
+
+    /**
+     * 
      * @param id
      * @return
      *     returns int

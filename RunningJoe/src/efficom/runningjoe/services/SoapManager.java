@@ -106,5 +106,43 @@ public class SoapManager {
 		return ret;			
 	}
 	
+	/**
+	 * Retrieving high scores from the web service
+	 * @return Array of score
+	 */
+	public ArrayOfScore GetHighScores()
+	{
+		try{
+			ArrayOfScore result = userWs.highscores(10, 0);
+			Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");			
+			return result;
+			
+		}catch(Exception e){
+			Gdx.app.log( RunningJoe.LOG, "Error while retrieving highscores : "
+					+ e.getMessage());
+			
+			return null;
+		}		
+	}
+	
+	/**
+	 * Retrieving high scores from the web service
+	 * @return Array of score
+	 */
+	public ArrayOfString GetHighScoresStrings()
+	{		
+		try{
+			ArrayOfString result = userWs.highscoresstring(10,0);
+			Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");			
+			return result;
+			
+		}catch(Exception e){
+			Gdx.app.log( RunningJoe.LOG, "Error while retrieving highscores : "
+					+ e.getMessage());
+			
+			return null;
+		}
+	}
+	
 
 }
