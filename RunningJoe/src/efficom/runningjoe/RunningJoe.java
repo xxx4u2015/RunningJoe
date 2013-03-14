@@ -4,19 +4,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
-
 import efficom.runningjoe.core.RjWorld;
+import efficom.runningjoe.services.SoapManager;
 import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
 import efficom.runningjoe.services.ProfileManager;
+import efficom.runningjoe.ui.LoginScreen;
 import efficom.runningjoe.ui.MainScreen;
+import efficom.runningjoe.ui.OptionsScreen;
 import efficom.runningjoe.ui.SplashScreen;
 
 /**
@@ -44,8 +42,7 @@ public class RunningJoe extends Game
 
     public RunningJoe()
     {
-    	GdxNativesLoader.load();    
-    	
+    	GdxNativesLoader.load(); 
     }
     
     // Services' getters
@@ -119,7 +116,8 @@ public class RunningJoe extends Game
         // show the splash screen when the game is resized for the first time;
         // this approach avoids calling the screen's resize method repeatedly
         if( getScreen() == null ) {
-        	setScreen( new MainScreen( this ) );
+        	setScreen( new LoginScreen( this ) );
+        	//setScreen( new MainScreen( this ) );
         }
     }
 

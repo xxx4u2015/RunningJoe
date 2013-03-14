@@ -2,8 +2,6 @@ package efficom.runningjoe.core;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,19 +10,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 
 public class RjWorld {
 	RunningJoe game;
+	Score score;
 	Joe joe;
 	World world;
 	OrthographicCamera camera;
@@ -50,8 +47,10 @@ public class RjWorld {
 		this.game = game;
 
 		spriteBatch = new SpriteBatch();
+
 		this.groundBlocks = new LinkedList<RjBlock>();
-		// grass
+
+		this.score = new Score();
 
 		gravity = new Vector2(0, -9.8f);
 		world = new World(gravity, false);
@@ -144,12 +143,13 @@ public class RjWorld {
 	 * This Method spawns small Block Objects witch are used to display the
 	 * ground (Grass picture's width is 512px). 1 block = 32px*32px.
 	 * 
-	 * TODO : - 32 Blocks (in a List) are displayed at a time (32 blocks =
-	 * 1024px). - 10 first blocks (to the left) aren't fixed (so they are
-	 * falling) - 22 last blocks (to the right) are, so Joe can run on them. -
-	 * As soon as the last block's position is the extreme right of the screen :
-	 * - the first block of the List is destroyed - another random block is
-	 * generated and added at the end of the List
+	 * @todo
+	 * - 32 Blocks (in a List) are displayed at a time (32 blocks = 1024px).
+	 * - 10 first blocks (to the left) aren't fixed (so they are falling)
+	 * - 22 last blocks (to the right) are, so Joe can run on them.
+	 * - As soon as the last block's position is the extreme right of the screen :
+	 *		- the first block of the List is destroyed
+	 *		- another random block is generated and added at the end of the List
 	 * 
 	 */
 	private void generateGroud() {

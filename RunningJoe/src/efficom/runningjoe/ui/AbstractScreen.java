@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import efficom.runningjoe.services.LanguagesManager;
 
 import efficom.runningjoe.RunningJoe;
@@ -27,6 +28,8 @@ public abstract class AbstractScreen implements Screen
     protected final RunningJoe game;
     protected final TextButtonStyle buttonStyle; 
     protected final Stage stage;
+    protected final LabelStyle labelStyle;
+    protected final TextFieldStyle textFieldStyle;
     
     private LanguagesManager languageManager;    
     private Table table;
@@ -57,9 +60,14 @@ public abstract class AbstractScreen implements Screen
         this.buttonStyle.downFontColor = new Color(0.8f, 0.8f, 0.8f, 1f);
         
         //Label style        
-        LabelStyle labelStyle = new LabelStyle();
+        labelStyle = new LabelStyle();
         labelStyle.font = new BitmapFont();
         labelStyle.fontColor = Color.WHITE;
+        
+        //Text field style
+        textFieldStyle = new TextFieldStyle();
+        textFieldStyle.font = new BitmapFont();
+        textFieldStyle.fontColor = Color.WHITE;
         
         //Creation du skin
         this.skin = new Skin();

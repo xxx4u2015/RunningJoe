@@ -1,8 +1,6 @@
 package efficom.runningjoe.core;
 
 import java.util.Iterator;
-
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -15,7 +13,7 @@ public abstract class AbstractGraphicItem {
 	protected Sprite sprite;
 	
 	/**
-	 * 
+	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
 	 * 
 	 * @param world
 	 * @param name

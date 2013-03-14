@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 
-public abstract class AbstractMenuItemScreen extends AbstractScreen{
-	private TextButton validateButton, cancelButton;
+public abstract class AbstractMenuItemScreen extends AbstractScreen{	
 	private String title;
 	
 	public AbstractMenuItemScreen(RunningJoe game, String titleKey )
@@ -45,7 +45,7 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
         this.getTable().add( this.title ).spaceBottom( 20 ).center();
         this.getTable().row();
 		
-        cancelButton = new TextButton( 
+        /*cancelButton = new TextButton( 
         		this.getLanguagesManager().getString("Cancel") , 
         		this.buttonStyle 
         );
@@ -76,6 +76,6 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }
-	    } );
+	    } );*/
 	}
 }

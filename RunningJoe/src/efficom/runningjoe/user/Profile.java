@@ -17,6 +17,7 @@ public class Profile implements Serializable
 {   
 	private boolean isSoundEnabled, isMusicEnabled;
 	private float soundVolume, musicVolume;
+	private String username, password;
 	
     public Profile()
     {
