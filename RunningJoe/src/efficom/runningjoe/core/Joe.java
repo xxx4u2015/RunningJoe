@@ -12,10 +12,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Joe extends AbstractGraphicItem {
 	private static final float BODY_WIDTH = 40;
-	private int speed = 0;
+	private int speed = 40;
 	
-	public Joe(RjWorld world, Texture texture){		
-		super(world, "Joe", new Sprite(texture));
+	public Joe(RjWorld world){		
+		super(world, "Joe");
+		this.sprite = new Sprite(new Texture(
+				Gdx.files.internal("images/standingjoe.png")));
 		new Texture(Gdx.files.internal("images/standingjoe.png"));
 		this.createStandingJoe();
 	}
@@ -24,7 +26,8 @@ public class Joe extends AbstractGraphicItem {
 	 * Create the standing joe representation
 	 */
 	private void createStandingJoe() {
-	    // 0. Create a loader for the file saved from the editor.
+		infos = new GraphicItemInfos("Joe",this.sprite);
+		// 0. Create a loader for the file saved from the editor.
 		FileHandle fh = Gdx.files.internal("data/joe.json");
 	    BodyEditorLoader loader = new BodyEditorLoader(fh);
 	 
@@ -40,12 +43,12 @@ public class Joe extends AbstractGraphicItem {
 	    fd.restitution = 0.0f;
 	    
 	    // 3. Create a Body, as usual.
-	    body = world.getWorld().createBody(bd);	    
+	    this.body = this.world.getWorld().createBody(bd);	    
 	 
 	    // 4. Create the body fixture automatically by using the loader.
 	    loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);	    
 	    	    
-	    body.setUserData(this.infos);
+	    this.body.setUserData(infos);
 	}	
 	
 	/*

@@ -10,9 +10,15 @@ public abstract class AbstractGraphicItem {
 	protected RjWorld world;
 	protected GraphicItemInfos infos;
 	protected Body body;
+	protected Sprite sprite;
 	
-	public AbstractGraphicItem(RjWorld world, String name, Sprite sprite){
-		infos = new GraphicItemInfos(name, sprite);
+	/**
+	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
+	 * 
+	 * @param world
+	 * @param name
+	 */
+	public AbstractGraphicItem(RjWorld world, String name){
 		this.world = world;
 	}
 	
