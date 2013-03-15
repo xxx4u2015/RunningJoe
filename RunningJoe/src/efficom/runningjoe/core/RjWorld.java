@@ -160,7 +160,7 @@ public class RjWorld {
 			if (this.groundBlocks.size() != 0) {
 				RjBlock body = this.groundBlocks.get(this.groundBlocks.size() - 1);
 				posX = body.getPosition().x
-						+ body.grassTex.getTextureData().getWidth();
+						+ body.texture.getTextureData().getWidth();
 			}
 			RjBlock groundBody = new RjBlock(this, "Floor "+posX);
 			groundBody.generateRandomBlock(posX);
@@ -181,9 +181,9 @@ public class RjWorld {
 		 * BodyDef roofBodyDef =new BodyDef(); roofBodyDef.position.set(new
 		 * Vector2(0, (camera.viewportHeight)-10)); Body roofBody =
 		 * world.createBody(roofBodyDef); PolygonShape roofBox = new
-		 * PolygonShape(); roofBox.setAsBox(grassTex.getWidth(), 10.0f);
+		 * PolygonShape(); roofBox.setAsBox(texture.getWidth(), 10.0f);
 		 * roofBody.createFixture(roofBox, 0.0f); GraphicItemInfos infosRoof =
-		 * new GraphicItemInfos("Roof", new Sprite(grassTex));
+		 * new GraphicItemInfos("Roof", new Sprite(texture));
 		 * roofBody.setUserData(infosRoof);
 		 */
 	}
