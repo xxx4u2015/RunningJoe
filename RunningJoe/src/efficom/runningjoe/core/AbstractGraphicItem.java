@@ -15,8 +15,8 @@ public abstract class AbstractGraphicItem {
 	/**
 	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
 	 * 
-	 * @param world
-	 * @param name
+	 * @param world RjWorld object the Graphic Item belongs to
+	 * @param name Name of the Graphic Item
 	 */
 	public AbstractGraphicItem(RjWorld world, String name){
 		this.world = world;

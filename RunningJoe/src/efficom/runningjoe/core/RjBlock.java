@@ -9,22 +9,30 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-
+/**
+ * 
+ * Class witch represents blocks for the ground or the roof of the game.
+ * 
+ * @author Sylvain MERLIN
+ */
 public class RjBlock extends AbstractGraphicItem {
 
-	protected Texture grassTex;
+	/**
+	 * Texture of the RjBlock
+	 */
+	protected Texture texture;
 	
 	/**
-	 * Class constructor
+	 * Inherited Constructor
 	 * 
-	 * @param world RjWorld the block belongs to
-	 * @param name Name of the block
+	 * @param world RjWorld object the Graphic Item belongs to
+	 * @param name Name of the Graphic Item
 	 */
 	public RjBlock(RjWorld world, String name) {
 		
 		super(world, name);
 		
-		this.grassTex = new Texture(Gdx.files.internal("images/grass2.png"));
+		this.texture = new Texture(Gdx.files.internal("images/grass2.png"));
 		this.body = null;
 		infos = new GraphicItemInfos(name, sprite);
 		
@@ -42,12 +50,18 @@ public class RjBlock extends AbstractGraphicItem {
 		groundBodyDef.position.set(new Vector2(position, 0));
 		this.body = this.world.getWorld().createBody(groundBodyDef);
 		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(grassTex.getTextureData().getWidth(), 20.0f);
+		groundBox.setAsBox(texture.getTextureData().getWidth(), 20.0f);
 		this.body.createFixture(groundBox, 0.0f);
-		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position, new Sprite(grassTex));
+		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position, new Sprite(texture));
 		this.body.setUserData(infosFloor);
 	}
 
+	
+	/**
+	 * Method to get the position of the block in the world.
+	 * 
+	 * @return Vector2 Position of the block in the RjWolrd's world grid.
+	 */
 	public Vector2 getPosition(){
 		if(this.body == null){
 			return new Vector2(0,0);
