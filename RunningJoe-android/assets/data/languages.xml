@@ -13,6 +13,10 @@
       <string key="Password" value="Password" />
       <string key="Connect" value="Connection" />
       <string key="Continue" value="Continue" />
+      <string key="Restart" value="Restart" />
+      <string key="MainMenu" value="Main menu" />
+      <string key="YourScoreIs" value="Your score is" />
+      <string key="GameOver" value="Game over" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Server connection failed." />
@@ -31,6 +35,10 @@
       <string key="Password" value="Mot de passe" />
       <string key="Connect" value="Connexion" />
       <string key="Continue" value="Continer" />
+      <string key="Restart" value="Recommencer" />
+      <string key="MainMenu" value="Menu principal" />
+      <string key="YourScoreIs" value="Votre score est" />
+      <string key="GameOver" value="Fin  de la partie" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />

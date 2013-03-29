@@ -13,6 +13,7 @@ public class Bonus extends AbstractGraphicItem {
 	/**
 	 * Enumerate the list of bonus.
 	 */
+	@SuppressWarnings("unused")
 	private enum typeBonus {
 		RABBIT("rabbit.png"),
 		SNAIL("snail.png"),

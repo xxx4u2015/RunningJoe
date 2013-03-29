@@ -28,7 +28,8 @@ public class LRUCache<K, V>
     /**
      * Creates the cache with the specified max entries.
      */
-    public LRUCache(
+    @SuppressWarnings("serial")
+	public LRUCache(
         final int maxEntries )
     {
         cache = new LinkedHashMap<K,V>( maxEntries + 1, .75F, true ) {

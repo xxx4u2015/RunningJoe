@@ -21,10 +21,11 @@ import efficom.runningjoe.ui.MainScreen;
 /**
  * Shows a splash image and moves on to the next screen.
  */
+@SuppressWarnings("unused")
 public class SplashScreen extends AbstractScreen
 {
     private SpriteBatch spriteBatch;
-    private Texture splash;
+    //private Texture splash;
     Image splashImage;
 
     public SplashScreen(RunningJoe game){ 

@@ -81,12 +81,12 @@ public class SoapManager {
 	 * @param The score value
 	 * @return Success: null, Error: description
 	 */
-	public String RecordScore(int score)
+	public String RecordScore(double score)
 	{
 		String ret = null;
 		
 		try{
-			int result = userWs.recordscore(this.name, score);
+			int result = userWs.recordscore(this.name, (int)score);
 			
 			if(result < 0){								
 				ret = this.userWs.errordescription(

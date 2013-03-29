@@ -1,7 +1,5 @@
 package efficom.runningjoe.ui;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,12 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 import efficom.runningjoe.services.SoapManager;
-import efficom.runningjoe.ws.userapi.Score;
-import efficom.runningjoe.ws.userapi.ArrayOfScore;
 import efficom.runningjoe.ws.userapi.ArrayOfString;
 
 public class HighScoresScreen extends AbstractMenuItemScreen{
-	private TextButton validateButton, cancelButton;
+	private TextButton cancelButton;
 	
 	public HighScoresScreen(RunningJoe game )
 	{

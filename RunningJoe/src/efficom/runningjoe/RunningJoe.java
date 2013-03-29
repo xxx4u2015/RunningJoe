@@ -7,15 +7,11 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import efficom.runningjoe.core.RjWorld;
-import efficom.runningjoe.services.SoapManager;
 import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
 import efficom.runningjoe.services.ProfileManager;
 import efficom.runningjoe.ui.LoginScreen;
-import efficom.runningjoe.ui.MainScreen;
-import efficom.runningjoe.ui.OptionsScreen;
-import efficom.runningjoe.ui.SplashScreen;
 
 /**
  * The game's main class, called as application events are fired.
@@ -40,8 +36,7 @@ public class RunningJoe extends Game
     private MusicManager musicManager;
     private SoundManager soundManager;
 
-    public RunningJoe()
-    {
+    public RunningJoe(){
     	GdxNativesLoader.load(); 
     }
     
@@ -166,5 +161,13 @@ public class RunningJoe extends Game
         // dipose some services
         musicManager.dispose();
         soundManager.dispose();
+    }
+    
+    /**
+     * Recreate the world
+     */
+    public void restart()
+    {
+    	this.world = new RjWorld(this);    
     }
 }

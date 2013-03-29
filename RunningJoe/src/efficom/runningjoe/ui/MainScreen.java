@@ -2,7 +2,6 @@ package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -28,17 +27,25 @@ public class MainScreen extends AbstractScreen
     @Override
     public void render(float delta)
     {
-    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
-        	this.world.getJoe().Jump();
-        
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
-        	this.world.Pause();
-                        
-        float x = Gdx.input.getAccelerometerY() * 100;
-        float y = -Gdx.input.getAccelerometerX();
-        
-        Vector2 vec = new Vector2(x,y); 
-        this.world.SetGravity(vec);
+    	// If the game has started handle the pressed keys
+    	if(world.isStarded()){
+	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
+	        	this.world.getJoe().Jump();
+	    	
+	    	// Allow moving in dev mode
+	    	if(RunningJoe.DEV_MODE){
+		    	// Move to the left
+		    	if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+		    		this.world.getJoe().Move(false, 1.0f);
+		    	
+		    	// Move to the right
+		    	if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+		    		this.world.getJoe().Move(true, 1.0f);
+	    	}
+	        
+	        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
+	        	this.world.Pause();
+    	}
         
     	this.world.render();  
     	super.render(delta); 

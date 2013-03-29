@@ -11,6 +11,7 @@ public abstract class AbstractGraphicItem {
 	protected GraphicItemInfos infos;
 	protected Body body;
 	protected Sprite sprite;
+	protected Fixture physicFixture;
 	
 	/**
 	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus

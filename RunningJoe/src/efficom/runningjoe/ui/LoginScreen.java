@@ -10,13 +10,13 @@ import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 import efficom.runningjoe.services.SoapManager;
 
-public class LoginScreen extends AbstractScreen {
+public class LoginScreen extends AbstractMenuItemScreen {
 	private TextButton connectButton, ignoreButton;
 	private TextField passwordText, playerText, errorText;
 	
 	public LoginScreen(RunningJoe game)
 	{
-		super(game);       
+		super(game, "Login");       
 	}
 	
 	@Override
@@ -26,11 +26,7 @@ public class LoginScreen extends AbstractScreen {
 	}
 	
 	public void createMenu()
-	{	 
-		// retrieve the default table actor
-		this.getTable().add( "Running Joe !" ).spaceBottom( 50 );
-		this.getTable().row();
-	 
+	{
 		//PLAYER ENTRIES--------------------------------------------------------
 		// register the button login label
 		Label playerlabel = new Label( 

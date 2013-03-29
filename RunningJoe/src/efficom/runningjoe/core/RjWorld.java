@@ -5,19 +5,15 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
+import efficom.runningjoe.ui.GameOverScreen;
 
 public class RjWorld {
 	RunningJoe game;
@@ -54,8 +50,9 @@ public class RjWorld {
 
 		gravity = new Vector2(0, -9.8f);
 		world = new World(gravity, false);
-		camera = new OrthographicCamera(game.GAME_VIEWPORT_WIDTH,
-				game.GAME_VIEWPORT_HEIGHT);
+		camera = new OrthographicCamera(
+				RunningJoe.GAME_VIEWPORT_WIDTH,
+				RunningJoe.GAME_VIEWPORT_HEIGHT);
 		camera.position.set(camera.viewportWidth * .5f,
 				camera.viewportHeight * .5f, 0f);
 		camera.update();
@@ -84,24 +81,24 @@ public class RjWorld {
 		return this.camera;
 	}
 
-	public void SetGravity(Vector2 vect) {
-		this.world.setGravity(vect);
-	}
-
 	public void render() {
+		if (started && joe.body.getPosition().x < (this.camera.position.x - (this.camera.viewportWidth / 1.5))) {
+			this.Pause();
+			game.setScreen( new GameOverScreen( game, this.score ) );
+		}
+		
 		this.generateGroud();
 		Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		if (game.DEV_MODE) {
+		if (RunningJoe.DEV_MODE) {
 			game.getDebugRenderer().render(world, camera.combined);
 		}
 
 		if (this.started) {
 			joe.render();
-			world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS,
-					BOX_POSITION_ITERATIONS);
-			this.camera.translate(this.joe.getSpeed() * BOX_STEP, 0);
+			world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS,BOX_POSITION_ITERATIONS);
+			//this.camera.translate(this.joe.getSpeed() * BOX_STEP, 0);
 			this.camera.update();
 		}
 
@@ -133,7 +130,7 @@ public class RjWorld {
 	}
 
 	public void RenderDebug() {
-		if (game.DEV_MODE)
+		if (RunningJoe.DEV_MODE)
 			game.getDebugRenderer().render(world, camera.combined);
 	}
 

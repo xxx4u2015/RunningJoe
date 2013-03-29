@@ -17,7 +17,6 @@ public class Profile implements Serializable
 {   
 	private boolean isSoundEnabled, isMusicEnabled;
 	private float soundVolume, musicVolume;
-	private String username, password;
 	
     public Profile()
     {
@@ -56,7 +55,6 @@ public class Profile implements Serializable
 		this.musicVolume = musicVolume;
 	}    
     
-    @SuppressWarnings( "unchecked" )
     @Override
     public void read(Json json, OrderedMap<String,Object> jsonData )
     {
