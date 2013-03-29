@@ -33,11 +33,11 @@ public class LoginScreen extends AbstractMenuItemScreen {
 				this.getLanguagesManager().getString("Playername"), 
 				this.labelStyle
 				);
-		this.getTable().add(playerlabel).size(300, 60).uniform().spaceBottom(10);
+		this.getTable().add(playerlabel).uniform().spaceBottom(10);
 	        
 		// register the button login label
 		playerText = new TextField( "", this.textFieldStyle);
-		this.getTable().add(playerText).size(300, 60).uniform().spaceBottom(10);
+		this.getTable().add(playerText).uniform().spaceBottom(10);
 		this.getTable().row();
 	 
 		// PASSWORD ENTRIES-----------------------------------------------------
@@ -46,18 +46,18 @@ public class LoginScreen extends AbstractMenuItemScreen {
 				this.getLanguagesManager().getString("Password"), 
 				this.labelStyle
 				);
-		this.getTable().add(passwordlabel).size(300, 60).uniform().spaceBottom(10);
+		this.getTable().add(passwordlabel).uniform().spaceBottom(10);
 	        
 		// register the button login label
 		passwordText = new TextField(  "", this.textFieldStyle );		 
 		passwordText.setPasswordCharacter('*');
 		passwordText.setPasswordMode(true);
-		this.getTable().add(passwordText).size(300, 60).uniform().spaceBottom(10);
+		this.getTable().add(passwordText).uniform().spaceBottom(10);
 		this.getTable().row();
 	 
 		// ERROR FIELD----------------------------------------------------------
 		errorText = new TextField("", this.textFieldStyle);
-		this.getTable().add(errorText).size(300, 60).uniform().spaceBottom(10);
+		this.getTable().add(errorText).uniform().spaceBottom(10).colspan(2);
 		this.getTable().row();
 	 
 		// Ignore

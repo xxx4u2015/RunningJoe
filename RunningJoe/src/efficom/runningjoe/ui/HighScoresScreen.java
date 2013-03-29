@@ -15,7 +15,7 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 	
 	public HighScoresScreen(RunningJoe game )
 	{
-	 super( game, "High scores" );       
+	 super( game, "HighScores" );       
 	}
 	
 	@Override
@@ -31,16 +31,16 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 		if(scores!=null){
 			for(String item: scores.getItem()){				
 				Label lbl = new Label(item, this.labelStyle);	
-				super.getTable().add(lbl).uniform().fill().spaceRight( 10 );
+				super.getTable().add(lbl).uniform().fill().spaceRight( 10 ).colspan(2);
 				this.getTable().row();				
 			}			
 		}
 		
 		cancelButton = new TextButton( 
-	       		this.getLanguagesManager().getString("Cancel") , 
+	       		this.getLanguagesManager().getString("Return") , 
 	       		this.buttonStyle 
 				);
-	    super.getTable().add(cancelButton).uniform().fill().spaceRight( 10 );
+	    super.getTable().add(cancelButton).uniform().fill().spaceRight( 10 ).spaceTop(20).colspan(2);
 	    cancelButton.addListener( new InputListener() {
 	        @Override
 	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )

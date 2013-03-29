@@ -61,13 +61,16 @@ public class MainScreen extends AbstractScreen
     		this.menuDawn = false;
     		
     		try{
-	    		this.lblScore.setText("" + (int)this.getWorld().getScore().getValue());
+	    		this.lblScore.setText(
+	    				this.getLanguagesManager().getString("Score") + " : " + 
+	    				(int)this.getWorld().getScore().getValue()
+	    			);
 	    		this.getTable().left().top();    		
 		    	this.getTable().add(this.lblScore);
     		}catch(Exception e){
     			
     		}
-    	}else{
+    	}else{    		
     		this.createMenu();
     	}    	
     }     
@@ -88,9 +91,35 @@ public class MainScreen extends AbstractScreen
     public void createMenu()
     {
     	if(!this.menuDawn){
+    		this.getTable().clear();
+    		this.getTable().center();
+    		
 	    	// retrieve the default table actor
 	        this.getTable().add( "Running Joe !" ).spaceBottom( 50 );
 	        this.getTable().row();
+	        
+	        if(this.world.getScore().getValue() > 0){
+		        // register the button "start game"
+		        TextButton resumeGameButton = new TextButton( 
+		        		this.getLanguagesManager().getString("Resume"), 
+		        		this.buttonStyle 
+		        );        
+		        resumeGameButton.addListener( new InputListener() {         	    		
+		        	@Override
+		            public boolean touchDown( InputEvent event, float x, float y, int pointer, int button )
+		            {
+		        		Gdx.app.log( RunningJoe.LOG, "Game resume clicked: " + getName() );
+		        		game.getSoundManager().play( RunningJoeSound.CLICK );
+		                super.touchUp( event, x, y, pointer, button ); 
+		                world.Start();
+		                return true;
+		            }
+		        });
+		        
+		        this.getTable().add(resumeGameButton).colspan(2).uniform().spaceBottom(10);
+		        this.getTable().row();
+		    }
+	        
 	        
 	        // register the button "start game"
 	        TextButton startGameButton = new TextButton( 
@@ -103,14 +132,14 @@ public class MainScreen extends AbstractScreen
 	            {
 	        		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
 	        		game.getSoundManager().play( RunningJoeSound.CLICK );
-	                super.touchUp( event, x, y, pointer, button );                  
-	                
+	                super.touchUp( event, x, y, pointer, button );   
+	                world = new RjWorld(game);	                
 	                world.Start();
 	                return true;
 	            }
 	        });
 	        
-	        this.getTable().add(startGameButton).size(300, 60).uniform().spaceBottom(10);
+	        this.getTable().add(startGameButton).colspan(2).uniform().spaceBottom(10);
 	        this.getTable().row();
 	        
 	        // register the button "options"
@@ -118,7 +147,7 @@ public class MainScreen extends AbstractScreen
 	        		this.getLanguagesManager().getString("Options"), 
 	        		this.buttonStyle 
 	        );
-	        super.getTable().add(optionsButton).size(300, 60).uniform().spaceBottom(10);
+	        super.getTable().add(optionsButton).colspan(2).uniform().spaceBottom(10);
 	        super.getTable().row();
 	        optionsButton.addListener( new InputListener() {
 	            @Override
@@ -134,10 +163,10 @@ public class MainScreen extends AbstractScreen
 	
 	        // register the button "high scores"
 	        TextButton highScoresButton = new TextButton( 
-	        		this.getLanguagesManager().getString("High scores"), 
+	        		this.getLanguagesManager().getString("HighScores"), 
 	        		this.buttonStyle 
 	        );
-	        super.getTable().add(highScoresButton).uniform().fill().spaceBottom( 10 );
+	        super.getTable().add(highScoresButton).uniform().fill().spaceBottom( 10 ).colspan(2);
 	        super.getTable().row();
 	        highScoresButton.addListener( new InputListener() {
 	            @Override
@@ -155,7 +184,7 @@ public class MainScreen extends AbstractScreen
 	        		this.getLanguagesManager().getString("Exit"), 
 	        		this.buttonStyle 
 	        );
-	        super.getTable().add(exitButton).uniform().fill().spaceBottom( 10 );
+	        super.getTable().add(exitButton).uniform().fill().spaceBottom( 10 ).colspan(2);
 	        super.getTable().row();
 	        exitButton.addListener( new InputListener() {
 	            @Override

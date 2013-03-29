@@ -3,8 +3,8 @@
    <!-- English -->
    <language name="en_UK" >
       <!--  Menu  -->
-      <string key="High scores" value="Timetrial mode" />
-      <string key="Play" value="Play" />
+      <string key="HighScores" value="High scores" />
+      <string key="Play" value="New game" />
       <string key="Options" value="Options" />
       <string key="Exit" value="Exit" />
       <string key="Cancel" value="Cancel" />
@@ -17,6 +17,10 @@
       <string key="MainMenu" value="Main menu" />
       <string key="YourScoreIs" value="Your score is" />
       <string key="GameOver" value="Game over" />
+      <string key="Login" value="Login" />
+      <string key="Return" value="Back" />
+      <string key="Resume" value="Resume" />
+      <string key="Score" value="Score" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Server connection failed." />
@@ -25,8 +29,8 @@
    <!-- French -->
    <language name="fr_FR" >
       <!--  Menu  -->
-      <string key="High scores" value="Meilleurs scores" />
-      <string key="Play" value="Jouer" />
+      <string key="HighScores" value="Meilleurs scores" />
+      <string key="Play" value="Nouvelle partie" />
       <string key="Options" value="Options" />
       <string key="Exit" value="Quitter" />
       <string key="Cancel" value="Annuler" />
@@ -34,11 +38,15 @@
       <string key="Playername" value="Joueur" />
       <string key="Password" value="Mot de passe" />
       <string key="Connect" value="Connexion" />
-      <string key="Continue" value="Continer" />
+      <string key="Continue" value="Continuer" />
       <string key="Restart" value="Recommencer" />
       <string key="MainMenu" value="Menu principal" />
-      <string key="YourScoreIs" value="Votre score est" />
+      <string key="YourScoreIs" value="Votre score est de" />
       <string key="GameOver" value="Fin  de la partie" />
+      <string key="Login" value="Identification" />
+      <string key="Return" value="Retour" />
+      <string key="Resume" value="Reprendre" />
+      <string key="Score" value="Score" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />

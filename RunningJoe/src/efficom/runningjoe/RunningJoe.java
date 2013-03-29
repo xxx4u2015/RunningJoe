@@ -11,7 +11,7 @@ import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
 import efficom.runningjoe.services.ProfileManager;
-import efficom.runningjoe.ui.LoginScreen;
+import efficom.runningjoe.ui.SplashScreen;
 
 /**
  * The game's main class, called as application events are fired.
@@ -111,7 +111,8 @@ public class RunningJoe extends Game
         // show the splash screen when the game is resized for the first time;
         // this approach avoids calling the screen's resize method repeatedly
         if( getScreen() == null ) {
-        	setScreen( new LoginScreen( this ) );
+        	setScreen( new SplashScreen( this ) );
+        	//setScreen( new LoginScreen( this ) );
         	//setScreen( new MainScreen( this ) );
         }
     }

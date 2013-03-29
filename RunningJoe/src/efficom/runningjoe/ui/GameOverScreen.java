@@ -16,7 +16,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	
 	public GameOverScreen(RunningJoe game, Score score )
 	{		
-		super( game, "Game over" );
+		super( game, "GameOver" );
 		this.score = score;
 		
 		// Try to record the score
@@ -37,7 +37,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 				this.getLanguagesManager().getString("YourScoreIs") + " " + (int) score.getValue(), 
 				this.labelStyle
 				);
-		super.getTable().add(lbl).uniform().fill().spaceRight( 10 );
+		super.getTable().add(lbl).colspan(2).center();
 		this.getTable().row();	
 		
 		cancelButton = new TextButton( 
@@ -45,7 +45,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	       		this.buttonStyle 
 				);
 		
-	    super.getTable().add(cancelButton).uniform().fill().spaceRight( 10 );
+	    super.getTable().add(cancelButton).spaceTop(20);
 	    
 	    cancelButton.addListener( new InputListener() {
 	        @Override
@@ -64,7 +64,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	       		this.buttonStyle 
 				);
 		
-	    super.getTable().add(validateButton).uniform().fill().spaceRight( 10 );
+	    super.getTable().add(validateButton).spaceTop(20);
 	    
 	    validateButton.addListener( new InputListener() {
 	        @Override
