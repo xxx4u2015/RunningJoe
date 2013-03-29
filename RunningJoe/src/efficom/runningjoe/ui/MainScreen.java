@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
@@ -13,11 +14,16 @@ public class MainScreen extends AbstractScreen
 {
 	private RjWorld world;
 	private boolean menuDawn = false;
+	Label lblScore;
 	
     public MainScreen(RunningJoe game )
     {
         super( game ); 
-        world = game.getWorld();     
+        world = game.getWorld();  
+        
+        lblScore = new Label(""+(int)this.world.getScore().getValue(), 
+				this.labelStyle
+				);
     }
     
     public RjWorld getWorld(){
@@ -26,7 +32,7 @@ public class MainScreen extends AbstractScreen
     
     @Override
     public void render(float delta)
-    {
+    {    	
     	// If the game has started handle the pressed keys
     	if(world.isStarded()){
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
@@ -53,6 +59,14 @@ public class MainScreen extends AbstractScreen
     	if(this.world.isStarded()){
     		this.getTable().clear();
     		this.menuDawn = false;
+    		
+    		try{
+	    		this.lblScore.setText("" + (int)this.getWorld().getScore().getValue());
+	    		this.getTable().left().top();    		
+		    	this.getTable().add(this.lblScore);
+    		}catch(Exception e){
+    			
+    		}
     	}else{
     		this.createMenu();
     	}    	
@@ -64,8 +78,11 @@ public class MainScreen extends AbstractScreen
         
         this.world.render();
         
-        if(!this.world.isStarded())        
+        if(!this.world.isStarded()){    
         	this.createMenu();
+        }else{
+        		
+        }
     }
     
     public void createMenu()

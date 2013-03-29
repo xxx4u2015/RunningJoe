@@ -202,8 +202,6 @@ public abstract class AbstractScreen implements Screen
     public void dispose()
     {
         Gdx.app.log( RunningJoe.LOG, "Disposing screen: " + getName() );
-        
-        stage.dispose();
 
         // as the collaborators are lazily loaded, they may be null
         if( font != null ) font.dispose();

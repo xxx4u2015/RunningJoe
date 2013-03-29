@@ -28,8 +28,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	@Override
 	public void show(){
 		super.show();
-		this.createMenu();
-	 
+		this.createMenu();	 
 	}
 	
 	private void createMenu()
@@ -53,7 +52,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
-	           	game.getSoundManager().play( RunningJoeSound.CLICK );	
+	           	game.getSoundManager().play( RunningJoeSound.CLICK );
 	           	game.restart();
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;

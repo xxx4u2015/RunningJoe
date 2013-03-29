@@ -59,11 +59,14 @@ public class RjWorld {
 
 		joe = new Joe(this);
 		spriteBatch = new SpriteBatch();
+		
 	}
 
 	public boolean isStarded() {
 		return this.started;
 	}
+	
+	public Score getScore(){return this.score;}
 
 	public Joe getJoe() {
 		return this.joe;
@@ -82,7 +85,10 @@ public class RjWorld {
 	}
 
 	public void render() {
-		if (started && joe.body.getPosition().x < (this.camera.position.x - (this.camera.viewportWidth / 1.5))) {
+		if (started && (
+			joe.body.getPosition().x < (this.camera.position.x - this.camera.viewportWidth / 2) ||
+			joe.body.getPosition().y < (this.camera.position.y - this.camera.viewportHeight / 2)
+			)){
 			this.Pause();
 			game.setScreen( new GameOverScreen( game, this.score ) );
 		}
@@ -96,6 +102,8 @@ public class RjWorld {
 		}
 
 		if (this.started) {
+			// Increase the score 
+			score.addValue((int)this.joe.getSpeed() * 0.01f);
 			joe.render();
 			world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS,BOX_POSITION_ITERATIONS);
 			//this.camera.translate(this.joe.getSpeed() * BOX_STEP, 0);
@@ -219,5 +227,4 @@ public class RjWorld {
 		game.getMusicManager().stop();
 		this.started = false;
 	}
-
 }
