@@ -3,9 +3,13 @@ package efficom.runningjoe.core;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.sun.tools.javac.comp.Infer.NoInstanceException;
+
+import efficom.runningjoe.services.AssetsManager;
 
 /**
  * 
@@ -14,11 +18,16 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
  * @author Sylvain MERLIN
  */
 public class RjBlock extends AbstractGraphicItem {
-
+	
+	/**
+	 * Texture's coefficient
+	 */
+	private int blockNumber;
+	
 	/**
 	 * Texture of the RjBlock
 	 */
-	protected Texture texture;
+	private TextureRegion texture;
 	
 	/**
 	 * Inherited Constructor
@@ -27,10 +36,15 @@ public class RjBlock extends AbstractGraphicItem {
 	 * @param name Name of the Graphic Item
 	 */
 	public RjBlock(RjWorld world, String name) {
-		
 		super(world, name);
 		
-		this.texture = new Texture(Gdx.files.internal("images/grass2.png"));
+		try{
+			this.blockNumber = world.getLastBlock().getNextBlockNumber();
+		}
+		catch(Exception e){
+			this.blockNumber = 1;
+		}
+		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), this.blockNumber*32, 0, 32, 48 );
 		this.body = null;
 		infos = new GraphicItemInfos(name, sprite);
 		
@@ -48,7 +62,7 @@ public class RjBlock extends AbstractGraphicItem {
 		groundBodyDef.position.set(new Vector2(position, 0));
 		this.body = this.world.getWorld().createBody(groundBodyDef);
 		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(texture.getTextureData().getWidth(), 20.0f);
+		groundBox.setAsBox(16, 20.0f);
 		this.body.createFixture(groundBox, 0.0f);
 		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position, new Sprite(texture));
 		this.body.setUserData(infosFloor);
@@ -67,6 +81,14 @@ public class RjBlock extends AbstractGraphicItem {
 		else{
 			return this.body.getPosition();
 		}
+	}
+	
+	public int getNextBlockNumber(){
+		int nextBlockNumber=this.blockNumber+1;
+		if(nextBlockNumber>15){
+			nextBlockNumber=1;
+		}
+		return nextBlockNumber;
 	}
 
 

@@ -15,11 +15,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-public class Joe extends AbstractGraphicItem {
+public class JoeBkp extends AbstractGraphicItem {
 	private static final float BODY_WIDTH = 40;
 	private int speed = 40;
 	
-	public Joe(RjWorld world){		
+	public JoeBkp(RjWorld world){		
 		super(world, "Joe");
 		this.sprite = new Sprite(new Texture(
 				Gdx.files.internal("images/standingjoe.png")));

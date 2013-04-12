@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import efficom.runningjoe.core.RjWorld;
+import efficom.runningjoe.services.AssetsManager;
 import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.PreferencesManager;
@@ -31,6 +32,7 @@ public class RunningJoe extends Game
     private RjWorld world;
     
  	// services
+    private AssetsManager assetsManager;
     private PreferencesManager preferencesManager;
     private ProfileManager profileManager;
     private MusicManager musicManager;
@@ -96,6 +98,9 @@ public class RunningJoe extends Game
         profileManager = ProfileManager.getInstance();
         profileManager.retrieveProfile();
 
+        // create the assets manager
+        assetsManager= AssetsManager.getInstance();
+        
         // create the helper objects
         this.fpsLogger = new FPSLogger();
         
@@ -162,6 +167,7 @@ public class RunningJoe extends Game
         // dipose some services
         musicManager.dispose();
         soundManager.dispose();
+        assetsManager.dispose();
     }
     
     /**
@@ -171,4 +177,9 @@ public class RunningJoe extends Game
     {
     	this.world = new RjWorld(this);    
     }
+
+	public AssetsManager getAssetsManager() {
+		return assetsManager;
+	}
+
 }

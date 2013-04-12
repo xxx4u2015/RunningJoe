@@ -33,7 +33,7 @@ public class RjWorld {
 	/**
 	 * List of @linkRjBlock objects witch represents the ground  
 	 */
-	protected LinkedList<RjBlock> groundBlocks;
+	private LinkedList<RjBlock> groundBlocks;
 
 
 	/**
@@ -106,7 +106,7 @@ public class RjWorld {
 			score.addValue((int)this.joe.getSpeed() * 0.01f);
 			joe.render();
 			world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS,BOX_POSITION_ITERATIONS);
-			//this.camera.translate(this.joe.getSpeed() * BOX_STEP, 0);
+			this.camera.translate(this.joe.getSpeed() * BOX_STEP, 0);
 			this.camera.update();
 		}
 
@@ -165,7 +165,7 @@ public class RjWorld {
 			if (this.groundBlocks.size() != 0) {
 				RjBlock body = this.groundBlocks.get(this.groundBlocks.size() - 1);
 				posX = body.getPosition().x
-						+ body.texture.getTextureData().getWidth();
+						+ 32;
 			}
 			RjBlock groundBody = new RjBlock(this, "Floor "+posX);
 			groundBody.generateRandomBlock(posX);
@@ -191,6 +191,15 @@ public class RjWorld {
 		 * new GraphicItemInfos("Roof", new Sprite(texture));
 		 * roofBody.setUserData(infosRoof);
 		 */
+	}
+	
+	public RjBlock getLastBlock(){
+		try {
+			return this.groundBlocks.getLast();
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 
 	/**
