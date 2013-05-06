@@ -1,14 +1,11 @@
 package efficom.runningjoe.core;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.sun.tools.javac.comp.Infer.NoInstanceException;
-
+import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.AssetsManager;
 
 /**
@@ -23,6 +20,8 @@ public class RjBlock extends AbstractGraphicItem {
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
+	public static float BLOCK_WIDTH = 16;
+	public static float BLOCK_HEIGHT = 8;
 	
 	/**
 	 * Texture of the RjBlock
@@ -56,13 +55,14 @@ public class RjBlock extends AbstractGraphicItem {
 	 * @param position Position of the randomly generated block
 	 * @return Returns a random RjBlock
 	 */
-	public void generateRandomBlock(float position){
+	public void generateRandomBlock(float position){	
+		
 		BodyDef groundBodyDef = new BodyDef();
 
-		groundBodyDef.position.set(new Vector2(position, 0));
+		groundBodyDef.position.set(new Vector2(position, RunningJoe.PixToMeter(BLOCK_HEIGHT)));
 		this.body = this.world.getWorld().createBody(groundBodyDef);
 		PolygonShape groundBox = new PolygonShape();
-		groundBox.setAsBox(16, 20.0f);
+		groundBox.setAsBox(RunningJoe.PixToMeter(BLOCK_WIDTH), RunningJoe.PixToMeter(BLOCK_HEIGHT));
 		this.body.createFixture(groundBox, 0.0f);
 		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position, new Sprite(texture));
 		this.body.setUserData(infosFloor);
@@ -90,6 +90,4 @@ public class RjBlock extends AbstractGraphicItem {
 		}
 		return nextBlockNumber;
 	}
-
-
 }

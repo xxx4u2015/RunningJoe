@@ -20,7 +20,7 @@ public class Joe extends AbstractGraphicItem {
 	
 	
 	private static final float BODY_WIDTH = 40;
-	private int speed = 40;	
+	private int speed = 1;
 	private MoveState moveState = MoveState.RUNNING;
 	private char jumpCount = JUMP_COUNT;
 	
@@ -37,27 +37,30 @@ public class Joe extends AbstractGraphicItem {
 	 */
 	private void createStandingJoe() {
 		infos = new GraphicItemInfos("Joe",this.sprite);
-		// 0. Create a loader for the file saved from the editor.
+		
+		// Create a loader for the file saved from the editor.
 		FileHandle fh = Gdx.files.internal("data/joe.json");
 	    BodyEditorLoader loader = new BodyEditorLoader(fh);
 	 
-	    // 1. Create a BodyDef, as usual.
-	    BodyDef bd = new BodyDef();
-	    //bd.position.set(this.world.getCamera().viewportWidth - 100, 25);
-	    bd.position.set(this.world.getCamera().viewportWidth - 100, 100);
+	    // Create the body
+	    BodyDef bd = new BodyDef();	    
+	    bd.position.set(
+	    		RunningJoe.PixToMeter(RunningJoe.GAME_VIEWPORT_WIDTH* 0.75f),
+	    		RunningJoe.PixToMeter(RjBlock.BLOCK_HEIGHT*10));
 	    bd.type = BodyType.DynamicBody;
+	    bd.fixedRotation = true;
 	    	    	 
-	    // 2. Create a FixtureDef, as usual.
+	    // Create a FixtureDef
 	    FixtureDef fd = new FixtureDef();
-	    fd.density = 0.0f;
-	    fd.friction = 0.0f;
-	    fd.restitution = 0.0f;
+	    fd.density = 0.3f;
+	    fd.friction = 0.5f;
+	    fd.restitution = 0.1f;
 	    
-	    // 3. Create a Body, as usual.
-	    this.body = this.world.getWorld().createBody(bd);	    
+	    // Add the body to the world
+	    this.body = this.world.getWorld().createBody(bd);
 	 
-	    // 4. Create the body fixture automatically by using the loader.
-	    loader.attachFixture(body, "StandingJoe", fd, BODY_WIDTH);	    
+	    // Create the body fixture automatically by using the loader.
+	    loader.attachFixture(body, "StandingJoe", fd, RunningJoe.PixToMeter(BODY_WIDTH));	    
 	    	    
 	    this.body.setUserData(infos);
 	    
@@ -69,7 +72,6 @@ public class Joe extends AbstractGraphicItem {
 	@SuppressWarnings("unused")
 	private void createRunningJoe()
 	{
-		
 	}
 	
 	/*
@@ -88,16 +90,12 @@ public class Joe extends AbstractGraphicItem {
     {
 		
 		Vector2 pos = this.body.getPosition();
-    	Vector2 vel = this.body.getLinearVelocity();
-        vel.y = 100;//upwards - don't change x velocity
-        
+    	Vector2 vel = new Vector2(0, 1);        
         
         if(this.jumpCount > 0) {
         	this.jumpCount--;
-        	body.setLinearVelocity(vel.x, 0);
             System.out.println("jump before: " + body.getLinearVelocity());
-            body.setTransform(pos.x, pos.y + 0.01f, 0);
-    		body.applyLinearImpulse(0, 500, pos.x, pos.y);			
+    		body.applyLinearImpulse(vel, pos);			
     		System.out.println("jump, " + body.getLinearVelocity());        	
         }
         
@@ -136,7 +134,7 @@ public class Joe extends AbstractGraphicItem {
 		        		fix.setFriction(1.0f);				
 					
 					// Reset the number of jump
-					this.jumpCount = JUMP_COUNT;					
+					this.jumpCount = JUMP_COUNT;
 				// if start jumping
 				}else{
 					for(Fixture fix : body.getFixtureList())
@@ -147,7 +145,7 @@ public class Joe extends AbstractGraphicItem {
 			}
 			
 			// Do the run
-			this.run();			
+			this.run();
 		}
 	}
 	
@@ -156,14 +154,12 @@ public class Joe extends AbstractGraphicItem {
 	 */
 	private void run()
 	{
-		/*if(moveState == MoveState.RUNNING){
+		if(moveState == MoveState.RUNNING){
 			Vector2 vel = this.body.getLinearVelocity();
 	        vel.x = speed;//upwards - don't change x velocity
 	        body.setLinearVelocity(vel); 
-		}*/
+		}
 	}
-	
-	
 	
 	public int getSpeed()
 	{

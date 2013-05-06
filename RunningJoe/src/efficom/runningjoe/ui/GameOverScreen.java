@@ -9,13 +9,14 @@ import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.Score;
 import efficom.runningjoe.services.RunningJoeSound;
 import efficom.runningjoe.services.SoapManager;
+import efficom.runningjoe.services.SoundManager;
 
 public class GameOverScreen extends AbstractMenuItemScreen{
 	private TextButton validateButton, cancelButton;
 	private Score score;
 	
 	public GameOverScreen(RunningJoe game, Score score )
-	{		
+	{
 		super( game, "GameOver" );
 		this.score = score;
 		
@@ -52,7 +53,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
-	           	game.getSoundManager().play( RunningJoeSound.CLICK );
+	           	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	           	game.restart();
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
@@ -71,9 +72,8 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Restart clicked: " + getName() );
-	           	game.getSoundManager().play( RunningJoeSound.CLICK );
+	        	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	           	game.restart();
-	           	game.getWorld().Start();
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 import efficom.runningjoe.services.SoapManager;
+import efficom.runningjoe.services.SoundManager;
 
 public class LoginScreen extends AbstractMenuItemScreen {
 	private TextButton connectButton, ignoreButton;
@@ -71,7 +72,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
 			public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 			{
 				Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
-				game.getSoundManager().play( RunningJoeSound.CLICK );
+				SoundManager.getInstance().play( RunningJoeSound.CLICK );
 				game.setScreen( new MainScreen( game ) );
 				return true;
 			}
@@ -88,7 +89,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
 			public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 			{
 				Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
-				game.getSoundManager().play( RunningJoeSound.CLICK );
+				SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	       	
 				// Login logic--------------------------------------------------
 				String ret = SoapManager.getInstance().Login(playerText.getText(),

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
 import efficom.runningjoe.services.SoapManager;
+import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.ws.userapi.ArrayOfString;
 
 public class HighScoresScreen extends AbstractMenuItemScreen{
@@ -46,7 +47,7 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
-	           	game.getSoundManager().play( RunningJoeSound.CLICK );
+	        	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	           	game.setScreen( new MainScreen( game ) );
 	           	return true;
 	        }

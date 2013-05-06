@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.core.RjWorld;
 import efficom.runningjoe.services.RunningJoeSound;
+import efficom.runningjoe.services.SoundManager;
 
 public class MainScreen extends AbstractScreen
 {
@@ -32,9 +33,12 @@ public class MainScreen extends AbstractScreen
     
     @Override
     public void render(float delta)
-    {    	
+    {
+    	this.world.render();
+    	
+    	
     	// If the game has started handle the pressed keys
-    	if(world.isStarded()){
+    	if(world.isStarded() && !menuDawn){
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
 	        	this.world.getJoe().Jump();
 	    	
@@ -109,7 +113,7 @@ public class MainScreen extends AbstractScreen
 		            public boolean touchDown( InputEvent event, float x, float y, int pointer, int button )
 		            {
 		        		Gdx.app.log( RunningJoe.LOG, "Game resume clicked: " + getName() );
-		        		game.getSoundManager().play( RunningJoeSound.CLICK );
+		        		SoundManager.getInstance().play( RunningJoeSound.CLICK );
 		                super.touchUp( event, x, y, pointer, button ); 
 		                world.Start();
 		                return true;
@@ -131,9 +135,9 @@ public class MainScreen extends AbstractScreen
 	            public boolean touchDown( InputEvent event, float x, float y, int pointer, int button )
 	            {
 	        		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
-	        		game.getSoundManager().play( RunningJoeSound.CLICK );
-	                super.touchUp( event, x, y, pointer, button );   
-	                world = new RjWorld(game);	                
+	        		SoundManager.getInstance().play( RunningJoeSound.CLICK );
+	                super.touchUp( event, x, y, pointer, button );
+	                world = new RjWorld();	                
 	                world.Start();
 	                return true;
 	            }
@@ -155,7 +159,7 @@ public class MainScreen extends AbstractScreen
 	            {
 	            	Gdx.app.log( RunningJoe.LOG, "Game options clicked: " + getName() );
 	                super.touchUp( event, x, y, pointer, button );
-	                game.getSoundManager().play( RunningJoeSound.CLICK );
+	                SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	                game.setScreen( new OptionsScreen( game ) );
 	            	return true;
 	            }
@@ -173,7 +177,7 @@ public class MainScreen extends AbstractScreen
 	            public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	            {
 	            	Gdx.app.log( RunningJoe.LOG, "High scores clicked: " + getName() );
-	            	game.getSoundManager().play( RunningJoeSound.CLICK );
+	            	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	                super.touchUp( event, x, y, pointer, button );            	
 	                game.setScreen( new HighScoresScreen( game ) );
 	            	return true;
@@ -191,7 +195,7 @@ public class MainScreen extends AbstractScreen
 	            public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 	            {
 	            	Gdx.app.log( RunningJoe.LOG, "Exit clicked: " + getName() );
-	            	game.getSoundManager().play( RunningJoeSound.CLICK );
+	            	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	            	Gdx.app.exit();
 	            	return true;
 	            }

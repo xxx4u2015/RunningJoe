@@ -40,11 +40,9 @@ public abstract class AbstractScreen implements Screen
     private TextureAtlas atlas;
     private InputMultiplexer inputMultiplexer;
 
-
     public AbstractScreen(RunningJoe game )
     {    	
         this.game = game;
-        
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
         

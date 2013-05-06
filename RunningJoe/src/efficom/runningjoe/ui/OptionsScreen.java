@@ -2,6 +2,7 @@ package efficom.runningjoe.ui;
 
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.RunningJoeSound;
+import efficom.runningjoe.services.SoundManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,7 +44,7 @@ public class OptionsScreen extends AbstractMenuItemScreen{
 		    public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
 		    {
 				Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
-		        game.getSoundManager().play( RunningJoeSound.CLICK );
+				SoundManager.getInstance().play( RunningJoeSound.CLICK );
 		        game.setScreen( new MainScreen( game ) );
 		        return true;
 		    }
@@ -64,7 +65,7 @@ public class OptionsScreen extends AbstractMenuItemScreen{
 		    	
 		    	// Return to the main screen
 		     	Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
-		       	game.getSoundManager().play( RunningJoeSound.CLICK );
+		     	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 		       	game.setScreen( new MainScreen( game ) );
 		       	return true;
 		    }
