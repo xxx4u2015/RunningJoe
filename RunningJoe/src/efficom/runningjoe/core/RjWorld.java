@@ -78,13 +78,7 @@ public class RjWorld{
 		
 					
 		//Setup();
-					
-		//font = new BitmapFont(Gdx.files.internal("resources/fonts/arial-15.fnt"), false);
-		//font.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE);
-					
-		rect_reset = new Rectangle(0, RunningJoe.SCREEN_HEIGHT-30/RunningJoe.BOX2D_HEIGHT_SCALE, 100/RunningJoe.BOX2D_WIDTH_SCALE, 30/RunningJoe.BOX2D_HEIGHT_SCALE);
-					
-		Gdx.app.log("MyGdxGame", "GAME STARTED");
+		Gdx.app.log("Running Joe", "GAME STARTED");
 	}
 	
 	public boolean isStarded() {

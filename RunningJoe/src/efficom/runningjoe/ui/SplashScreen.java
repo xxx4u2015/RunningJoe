@@ -20,7 +20,7 @@ public class SplashScreen extends AbstractScreen
     public SplashScreen(RunningJoe game){ 
     	super( game );
     	splashImage = new Image(new Texture(Gdx.files.internal("images/splash.png")));
-        splashImage.setFillParent( true );
+        splashImage.setFillParent( false );
     }
 
     @Override
