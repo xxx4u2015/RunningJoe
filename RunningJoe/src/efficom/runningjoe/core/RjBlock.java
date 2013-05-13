@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.AssetsManager;
@@ -20,13 +21,13 @@ public class RjBlock extends AbstractGraphicItem {
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
-	public static float BLOCK_WIDTH = 16;
-	public static float BLOCK_HEIGHT = 8;
+	public static int BLOCK_WIDTH = 16;
+	public static int BLOCK_HEIGHT = 8;
 	
 	/**
 	 * Texture of the RjBlock
 	 */
-	private TextureRegion texture;
+	private TextureRegion texture = null;
 	
 	/**
 	 * Inherited Constructor
@@ -42,8 +43,10 @@ public class RjBlock extends AbstractGraphicItem {
 		}
 		catch(Exception e){
 			this.blockNumber = 1;
-		}
-		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), this.blockNumber*32, 0, 32, 48 );
+		}	
+		
+		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), this.blockNumber*BLOCK_WIDTH, 0, 32, 32);
+		
 		this.body = null;
 		infos = new GraphicItemInfos(name, sprite);
 		
@@ -58,12 +61,16 @@ public class RjBlock extends AbstractGraphicItem {
 	public void generateRandomBlock(float position){	
 		
 		BodyDef groundBodyDef = new BodyDef();
-
-		groundBodyDef.position.set(new Vector2(position, RunningJoe.PixToMeter(BLOCK_HEIGHT)));
+		groundBodyDef.position.set(new Vector2(ConvertToBox(position), ConvertToBox(BLOCK_HEIGHT)));
 		this.body = this.world.getWorld().createBody(groundBodyDef);
+		
+		//CreateBody(new Vector2(position, RunningJoe.PixToMeter(BLOCK_HEIGHT)), 0, BodyType.DynamicBody);
+		
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(RunningJoe.PixToMeter(BLOCK_WIDTH), RunningJoe.PixToMeter(BLOCK_HEIGHT));
 		this.body.createFixture(groundBox, 0.0f);
+		
+		LoadTexture(this.texture, new Vector2(0,0));
 		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position, new Sprite(texture));
 		this.body.setUserData(infosFloor);
 	}

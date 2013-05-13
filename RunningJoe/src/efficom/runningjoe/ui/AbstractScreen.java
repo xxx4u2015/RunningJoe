@@ -46,7 +46,7 @@ public abstract class AbstractScreen implements Screen
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
         
-        this.stage = new Stage(RunningJoe.GAME_VIEWPORT_WIDTH, RunningJoe.GAME_VIEWPORT_HEIGHT, true);
+        this.stage = new Stage(RunningJoe.SCREEN_WIDTH, RunningJoe.SCREEN_HEIGHT, true);
         //inputMultiplexer = new InputMultiplexer(stage);
         Gdx.input.setInputProcessor(stage);
                 

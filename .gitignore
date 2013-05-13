@@ -43,3 +43,5 @@ Thumbs.db
 bin/
 .settings/
 .gen/
+.metadata/
+workspace/

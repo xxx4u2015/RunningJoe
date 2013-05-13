@@ -36,7 +36,6 @@ public class MainScreen extends AbstractScreen
     {
     	this.world.render();
     	
-    	
     	// If the game has started handle the pressed keys
     	if(world.isStarded() && !menuDawn){
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
@@ -51,6 +50,8 @@ public class MainScreen extends AbstractScreen
 		    	// Move to the right
 		    	if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 		    		this.world.getJoe().Move(true, 1.0f);
+		    	
+		    	//if(Gdx.input.m)
 	    	}
 	        
 	        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))

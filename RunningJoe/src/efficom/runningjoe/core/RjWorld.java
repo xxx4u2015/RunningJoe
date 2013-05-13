@@ -23,7 +23,6 @@ import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 
 public class RjWorld{
 	//for drawing
-	private SpriteBatch batch;
 	Vector3 touchPoint;
 	private Box2DDebugRenderer debugRenderer;
 	//reset variables
@@ -63,10 +62,9 @@ public class RjWorld{
 				RunningJoe.PixToMeter(RunningJoe.SCREEN_HEIGHT)/2*RunningJoe.BOX2D_HEIGHT_SCALE, 0);
 		
 		this.groundBlocks = new LinkedList<RjBlock>();
-						
-		batch = new SpriteBatch();
 					
-		touchPoint = new Vector3(0,0,0);		
+		touchPoint = new Vector3(0,0,0);	
+		spriteBatch = new SpriteBatch();
 
 		Vector2 gravity=new Vector2(0.0f, -9.81f); //we have to flip ALL y values- AS3 uses down int he y duirection as increasing, whereas OpenGL uses UP in the y direction as positive
 		Boolean sleep = true;
@@ -77,9 +75,9 @@ public class RjWorld{
 		debugRenderer = new Box2DDebugRenderer();
 		
 		this.score = new Score();
-		spriteBatch = new SpriteBatch();
+		
 					
-		Setup();
+		//Setup();
 					
 		//font = new BitmapFont(Gdx.files.internal("resources/fonts/arial-15.fnt"), false);
 		//font.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE);
@@ -97,6 +95,11 @@ public class RjWorld{
 
 	public Joe getJoe() {
 		return this.joe;
+	}
+	
+	public OrthographicCamera getCamera()
+	{
+		return this.camera;
 	}
 
 	
@@ -164,15 +167,10 @@ public class RjWorld{
 	}
 		
 	public void render()
-	{
-		
-			
+	{			
 		Gdx.gl.glClearColor(.2f, .2f, .2f, 1); //0->1 = 0->255
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		camera.update();
-			
-		debugRenderer.render(world, camera.combined);
-		
+				
 		this.generateGroud();
 		
 		if (this.started) {
@@ -184,61 +182,25 @@ public class RjWorld{
 			world.step(deltaTime, 10, 10);
 			// Increase the score 
 			score.addValue((int)this.joe.getSpeed() *10 * Gdx.app.getGraphics().getDeltaTime());
-			joe.render();
-			this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
+			
+			joe.render();			
+			//this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
 		}
-			
-		batch.begin();
-		//font.drawMultiLine(batch, "Reset", rect_reset.x, rect_reset.y+font.getLineHeight(), rect_reset.width, HAlignment.CENTER);
-		Iterator<Body> bi = world.getBodies();
-
-		while (bi.hasNext()) {
-			Body b = bi.next();
-
-			// Get the bodies user data - in this example, our user
-			// data is an instance of the Entity class
-			GraphicItemInfos infos;
-			try{
-				infos = (GraphicItemInfos) b.getUserData();
-			}catch(Exception ex){
-				infos = null;							
-			}
-			
-			if (infos != null && infos.getTexture() != null) {
-				Vector2 camOrigin = new Vector2(
-						this.camera.position.x	- this.camera.viewportWidth / 2, 
-						this.camera.position.y	- this.camera.viewportHeight / 2
-					);
-	
-				infos.getSprite().setPosition(
-						RunningJoe.MeterToPix(b.getPosition().x - camOrigin.x),
-						RunningJoe.MeterToPix(b.getPosition().y - camOrigin.y)
-					);
-				infos.getSprite().setRotation(MathUtils.radiansToDegrees * b.getAngle());
-	
-				spriteBatch.begin();
-				infos.getSprite().draw(spriteBatch);
-				spriteBatch.end();
-	
-			}
-			
-			
-			/*if (infos != null && infos.getTexture() != null) {
-				Vector2 camOrigin = new Vector2(this.camera.position.x
-						- this.camera.viewportWidth / 2, this.camera.position.y
-						- this.camera.viewportHeight / 2);
-	
-				infos.getSprite().setPosition(b.getPosition().x - camOrigin.x,b.getPosition().y - camOrigin.y);
-				infos.getSprite().setRotation(MathUtils.radiansToDegrees * b.getAngle());
-	
-				spriteBatch.begin();
-				infos.getSprite().draw(spriteBatch);
-				spriteBatch.end();
-	
-			}*/
-			
+		
+		camera.update();
+		
+		debugRenderer.render(world, camera.combined);
+		
+		// Draw bodies textures
+		spriteBatch.begin();
+		joe.DrawTexture(spriteBatch);
+		
+		Iterator<RjBlock> bi = groundBlocks.iterator();
+		while(bi.hasNext()){
+			RjBlock block = bi.next();
+			block.DrawTexture(spriteBatch);
 		}
-		batch.end();
+		spriteBatch.end();
 	}
 	
 	/**
@@ -293,10 +255,10 @@ public class RjWorld{
 			// Find the position of the previous bloc
 			if (this.groundBlocks.size() != 0) {
 				RjBlock body = this.groundBlocks.get(this.groundBlocks.size() - 1);
-				posX = body.getPosition().x	+ RunningJoe.PixToMeter(RjBlock.BLOCK_WIDTH * 2);
+				posX = RunningJoe.MeterToPix(body.getPosition().x)	+ RjBlock.BLOCK_WIDTH * 2;
 			}
 			
-			RjBlock groundBody = new RjBlock(this, "Floor "+posX);			
+			RjBlock groundBody = new RjBlock(this, "Floor "+ posX);			
 			groundBody.generateRandomBlock(posX);
 			Gdx.app.log(RunningJoe.LOG, "Created block: " + posX);
 			
@@ -305,7 +267,7 @@ public class RjWorld{
 
 		}
 		
-		this.fallingGround();
+		//this.fallingGround();
 		
 		if (this.groundBlocks.size() > 32)
 			Gdx.app.log(RunningJoe.LOG, "Too much ground blocks: " + this.groundBlocks.size());

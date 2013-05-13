@@ -1,69 +1,64 @@
 package efficom.runningjoe.core;
 
-import aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-
 import efficom.runningjoe.RunningJoe;
 
+/***
+ * Joe the main character of RunningJoe
+ * 
+ * @author Guillaume BAILLEUL
+ */
 public class Joe extends AbstractGraphicItem {
-	private enum MoveState{JUMPING, RUNNING};
-	
 	static final char JUMP_COUNT = 2;
+	private enum MoveState{JUMPING, RUNNING};
+	static final float DENSITY = 0.3f;
+	static final float FRICTION = 0.3f;
+	static final float RESTITUTION = 0.1f;
 	
-	
+	// Class attributes
 	private static final float BODY_WIDTH = 40;
 	private int speed = 1;
 	private MoveState moveState = MoveState.RUNNING;
 	private char jumpCount = JUMP_COUNT;
+	private Vector2 initPos;
 	
+	/***
+	 * Class constructor
+	 * @param world
+	 */
 	public Joe(RjWorld world){		
 		super(world, "Joe");
 		this.sprite = new Sprite(new Texture(
 				Gdx.files.internal("images/standingjoe.png")));
-		new Texture(Gdx.files.internal("images/standingjoe.png"));
+		
+		initPos = new Vector2(
+	    		RunningJoe.SCREEN_WIDTH* 0.75f,
+	    		RjBlock.BLOCK_HEIGHT*10);
+		
 		this.createStandingJoe();
 	}
 	
-	/*
+	/**
 	 * Create the standing joe representation
 	 */
 	private void createStandingJoe() {
-		infos = new GraphicItemInfos("Joe",this.sprite);
-		
-		// Create a loader for the file saved from the editor.
-		FileHandle fh = Gdx.files.internal("data/joe.json");
-	    BodyEditorLoader loader = new BodyEditorLoader(fh);
-	 
-	    // Create the body
-	    BodyDef bd = new BodyDef();	    
-	    bd.position.set(
-	    		RunningJoe.PixToMeter(RunningJoe.GAME_VIEWPORT_WIDTH* 0.75f),
-	    		RunningJoe.PixToMeter(RjBlock.BLOCK_HEIGHT*10));
-	    bd.type = BodyType.DynamicBody;
-	    bd.fixedRotation = true;
-	    	    	 
-	    // Create a FixtureDef
-	    FixtureDef fd = new FixtureDef();
-	    fd.density = 0.3f;
-	    fd.friction = 0.5f;
-	    fd.restitution = 0.1f;
+	    // Create the body and fixture
+	    CreateBody(initPos,0,BodyType.DynamicBody, true);	      
+	    LoadFixture("data/joe.json", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);	    
 	    
-	    // Add the body to the world
-	    this.body = this.world.getWorld().createBody(bd);
-	 
-	    // Create the body fixture automatically by using the loader.
-	    loader.attachFixture(body, "StandingJoe", fd, RunningJoe.PixToMeter(BODY_WIDTH));	    
-	    	    
+	    // Create the Texture
+	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));     
+	    LoadTexture(region, new Vector2(0,0));
+	    
+	    infos = new GraphicItemInfos("Joe", this.sprite);
 	    this.body.setUserData(infos);
-	    
 	}	
 	
 	/*
@@ -145,11 +140,11 @@ public class Joe extends AbstractGraphicItem {
 			}
 			
 			// Do the run
-			this.run();
+			//this.run();			
 		}
 	}
 	
-	/*
+	/**
 	 * Make running 
 	 */
 	private void run()
@@ -161,6 +156,10 @@ public class Joe extends AbstractGraphicItem {
 		}
 	}
 	
+	/***
+	 * 
+	 * @return the speed of joe
+	 */
 	public int getSpeed()
 	{
 		return this.speed;

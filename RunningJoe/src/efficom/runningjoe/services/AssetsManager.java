@@ -34,8 +34,6 @@ public class AssetsManager extends AssetManager {
          }                
         return instance;
     }
-
-	
 	
 	public Texture getGround() {
 		return this.ground;
