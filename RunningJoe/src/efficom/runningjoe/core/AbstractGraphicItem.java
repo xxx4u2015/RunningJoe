@@ -101,7 +101,8 @@ public abstract class AbstractGraphicItem {
     public void DrawTexture(SpriteBatch spriteBatch)
     {
     	OrthographicCamera camera = world.getCamera();
-    	//float xcam = camera.position.x - camera.viewportWidth /2;
+    	float xcam = camera.position.x - camera.viewportWidth /2;
+    	float ycam = camera.position.y - camera.viewportHeight /2;
     	float xBody = body.getPosition().x;    	
     	float yBody = body.getPosition().y;
     	
@@ -109,8 +110,8 @@ public abstract class AbstractGraphicItem {
     	float yTextOffset = tr.height /2;
     	
     	// Calculate position
-    	float x = ConvertToWorld(xBody)+ xTextOffset; 
-    	float y = ConvertToWorld(yBody)+yTextOffset; 
+    	float x = ConvertToWorld(xBody - xcam)+ xTextOffset; 
+    	float y = ConvertToWorld(yBody - ycam)+yTextOffset; 
     	this.tr.SetPosition(x, y);
     	
     	// Draw the texture

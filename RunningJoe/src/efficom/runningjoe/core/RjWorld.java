@@ -184,7 +184,7 @@ public class RjWorld{
 			score.addValue((int)this.joe.getSpeed() *10 * Gdx.app.getGraphics().getDeltaTime());
 			
 			joe.render();			
-			//this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
+			this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
 		}
 		
 		camera.update();
@@ -267,7 +267,7 @@ public class RjWorld{
 
 		}
 		
-		//this.fallingGround();
+		this.fallingGround();
 		
 		if (this.groundBlocks.size() > 32)
 			Gdx.app.log(RunningJoe.LOG, "Too much ground blocks: " + this.groundBlocks.size());

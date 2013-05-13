@@ -34,11 +34,11 @@ public abstract class AbstractScreen implements Screen
     
     private LanguagesManager languageManager;    
     private Table table;
-    private BitmapFont font;
+    private BitmapFont font, titlefont;
     private SpriteBatch batch;
     private Skin skin;
     private TextureAtlas atlas;
-    private InputMultiplexer inputMultiplexer;
+    private InputMultiplexer inputMultiplexer;    
 
     public AbstractScreen(RunningJoe game )
     {    	
@@ -46,30 +46,37 @@ public abstract class AbstractScreen implements Screen
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
         
+        font = new BitmapFont(Gdx.files.internal("fonts/decibel_2.fnt"), false);
+      	font.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE);
+      	
+      	titlefont = new BitmapFont(Gdx.files.internal("fonts/decibel_2.fnt"), false);
+      	titlefont.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE * 2);
+      	     	
+        
         this.stage = new Stage(RunningJoe.SCREEN_WIDTH, RunningJoe.SCREEN_HEIGHT, true);
         //inputMultiplexer = new InputMultiplexer(stage);
         Gdx.input.setInputProcessor(stage);
                 
         //Button style
         this.buttonStyle = new TextButtonStyle();
-        this.buttonStyle.font = new BitmapFont();
+        this.buttonStyle.font = font;
         this.buttonStyle.fontColor = Color.WHITE;
         this.buttonStyle.pressedOffsetY = 1f;
         this.buttonStyle.downFontColor = new Color(0.8f, 0.8f, 0.8f, 1f);
         
         //Label style        
         labelStyle = new LabelStyle();
-        labelStyle.font = new BitmapFont();
+        labelStyle.font = font;
         labelStyle.fontColor = Color.WHITE;
         
         //Text field style
         textFieldStyle = new TextFieldStyle();
-        textFieldStyle.font = new BitmapFont();
+        textFieldStyle.font = font;
         textFieldStyle.fontColor = Color.WHITE;
         
         // Select Box style
         this.selectBoxStyle = new SelectBoxStyle();
-        this.selectBoxStyle.font = new BitmapFont();
+        this.selectBoxStyle.font = font;
         this.selectBoxStyle.fontColor = Color.WHITE;
         
         //Creation du skin

@@ -140,7 +140,7 @@ public class Joe extends AbstractGraphicItem {
 			}
 			
 			// Do the run
-			//this.run();			
+			this.run();			
 		}
 	}
 	
