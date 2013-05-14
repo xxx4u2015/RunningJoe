@@ -7,8 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="desktop" level="project" />
     <orderEntry type="module" module-name="RunningJoe" />
+    <orderEntry type="library" name="Desktop" level="project" />
   </component>
 </module>
 
