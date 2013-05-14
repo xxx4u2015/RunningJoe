@@ -45,3 +45,4 @@ bin/
 .metadata/
 workspace/
 .idea/
+*.iml
