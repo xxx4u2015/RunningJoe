@@ -24,12 +24,10 @@ public class RunningJoe extends Game
     public static float SCREEN_WIDTH_ORIGINAL=800;
 	public static float SCREEN_HEIGHT_ORIGINAL=480;		
 	public static float SCREEN_WIDTH=800;
-	public static float SCREEN_HEIGHT=480;		
+	public static float SCREEN_HEIGHT=480;
 	public static float BOX2D_WIDTH_SCALE=1;
 	public static float BOX2D_HEIGHT_SCALE=1;
-	public static float PIXELS_PER_METER = 40.0f;
-	
-	
+	public static float PIXELS_PER_METER = 30.0f;
 
     // whether we are in development mode
     public static final boolean DEV_MODE = false;

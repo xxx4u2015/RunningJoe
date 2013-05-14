@@ -1,9 +1,12 @@
 package efficom.runningjoe.core;
 
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -21,13 +24,16 @@ public class Joe extends AbstractGraphicItem {
 	static final float DENSITY = 0.3f;
 	static final float FRICTION = 0.3f;
 	static final float RESTITUTION = 0.1f;
+	static final float JUMP_FORCE = 10.0f;
+	static final float INITIAL_SPEED = 1;
 	
 	// Class attributes
-	private static final float BODY_WIDTH = 40;
-	private int speed = 1;
+	private static final float BODY_WIDTH = 60;
+	private float speed = INITIAL_SPEED;
 	private MoveState moveState = MoveState.RUNNING;
 	private char jumpCount = JUMP_COUNT;
 	private Vector2 initPos;
+	private PointLight joelight;
 	
 	/***
 	 * Class constructor
@@ -35,12 +41,16 @@ public class Joe extends AbstractGraphicItem {
 	 */
 	public Joe(RjWorld world){		
 		super(world, "Joe");
+		
 		this.sprite = new Sprite(new Texture(
 				Gdx.files.internal("images/standingjoe.png")));
 		
 		initPos = new Vector2(
 	    		RunningJoe.SCREEN_WIDTH* 0.75f,
 	    		RjBlock.BLOCK_HEIGHT*10);
+		
+		//joelight = new PointLight(world.getRayHandler(), 5, new Color(0.5f,0.5f,0.5f,0.8f), 1, 0, 0);
+		//joelight.attachToBody(this.body, 0.0f, 0.0f);
 		
 		this.createStandingJoe();
 	}
@@ -85,7 +95,7 @@ public class Joe extends AbstractGraphicItem {
     {
 		
 		Vector2 pos = this.body.getPosition();
-    	Vector2 vel = new Vector2(0, 1);        
+    	Vector2 vel = new Vector2(0, JUMP_FORCE);        
         
         if(this.jumpCount > 0) {
         	this.jumpCount--;
@@ -121,6 +131,8 @@ public class Joe extends AbstractGraphicItem {
 			 */		
 			MoveState oldState = this.moveState;
 			this.moveState = this.hasContact() ? MoveState.RUNNING : MoveState.JUMPING;
+			
+			this.speed = this.speed + Gdx.app.getGraphics().getDeltaTime() * 0.01f;
 			
 			if( oldState != this.moveState){
 				// if came back to the ground
@@ -160,7 +172,7 @@ public class Joe extends AbstractGraphicItem {
 	 * 
 	 * @return the speed of joe
 	 */
-	public int getSpeed()
+	public float getSpeed()
 	{
 		return this.speed;
 	}

@@ -41,16 +41,14 @@ public class MainScreen extends AbstractScreen
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
 	        	this.world.getJoe().Jump();
 	    	
-	    	// Allow moving in dev mode
-	    	if(RunningJoe.DEV_MODE){
-		    	// Move to the left
-		    	if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-		    		this.world.getJoe().Move(false, 1.5f);
+	    	
+		    // Move to the left
+		    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+		    	this.world.getJoe().Move(false, 5f);
 		    	
-		    	// Move to the right
-		    	if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-		    		this.world.getJoe().Move(true, 3.0f);
-		    }
+		    // Move to the right
+		    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+		    		this.world.getJoe().Move(true, 5.0f);
 	        
 	        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
 	        	this.world.Pause();

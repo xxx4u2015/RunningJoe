@@ -17,7 +17,6 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
@@ -45,3 +44,4 @@ bin/
 .gen/
 .metadata/
 workspace/
+.idea/

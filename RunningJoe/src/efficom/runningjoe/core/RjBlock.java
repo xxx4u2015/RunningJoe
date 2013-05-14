@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.AssetsManager;
@@ -21,8 +20,8 @@ public class RjBlock extends AbstractGraphicItem {
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
-	public static int BLOCK_WIDTH = 16;
-	public static int BLOCK_HEIGHT = 8;
+	public static int BLOCK_WIDTH = 32;
+	public static int BLOCK_HEIGHT = 16;
 	
 	/**
 	 * Texture of the RjBlock
@@ -45,7 +44,7 @@ public class RjBlock extends AbstractGraphicItem {
 			this.blockNumber = 1;
 		}	
 		
-		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), this.blockNumber*BLOCK_WIDTH, 0, 32, 32);
+		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), (this.blockNumber % 5) *(BLOCK_WIDTH), 0, BLOCK_WIDTH*2, BLOCK_HEIGHT * 4);
 		
 		this.body = null;
 		infos = new GraphicItemInfos(name, sprite);
