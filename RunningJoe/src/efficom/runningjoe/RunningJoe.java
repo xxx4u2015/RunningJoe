@@ -12,7 +12,7 @@ import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.ProfileManager;
 import efficom.runningjoe.ui.SplashScreen;
-import efficom.runningjoe.ui.LoginScreen;;
+import efficom.runningjoe.ui.LoginScreen;
 
 /**
  * The game's main class, called as application events are fired.

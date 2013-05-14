@@ -1,9 +1,13 @@
 package efficom.runningjoe.core;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import efficom.runningjoe.RunningJoe;
 
@@ -16,13 +20,23 @@ import efficom.runningjoe.RunningJoe;
 public class Background{
 	private float speed;
 	private RjWorld world;
-	private TextureWrapper tr1, tr2;
+    private LinkedList<TextureWrapper> listTr;
+    private int trWidth, trHeight;
+    private TextureRegion region;
+    private int deleted = 0;
 	
 	public Background(RjWorld world,TextureRegion region, float speed){
 		this.world = world;
 		this.speed = speed;
-		tr1 = new TextureWrapper(region, new Vector2(0,0));
-		tr2 = new TextureWrapper(region, new Vector2(0,0));
+        listTr = new LinkedList<TextureWrapper>();
+
+        this.region = region;
+
+        TextureWrapper tr = new TextureWrapper(region, new Vector2(0,0));
+        trWidth = tr.width;
+        trHeight = tr.height;
+        listTr.add(tr);
+
 	}
 	
 	/**
@@ -32,28 +46,43 @@ public class Background{
 	{		
 		OrthographicCamera camera = world.getCamera();		
 		
-		Vector2 vectCam = new Vector2(
+		Vector2 vecCam = new Vector2(
 				camera.position.x - camera.viewportWidth /2,
 				camera.position.y - camera.viewportHeight /2);
     	
-    	Vector2 vectOffset = new Vector2(tr1.width /2,tr1.height /2);
-    	
     	// Inverse the tr
-    	if(RunningJoe.PixToMeter(tr2.position.x) < RunningJoe.MeterToPix(vectCam.x)){
-    		tr1.SetPosition(tr2.position.x, tr2.position.y);
+    	if(listTr.getLast().position.x < RunningJoe.MeterToPix(camera.position.x - camera.viewportWidth)){
+            listTr.add(new TextureWrapper(region, new Vector2(0,0)));
+            Gdx.app.log(RunningJoe.LOG, "Created background");
     	}
     	
     	// Calculate position
     	Vector2 pos1 = new Vector2(
-    			vectOffset.x - RunningJoe.MeterToPix(vectCam.x*this.speed),
-    			vectOffset.y - RunningJoe.MeterToPix(vectCam.y));
-    	this.tr1.SetPosition(pos1.x, pos1.y);
-    	
-    	// Draw the texture
-    	this.tr1.Draw(spriteBatch);
-    	
-    	this.tr2.SetPosition(pos1.x+tr1.width, pos1.y);
-    	this.tr2.Draw(spriteBatch);
+    			trWidth/2 - RunningJoe.MeterToPix(vecCam.x*this.speed),
+    			trHeight/2 - RunningJoe.MeterToPix(vecCam.y));
+
+        Iterator<TextureWrapper> iTr = listTr.iterator();
+        int i = 0;
+        TextureWrapper toDelete = null;
+        while(iTr.hasNext())
+        {
+            TextureWrapper tr = iTr.next();
+            tr.SetPosition(pos1.x + trWidth * (i+deleted), pos1.y);
+            tr.Draw(spriteBatch);
+            // Set a block to delete if not displayed anymore
+            if( tr.position.x < -trWidth/2) toDelete = tr;
+            i++;
+        }
+
+        // Delete the block not displayed
+        if (toDelete != null)
+        {
+            listTr.remove(toDelete);
+            Gdx.app.log(RunningJoe.LOG, "Deleted background");
+            this.deleted++;
+        }
+
+
     	
 	}
 }

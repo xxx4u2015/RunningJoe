@@ -67,7 +67,7 @@ public class Joe extends AbstractGraphicItem {
 	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));     
 	    LoadTexture(region, new Vector2(0,0));
 	    
-	    infos = new GraphicItemInfos("Joe", this.sprite);
+	    infos = new GraphicItemInfos("Joe");
 	    this.body.setUserData(infos);
 	}	
 	

@@ -3,7 +3,6 @@ package efficom.runningjoe.core;
 import java.util.Iterator;
 
 import aurelienribon.bodyeditor.BodyEditorLoader;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
-
 import efficom.runningjoe.RunningJoe;
 
 public abstract class AbstractGraphicItem {
@@ -35,6 +33,7 @@ public abstract class AbstractGraphicItem {
 	 */
 	public AbstractGraphicItem(RjWorld world, String name){
 		this.world = world;
+        infos = new GraphicItemInfos(name);
 	}
 	
 	/**
@@ -51,19 +50,36 @@ public abstract class AbstractGraphicItem {
 	    bodyDef.angle=angle;
 	    bodyDef.fixedRotation = rot;
 	    body = world.getWorld().createBody(bodyDef);
+        body.setUserData(this.infos);
 	}
 	
 	public void CreateBody(Vector2 pos,float angle, BodyType bodyType){
 		CreateBody(pos, angle, bodyType, false);
 	}
+
+    /***
+     * Create fixture
+     * @param dens  Density from 0 to 1
+     * @param fric  Friction from 0 to 1
+     * @param rest  Restitution from à to 1
+     * @param width The width of the element
+     */
+    /*public void CreateFixture(Shape shape, float dens, float fric, float rest, float width)
+    {
+        // Create a FixtureDef
+        FixtureDef fd = new FixtureDef();
+        fd.density = dens;
+        fd.friction = fric;
+        fd.restitution = rest;
+    } */
 	
 	/***
 	 * Load fixture from a file
-	 * @param filename
-	 * @param dens
-	 * @param fric
-	 * @param rest
-	 * @param width
+	 * @param filename  The texture file name
+	 * @param dens  Density from 0 to 1
+	 * @param fric  Friction from 0 to 1
+	 * @param rest  Restitution from à to 1
+	 * @param width The width of the element
 	 */
 	public void LoadFixture(String filename, float dens, float fric, float rest, float width)
 	{
@@ -78,7 +94,7 @@ public abstract class AbstractGraphicItem {
 	    fd.restitution = rest;
 		
 		// Create the body fixture automatically by using the loader.
-	    loader.attachFixture(body, "StandingJoe", fd, ConvertToBox(width));	  
+	    loader.attachFixture(body, "StandingJoe", fd, ConvertToBox(width));
 	}
 	
 	public void LoadTexture(TextureRegion region, Vector2 pos)
@@ -96,23 +112,24 @@ public abstract class AbstractGraphicItem {
     
     /***
      * Calculate the texture position and draw it
-     * @param spriteBatch
+     * @param spriteBatch The sprite batch
      */
     public void DrawTexture(SpriteBatch spriteBatch)
     {
     	OrthographicCamera camera = world.getCamera();
-    	float xcam = camera.position.x - camera.viewportWidth /2;
-    	float ycam = camera.position.y - camera.viewportHeight /2;
-    	float xBody = body.getPosition().x;    	
-    	float yBody = body.getPosition().y;
-    	
+        Vector2 vecCam = new Vector2(
+                camera.position.x - camera.viewportWidth /2,
+                camera.position.y - camera.viewportHeight /2);
+
     	float xTextOffset = tr.width /2;
     	float yTextOffset = tr.height /2;
     	
     	// Calculate position
-    	float x = ConvertToWorld(xBody - xcam)+ xTextOffset; 
-    	float y = ConvertToWorld(yBody - ycam)+yTextOffset; 
-    	this.tr.SetPosition(x, y);
+        Vector2 vecPos = new Vector2(
+                ConvertToWorld(body.getPosition().x - vecCam.x)+ xTextOffset,
+                ConvertToWorld(body.getPosition().y - vecCam.y)+ yTextOffset);
+
+    	this.tr.SetPosition(vecPos.x, vecPos.y);
     	
     	// Draw the texture
     	this.tr.Draw(spriteBatch);    	

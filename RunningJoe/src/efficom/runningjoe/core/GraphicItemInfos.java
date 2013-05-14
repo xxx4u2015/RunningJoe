@@ -1,32 +1,23 @@
 package efficom.runningjoe.core;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
+/**
+ * A class that handle the informations of a graphic item
+ *
+ * @author Guillaume BAILLEUL
+ */
 public class GraphicItemInfos {
-	Sprite sprite;
-	String name;
+    String name;
 	
-	public GraphicItemInfos(String name, Sprite sprite)
+	public GraphicItemInfos(String name)
 	{
-		this.sprite = sprite;
 		this.name = name;		
 	}
-	
-	public Texture getTexture() {
-		return sprite.getTexture();
-	}
 
-	public void setTexture(Texture texture) {
-		this.sprite.setTexture(texture);
-	}	
-	
-	public Sprite getSprite() {
-		return sprite;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -3,8 +3,6 @@ package efficom.runningjoe.core;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
-
-import box2dLight.ConeLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
