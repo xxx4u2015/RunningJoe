@@ -31,6 +31,7 @@ public class RunningJoe extends Game
 
     // whether we are in development mode
     public static final boolean DEV_MODE = false;
+    public static Box2DDebugRenderer debugRenderer;
 
     // a libgdx helper class that logs the current FPS each second
     private FPSLogger fpsLogger;
@@ -43,12 +44,7 @@ public class RunningJoe extends Game
     
     public RjWorld getWorld(){return this.world;}
     
-    Box2DDebugRenderer debugRenderer;
-    
-    public Box2DDebugRenderer getDebugRenderer()
-    {
-    	return this.debugRenderer;
-    }
+
     
     // Game-related methods
 

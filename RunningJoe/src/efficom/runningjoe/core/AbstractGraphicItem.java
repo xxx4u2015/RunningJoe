@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import efficom.runningjoe.RunningJoe;
 
-public abstract class AbstractGraphicItem {
+public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	protected RjWorld world;
 	protected GraphicItemInfos infos;
 	protected Body body;
@@ -114,7 +114,7 @@ public abstract class AbstractGraphicItem {
      * Calculate the texture position and draw it
      * @param spriteBatch The sprite batch
      */
-    public void DrawTexture(SpriteBatch spriteBatch)
+    public void draw(SpriteBatch spriteBatch)
     {
     	OrthographicCamera camera = world.getCamera();
         Vector2 vecCam = new Vector2(
@@ -133,6 +133,14 @@ public abstract class AbstractGraphicItem {
     	
     	// Draw the texture
     	this.tr.Draw(spriteBatch);    	
+    }
+
+    /**
+     * @todo Implement the logic
+     */
+    public void render()
+    {
+
     }
 	
 	public boolean hasContact()

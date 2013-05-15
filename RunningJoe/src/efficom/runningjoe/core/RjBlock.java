@@ -34,11 +34,11 @@ public class RjBlock extends AbstractGraphicItem {
 	 * @param world RjWorld object the Graphic Item belongs to
 	 * @param name Name of the Graphic Item
 	 */
-	public RjBlock(RjWorld world, String name) {
+	public RjBlock(RjWorld world, String name, int blockNumber) {
 		super(world, name);
 		
 		try{
-			this.blockNumber = world.getLastBlock().getNextBlockNumber();
+			this.blockNumber = blockNumber;
 		}
 		catch(Exception e){
 			this.blockNumber = 1;
