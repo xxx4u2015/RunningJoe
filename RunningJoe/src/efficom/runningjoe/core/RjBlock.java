@@ -15,14 +15,14 @@ import efficom.runningjoe.services.AssetsManager;
  * @author Sylvain MERLIN
  */
 public class RjBlock extends AbstractGraphicItem {
-	
+
 	/**
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
 	public static int BLOCK_WIDTH = 32;
 	public static int BLOCK_HEIGHT = 16;
-	
+
 	/**
 	 * Texture of the RjBlock
 	 */
@@ -36,7 +36,7 @@ public class RjBlock extends AbstractGraphicItem {
 	 */
 	public RjBlock(RjWorld world, String name, int blockNumber) {
 		super(world, name);
-		
+
 		try{
 			this.blockNumber = blockNumber;
 		}
