@@ -24,6 +24,7 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	protected Body body;
 	protected Sprite sprite;
 	protected TextureWrapper tr;
+    protected Boolean isLoadedFixture = false;
 	
 	/**
 	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
@@ -92,6 +93,8 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	    fd.density = dens;
 	    fd.friction = fric;
 	    fd.restitution = rest;
+
+        isLoadedFixture = true;
 		
 		// Create the body fixture automatically by using the loader.
 	    loader.attachFixture(body, "StandingJoe", fd, ConvertToBox(width));
@@ -119,15 +122,16 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
     	OrthographicCamera camera = world.getCamera();
         Vector2 vecCam = new Vector2(
                 camera.position.x - camera.viewportWidth /2,
-                camera.position.y - camera.viewportHeight /2);
+                camera.position.y - camera.viewportHeight /2
+            );
 
-    	float xTextOffset = tr.width /2;
-    	float yTextOffset = tr.height /2;
+
+        Vector2 vecOffset = isLoadedFixture ? new Vector2(tr.width /2, tr.height /2) : new Vector2(0,0);
     	
     	// Calculate position
         Vector2 vecPos = new Vector2(
-                ConvertToWorld(body.getPosition().x - vecCam.x)+ xTextOffset,
-                ConvertToWorld(body.getPosition().y - vecCam.y)+ yTextOffset);
+                ConvertToWorld(body.getPosition().x - vecCam.x) + vecOffset.x,
+                ConvertToWorld(body.getPosition().y - vecCam.y) + vecOffset.y);
 
     	this.tr.SetPosition(vecPos.x, vecPos.y);
     	

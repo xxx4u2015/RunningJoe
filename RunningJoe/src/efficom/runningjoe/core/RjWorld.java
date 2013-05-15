@@ -19,7 +19,6 @@ import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 
 public class RjWorld{
-	private Box2DDebugRenderer debugRenderer;
 	private Score score;
 	private Joe joe;
 	private World world;
@@ -27,7 +26,6 @@ public class RjWorld{
 	private boolean started = false;
 	private SpriteBatch spriteBatch;
 	private RayHandler rayHandler;
-	private PointLight ambiance;
     private RjBlockList listBlock;
 
 	private Vector<Background> vecBg;
@@ -50,23 +48,17 @@ public class RjWorld{
 		
 		rayHandler = new RayHandler(world);
 		rayHandler.setCombinedMatrix(camera.combined);		
-		ambiance = new PointLight(rayHandler, 5, new Color(0.5f,0.5f,0.5f,0.8f), 100, 0, 0);
+		new PointLight(rayHandler, 5, new Color(0.5f,0.5f,0.5f,0.8f), 100, 0, 0);
 
         TextureRegion region = new TextureRegion( AssetsManager.getInstance().getBackground(0));
         // FirstBackground
         this.foreground = new Background(this, region, 1.5f);
 
-		this.joe = new Joe(this);		
-		debugRenderer = new Box2DDebugRenderer();		
+		this.joe = new Joe(this);
 		this.score = new Score();		
 		this.createBackground();
 		
 		Gdx.app.log("Running Joe", "GAME STARTED");
-	}
-	
-	public RayHandler getRayHandler()
-	{
-		return this.rayHandler;		
 	}
 	
 	/**
@@ -124,7 +116,7 @@ public class RjWorld{
 		camera.update();
 		
 		if(RunningJoe.DEV_MODE)
-			debugRenderer.render(world, camera.combined);
+			RunningJoe.debugRenderer.render(world, camera.combined);
 		
 		// Draw bodies textures
 		spriteBatch.begin();
@@ -161,7 +153,7 @@ public class RjWorld{
 	
 	/**
 	 * Get the world instance
-	 * @return
+	 * @return  The Box2D world
 	 */
 	public World getWorld() {
 		return this.world;
@@ -176,67 +168,5 @@ public class RjWorld{
 	{
 		this.rayHandler.dispose(); //do finalization here
 		super.finalize(); //not necessary if extending Object.
-	} 
-	
-	/*
-	private void Brick(float pX, float pY, float w, float h, String s) 
-	{
-			
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(RunningJoe.PixToMeter(pX),RunningJoe.PixToMeter(RunningJoe.SCREEN_HEIGHT_ORIGINAL-pY));
-		bodyDef.type = BodyType.DynamicBody;
-			
-			
-		PolygonShape polygonShape=new PolygonShape();
-		polygonShape.setAsBox(RunningJoe.PixToMeter(w/2),RunningJoe.PixToMeter(h/2));
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape=polygonShape;
-		fixtureDef.density=2;
-		fixtureDef.restitution=0.4f;
-		fixtureDef.friction=0.5f;
-		Body thebrick=world.createBody(bodyDef);
-			
-		thebrick.setUserData(s);
-			
-		thebrick.createFixture(fixtureDef);
 	}
-	
-	public void Setup()
-	{
-		Brick(275,435,30,30,"breakable");
-		Brick(365,435,30,30,"breakable");
-		Brick(320,405,120,30,"breakable");
-		Brick(320,375,60,30,"unbreakable");
-			
-//		Brick(305,345,90,30,"breakable");//for some reason LibGDX box2d doesn't like this block, and starts moving oddly, toppling the tower on its own
-		Brick(305,345,90,30,"breakable");
-		
-		Brick(320,300,120,60,"unbreakable");
-			
-		//---------------------------------
-		
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(
-				RunningJoe.PixToMeter(50),
-				RunningJoe.PixToMeter(RunningJoe.SCREEN_HEIGHT_ORIGINAL-50));
-		bodyDef.type = BodyType.DynamicBody;
-			
-		
-		PolygonShape polygonShape=new PolygonShape();
-		polygonShape.setAsBox(RunningJoe.PixToMeter(20/2),RunningJoe.PixToMeter(20/2));
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape=polygonShape;
-		fixtureDef.density=2;
-		fixtureDef.restitution=0.0f;
-		fixtureDef.friction=1f;
-		thebrick=world.createBody(bodyDef);
-		thebrick.setFixedRotation(true);
-			
-		//thebrick.setUserData(s);
-			
-		thebrick.createFixture(fixtureDef);
-		
-	}
-	
-	*/
 }

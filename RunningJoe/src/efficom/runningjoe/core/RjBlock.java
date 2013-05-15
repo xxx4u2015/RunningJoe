@@ -44,7 +44,9 @@ public class RjBlock extends AbstractGraphicItem {
 			this.blockNumber = 1;
 		}	
 		
-		this.texture = new TextureRegion( AssetsManager.getInstance().getGround(), (this.blockNumber % 5) *(BLOCK_WIDTH), 0, BLOCK_WIDTH*2, BLOCK_HEIGHT * 4);
+		this.texture = new TextureRegion(
+                AssetsManager.getInstance().getGround(),
+                (this.blockNumber % 5) *(BLOCK_WIDTH), 0, BLOCK_WIDTH*2, BLOCK_HEIGHT * 4);
 		
 		this.body = null;
 		infos = new GraphicItemInfos(name);
@@ -64,7 +66,6 @@ public class RjBlock extends AbstractGraphicItem {
 		this.body = this.world.getWorld().createBody(groundBodyDef);
 		
 		//CreateBody(new Vector2(position, 100), 0, BodyDef.BodyType.DynamicBody);
-
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(RunningJoe.PixToMeter(BLOCK_WIDTH), RunningJoe.PixToMeter(BLOCK_HEIGHT));
 		this.body.createFixture(groundBox, 0.0f);
