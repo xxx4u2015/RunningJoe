@@ -30,7 +30,7 @@ public class RunningJoe extends Game
 	public static float PIXELS_PER_METER = 30.0f;
 
     // whether we are in development mode
-    public static final boolean DEV_MODE = true;
+    public static final boolean DEV_MODE = false;
     public static Box2DDebugRenderer debugRenderer;
 
     // a libgdx helper class that logs the current FPS each second
