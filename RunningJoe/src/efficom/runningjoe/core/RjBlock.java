@@ -21,7 +21,7 @@ public class RjBlock extends AbstractGraphicItem {
 	 */
 	private int blockNumber;
 	public static int BLOCK_WIDTH = 32;
-	public static int BLOCK_HEIGHT = 16;
+	public static int BLOCK_HEIGHT = 8;
 	
 	/**
 	 * Texture of the RjBlock
@@ -46,7 +46,10 @@ public class RjBlock extends AbstractGraphicItem {
 		
 		this.texture = new TextureRegion(
                 AssetsManager.getInstance().getGround(),
-                (this.blockNumber % 5) *(BLOCK_WIDTH), 0, BLOCK_WIDTH*2, BLOCK_HEIGHT * 4);
+                (this.blockNumber % 5) *(BLOCK_WIDTH),
+                BLOCK_HEIGHT,
+                BLOCK_WIDTH*2,
+                BLOCK_HEIGHT * BLOCK_HEIGHT);
 		
 		this.body = null;
 		infos = new GraphicItemInfos(name);
@@ -59,8 +62,8 @@ public class RjBlock extends AbstractGraphicItem {
 	 * @param position Position of the randomly generated block
 	 * @return Returns a random RjBlock
 	 */
-	public void generateRandomBlock(float position){	
-		
+	public void generateRandomBlock(float position)
+    {
 		BodyDef groundBodyDef = new BodyDef();
 		groundBodyDef.position.set(new Vector2(ConvertToBox(position), ConvertToBox(BLOCK_HEIGHT)));
 		this.body = this.world.getWorld().createBody(groundBodyDef);
