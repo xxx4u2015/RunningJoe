@@ -8,5 +8,5 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author Guillaume BAILLEUL
  */
 public interface IRenderable {
-	public void render(SpriteBatch spriteBatch);
+	public void render();
 }

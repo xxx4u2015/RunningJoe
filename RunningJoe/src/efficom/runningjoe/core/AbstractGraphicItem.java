@@ -18,12 +18,13 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import efficom.runningjoe.RunningJoe;
 
-public abstract class AbstractGraphicItem {
+public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	protected RjWorld world;
 	protected GraphicItemInfos infos;
 	protected Body body;
 	protected Sprite sprite;
 	protected TextureWrapper tr;
+    protected Boolean isLoadedFixture = false;
 	
 	/**
 	 * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
@@ -92,6 +93,8 @@ public abstract class AbstractGraphicItem {
 	    fd.density = dens;
 	    fd.friction = fric;
 	    fd.restitution = rest;
+
+        isLoadedFixture = true;
 		
 		// Create the body fixture automatically by using the loader.
 	    loader.attachFixture(body, "StandingJoe", fd, ConvertToBox(width));
@@ -114,25 +117,34 @@ public abstract class AbstractGraphicItem {
      * Calculate the texture position and draw it
      * @param spriteBatch The sprite batch
      */
-    public void DrawTexture(SpriteBatch spriteBatch)
+    public void draw(SpriteBatch spriteBatch)
     {
     	OrthographicCamera camera = world.getCamera();
         Vector2 vecCam = new Vector2(
                 camera.position.x - camera.viewportWidth /2,
-                camera.position.y - camera.viewportHeight /2);
+                camera.position.y - camera.viewportHeight /2
+            );
 
-    	float xTextOffset = tr.width /2;
-    	float yTextOffset = tr.height /2;
+
+        Vector2 vecOffset = isLoadedFixture ? new Vector2(tr.width /2, tr.height /2) : new Vector2(0,0);
     	
     	// Calculate position
         Vector2 vecPos = new Vector2(
-                ConvertToWorld(body.getPosition().x - vecCam.x)+ xTextOffset,
-                ConvertToWorld(body.getPosition().y - vecCam.y)+ yTextOffset);
+                ConvertToWorld(body.getPosition().x - vecCam.x) + vecOffset.x,
+                ConvertToWorld(body.getPosition().y - vecCam.y) + vecOffset.y);
 
     	this.tr.SetPosition(vecPos.x, vecPos.y);
     	
     	// Draw the texture
     	this.tr.Draw(spriteBatch);    	
+    }
+
+    /**
+     * @todo Implement the logic
+     */
+    public void render()
+    {
+
     }
 	
 	public boolean hasContact()

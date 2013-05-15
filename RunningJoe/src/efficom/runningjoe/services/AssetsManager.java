@@ -18,6 +18,7 @@ public class AssetsManager extends AssetManager {
         this.ground.setFilter( TextureFilter.Linear, TextureFilter.Linear );
         
         this.vectBg = new Vector<Texture>();
+        this.vectBg.add(new Texture(Gdx.files.internal("images/bg/0.png")));
         this.vectBg.add(new Texture(Gdx.files.internal("images/bg/1.png")));
         this.vectBg.add(new Texture(Gdx.files.internal("images/bg/2.png")));
 		
