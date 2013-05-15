@@ -125,7 +125,7 @@ public class RjWorld{
 			Background bg = bgi.next();
 			bg.DrawTexture(spriteBatch);
 		}
-		
+
 		joe.draw(spriteBatch);
 		
         this.listBlock.render();
