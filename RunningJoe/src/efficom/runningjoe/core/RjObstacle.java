@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
  * Time: 11:01
  * To change this template use File | Settings | File Templates.
  */
+
 public class RjObstacle extends AbstractGraphicItem {
 
     /**
@@ -57,7 +58,7 @@ public class RjObstacle extends AbstractGraphicItem {
     public void createObject(){
 
         // Create the body and fixture
-        CreateBody(initPos,0, BodyDef.BodyType.DynamicBody, true);
+        CreateBody(new Vector2(0,0),0, BodyDef.BodyType.DynamicBody, true);
 
         // Load Fixture from a Json
         LoadFixture("data/"+this.type.getName()+".json", this.density, this.friction, this.restitution,this.width);

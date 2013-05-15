@@ -21,7 +21,7 @@ public class RjBlock extends AbstractGraphicItem {
 	 */
 	private int blockNumber;
 	public static int BLOCK_WIDTH = 32;
-	public static int BLOCK_HEIGHT = 16;
+	public static int BLOCK_HEIGHT = 8;
 
 	/**
 	 * Texture of the RjBlock
