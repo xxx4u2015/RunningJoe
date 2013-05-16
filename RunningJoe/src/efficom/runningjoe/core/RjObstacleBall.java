@@ -18,7 +18,7 @@ public class RjObstacleBall extends RjObstacle {
         super(world, name);
         this.img="ball";
         this.width = 64;
-        this.density = 0.7f ;
+        this.density = 1f ;
         this.friction = 0.4f;
         this.restitution = 0.5f;
 
