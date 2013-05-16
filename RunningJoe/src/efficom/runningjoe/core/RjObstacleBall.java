@@ -14,10 +14,10 @@ public class RjObstacleBall extends RjObstacle {
      * @param world RjWorld object the Graphic Item belongs to
      * @param name  Name of the Graphic Item
      */
-    public RjObstacleBall(RjWorld world, String name) {
-        super(world, name);
+    public RjObstacleBall(RjWorld world) {
+        super(world, "ball");
         this.img="ball";
-        this.width = 64;
+        this.width = 128;
         this.density = 1f ;
         this.friction = 0.4f;
         this.restitution = 0.5f;
