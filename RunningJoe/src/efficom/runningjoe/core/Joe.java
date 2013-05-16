@@ -67,7 +67,7 @@ public class Joe extends AbstractGraphicItem {
 	private void createStandingJoe() {
 	    // Create the body and fixture
 	    CreateBody(initPos,0,BodyType.DynamicBody, true);	      
-	    LoadFixture("data/joe.json", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+	    LoadFixture("data/joe.json","StandingJoe", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
 	    
 	    // Create the Texture
 	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));

@@ -82,7 +82,6 @@ public class RjBlockList implements IRenderable{
                 } else if (bloc.getPosition().x < (this.world.getCamera().position.x - (this.world.getCamera().viewportWidth * 0.35f))) {
                     // bloc.s
                     bloc.body.setType(BodyDef.BodyType.DynamicBody);
-                    // System.out.println("fall");
                 }
             }
         }

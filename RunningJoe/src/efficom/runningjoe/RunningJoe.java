@@ -31,7 +31,7 @@ public class RunningJoe extends Game
     public static RunningJoe instance;
 
     // whether we are in development mode
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
     public static Box2DDebugRenderer debugRenderer;
 
     // a libgdx helper class that logs the current FPS each second

@@ -2,6 +2,7 @@ package efficom.runningjoe.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -16,33 +17,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 public class RjObstacle extends AbstractGraphicItem {
 
-    /**
-     * Enum needed to get the type of the obstacle
-     *
-     * Only used in RjObstacle.
-     */
-    protected enum obstacleType{
-        BALL("ball"),
-        BOX("box"),
-        CAGE("cage"),
-        TREE("tree");
-
-        private String name;
-
-        obstacleType(String name){
-            this.name = name;
-        }
-
-        public String getName(){
-            return this.name;
-        }
-    };
-
-    protected obstacleType type;
     protected float density;
     protected float friction;
     protected float restitution;
     protected float width;
+    protected String name;
+    protected String img;
+
     /**
      * Abstract class representing every graphic objects such as Joe,Blocks and Bonus
      *
@@ -51,24 +32,26 @@ public class RjObstacle extends AbstractGraphicItem {
      */
     public RjObstacle(RjWorld world, String name) {
         super(world, name);
+        this.name = name;
     }
 
-
-
-    public void createObject(){
+    public void createObject(float position){
 
         // Create the body and fixture
-        CreateBody(new Vector2(0,0),0, BodyDef.BodyType.DynamicBody, true);
-
+        CreateBody(new Vector2(position,80),0,BodyDef.BodyType.DynamicBody, false);
         // Load Fixture from a Json
-        LoadFixture("data/"+this.type.getName()+".json", this.density, this.friction, this.restitution,this.width);
+        LoadFixture("data/"+this.img+".json", this.name,this.density, this.friction, this.restitution,this.width);
 
         // Create the Texture
-        TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.type.getName()+".png")));
+        TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.img+".png")));
+        this.sprite = new Sprite(new Texture(
+                Gdx.files.internal("images/obstacles/"+name+".png")));
         LoadTexture(region, new Vector2(0,0));
 
-        infos = new GraphicItemInfos("Joe");
+        infos = new GraphicItemInfos(this.img);
+
         this.body.setUserData(infos);
+
     }
 
 }

@@ -27,6 +27,7 @@ public class RjWorld{
 	private SpriteBatch spriteBatch;
 	private RayHandler rayHandler;
     private RjBlockList listBlock;
+    private RjObstacleFactory obstacleFactory;
 
 	private Vector<Background> vecBg;
     private Background foreground;
@@ -45,6 +46,8 @@ public class RjWorld{
 		world = new World(gravity, sleep);
 
         this.listBlock = new RjBlockList(this);
+
+        this.obstacleFactory = new RjObstacleFactory();
 		
 		rayHandler = new RayHandler(world);
 		rayHandler.setCombinedMatrix(camera.combined);		
@@ -133,10 +136,14 @@ public class RjWorld{
 			bg.DrawTexture(spriteBatch);
 		}
 
+        // Draw Joe in the World
 		joe.draw(spriteBatch);
-		
+
+        // Generate ground and draw it in the World
         this.listBlock.render();
         this.listBlock.draw(spriteBatch);
+
+        this.obstacleFactory.generateRjObstacles(this,spriteBatch);
 
         foreground.DrawTexture(spriteBatch);
 		spriteBatch.end();		
