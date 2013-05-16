@@ -1,12 +1,11 @@
 package efficom.runningjoe.core;
-
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.AssetsManager;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * 
@@ -20,8 +19,8 @@ public class RjBlock extends AbstractGraphicItem {
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
-	public static int BLOCK_WIDTH = 32;
-	public static int BLOCK_HEIGHT = 8;
+	public static int BLOCK_WIDTH = 1;
+	public static int BLOCK_HEIGHT = 16;
 
 	/**
 	 * Texture of the RjBlock
@@ -42,14 +41,17 @@ public class RjBlock extends AbstractGraphicItem {
 		}
 		catch(Exception e){
 			this.blockNumber = 1;
-		}	
-		
+		}
+
+        Texture texture = AssetsManager.getInstance().getGround();
+        int blockCapacity = texture.getWidth() /BLOCK_WIDTH;
+
 		this.texture = new TextureRegion(
-                AssetsManager.getInstance().getGround(),
-                (this.blockNumber % 5) *(BLOCK_WIDTH),
+                texture,
+                (this.blockNumber % blockCapacity )* BLOCK_WIDTH,//(this.blockNumber % 1000) *(BLOCK_WIDTH),
                 0,
                 BLOCK_WIDTH*2,
-                BLOCK_HEIGHT *7);
+                BLOCK_HEIGHT * 6);
 		
 		this.body = null;
 		infos = new GraphicItemInfos(name);
@@ -91,13 +93,5 @@ public class RjBlock extends AbstractGraphicItem {
 		else{
 			return this.body.getPosition();
 		}
-	}
-	
-	public int getNextBlockNumber(){
-		int nextBlockNumber=this.blockNumber+1;
-		if(nextBlockNumber>15){
-			nextBlockNumber=1;
-		}
-		return nextBlockNumber;
 	}
 }

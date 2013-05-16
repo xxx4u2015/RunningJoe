@@ -18,6 +18,7 @@ public class RjBlockList implements IRenderable{
      */
     private LinkedList<RjBlock> groundBlocks;
     private RjWorld world;
+    private int blockCounter = 0;
 
     public RjBlockList(RjWorld world)
     {
@@ -39,10 +40,10 @@ public class RjBlockList implements IRenderable{
 
             // Create the new block
             RjBlock lastBlock = getLastBlock() ;
-            int indexBlock = lastBlock == null ? 1 : lastBlock.getNextBlockNumber();
+            int indexBlock = blockCounter++;
             RjBlock groundBody = new RjBlock(this.world, "Floor "+ posX, indexBlock);
             groundBody.generateRandomBlock(posX);
-            Gdx.app.log(RunningJoe.LOG, "Created block: " + posX);
+            Gdx.app.log(RunningJoe.LOG, "Created block: " + posX + " number " + indexBlock );
 
             this.groundBlocks.addLast(groundBody);
             lastBlockX = this.groundBlocks.getLast().getPosition().x;
@@ -51,7 +52,7 @@ public class RjBlockList implements IRenderable{
 
         this.fallingGround();
 
-        if (this.groundBlocks.size() > 32)
+        if (this.groundBlocks.size() > 1000)
             Gdx.app.log(RunningJoe.LOG, "Too much ground blocks: " + this.groundBlocks.size());
     }
 
