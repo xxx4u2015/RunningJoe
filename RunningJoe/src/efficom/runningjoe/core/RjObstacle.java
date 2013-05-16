@@ -46,7 +46,7 @@ public class RjObstacle extends AbstractGraphicItem {
         TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.img+".png")));
         this.sprite = new Sprite(new Texture(
                 Gdx.files.internal("images/obstacles/"+name+".png")));
-        LoadTexture(region, new Vector2(0,0));
+        LoadTexture(region, new Vector2(-this.width/2,-this.width/2));
 
         infos = new GraphicItemInfos(this.img);
 
