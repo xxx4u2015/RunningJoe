@@ -82,7 +82,7 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	 * @param rest  Restitution from à to 1
 	 * @param width The width of the element
 	 */
-	public void LoadFixture(String filename, float dens, float fric, float rest, float width)
+	public void LoadFixture(String filename,String fixtureName, float dens, float fric, float rest, float width)
 	{
 		// Create a loader for the file saved from the editor.
 		FileHandle fh = Gdx.files.internal(filename);
@@ -97,7 +97,7 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         isLoadedFixture = true;
 		
 		// Create the body fixture automatically by using the loader.
-	    loader.attachFixture(body, "StandingJoe", fd, ConvertToBox(width));
+	    loader.attachFixture(body, fixtureName, fd, ConvertToBox(width));
 	}
 	
 	public void LoadTexture(TextureRegion region, Vector2 pos)
