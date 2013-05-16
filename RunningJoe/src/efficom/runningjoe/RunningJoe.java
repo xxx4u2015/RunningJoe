@@ -28,6 +28,7 @@ public class RunningJoe extends Game
 	public static float BOX2D_WIDTH_SCALE=1;
 	public static float BOX2D_HEIGHT_SCALE=1;
 	public static float PIXELS_PER_METER = 30.0f;
+    public static RunningJoe instance;
 
     // whether we are in development mode
     public static final boolean DEV_MODE = false;
@@ -39,8 +40,12 @@ public class RunningJoe extends Game
     private RjWorld world;
  	
     public RunningJoe(){
-    	GdxNativesLoader.load(); 
+    	GdxNativesLoader.load();
+
+        instance = this;
     }
+
+    public static RunningJoe getInstance(){return instance;}
     
     public RjWorld getWorld(){return this.world;}
     

@@ -1,10 +1,7 @@
 package efficom.runningjoe.core;
 
-import box2dLight.ConeLight;
 import box2dLight.PointLight;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import efficom.runningjoe.RunningJoe;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 /***
  * Joe the main character of RunningJoe
@@ -26,16 +24,23 @@ public class Joe extends AbstractGraphicItem {
 	static final float RESTITUTION = 0.1f;
 	static final float JUMP_FORCE = 10.0f;
 	static final float INITIAL_SPEED = 1;
-	
-	// Class attributes
-	private static final float BODY_WIDTH = 60;
+    static final int FRAME_WIDTH = 64;
+    static final int FRAME_HEIGHT = 128;
+    private static final float BODY_WIDTH = 60;
+    private static final int FRAME_COLS = 8;         // #1
+    private static final int FRAME_ROWS = 2;
+
+    // Class attributes
 	private float speed = INITIAL_SPEED;
 	private MoveState moveState = MoveState.RUNNING;
 	private char jumpCount = JUMP_COUNT;
 	private Vector2 initPos;
 	private PointLight joelight;
-	
-	/***
+    private TextureRegion[] animationFrames;
+    private Animation animation;
+    float stateTime;
+
+    /***
 	 * Class constructor
 	 * @param world
 	 */
@@ -52,7 +57,8 @@ public class Joe extends AbstractGraphicItem {
 		//joelight = new PointLight(world.getRayHandler(), 5, new Color(0.5f,0.5f,0.5f,0.8f), 1, 0, 0);
 		//joelight.attachToBody(this.body, 0.0f, 0.0f);
 		
-		this.createStandingJoe();
+		//this.createStandingJoe();
+        this.createRunningJoe();
 	}
 	
 	/**
@@ -64,20 +70,62 @@ public class Joe extends AbstractGraphicItem {
 	    LoadFixture("data/joe.json", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
 	    
 	    // Create the Texture
-	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));     
+	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));
 	    LoadTexture(region, new Vector2(0,0));
 	    
 	    infos = new GraphicItemInfos("Joe");
 	    this.body.setUserData(infos);
-	}	
-	
-	/*
-	 * 
+	}
+
+	/**
+	 * Create the standing joe representation
 	 */
-	@SuppressWarnings("unused")
 	private void createRunningJoe()
 	{
+        // Create the body and fixture
+        CreateBody(initPos,0,BodyType.DynamicBody, true);
+        LoadFixture("data/joe.json", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+
+        // Create the Texture
+        this.animationFrames = createFrames(
+                new Texture(Gdx.files.internal("images/runningjoe.png")),
+                FRAME_ROWS,
+                FRAME_COLS,
+                FRAME_WIDTH,
+                FRAME_HEIGHT);
+
+        //TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/runningjoe.png")), 0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        LoadTexture(this.animationFrames[0], new Vector2(0,0));
+
+        infos = new GraphicItemInfos("Joe");
+        this.body.setUserData(infos);
 	}
+
+    /**
+     * Load the textures into an array and create a animation object
+     * @param texture   The texture to load
+     * @param rows  The number of rows in the texture file
+     * @param cols  The number of columns in the texture file
+     * @param width The width of a frame in pixels
+     * @param height The height of a frame in pixels
+     * @return The array of frames
+     */
+    private TextureRegion[] createFrames(Texture texture, int rows, int cols, int width, int height)
+    {
+        TextureRegion[][] regions = TextureRegion.split(texture, width, height);
+        TextureRegion[] frames = new TextureRegion[cols * rows];
+        int index = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                frames[index++] = regions[i][j];
+            }
+        }
+
+        animation = new Animation(0.1f, frames);
+        stateTime = 0.0f;
+
+        return frames;
+    }
 	
 	/*
 	 * 
@@ -131,7 +179,11 @@ public class Joe extends AbstractGraphicItem {
 			 */		
 			MoveState oldState = this.moveState;
 			this.moveState = this.hasContact() ? MoveState.RUNNING : MoveState.JUMPING;
-			
+
+            stateTime += Gdx.graphics.getDeltaTime();
+            TextureRegion region = animation.getKeyFrame(stateTime, true);
+            tr.SetTextureRegion(region);
+
 			this.speed = this.speed + Gdx.app.getGraphics().getDeltaTime() * 0.01f;
 			
 			if( oldState != this.moveState){

@@ -1,7 +1,6 @@
 package efficom.runningjoe.core;
 
 import java.util.Iterator;
-
 import aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -19,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import efficom.runningjoe.RunningJoe;
 
 public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
+    public enum Position{TOP, LEFT, BOTTOM, RIGHT}
+
 	protected RjWorld world;
 	protected GraphicItemInfos infos;
 	protected Body body;
@@ -161,4 +162,38 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         
         return hasContact;
 	}
+
+    /**
+     * Return true item is out of screen
+     * @return True if object is out of screen
+     */
+    public boolean isOutOfScreen()
+    {
+        if(ScreenPosition() != null)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Get the relative position of the object from the out screen
+     *
+     * @return The relative direction from the screen
+     */
+    public Position ScreenPosition()
+    {
+        OrthographicCamera camera = this.world.getCamera();
+
+        if(body.getPosition().x  + ConvertToBox(tr.width) < (camera.position.x - (camera.viewportWidth / 2))){
+            return Position.LEFT;
+        }else if(body.getPosition().x  > (camera.position.x + (camera.viewportWidth / 2))){
+            return Position.RIGHT;
+        }else if(body.getPosition().y  < (camera.position.y - (camera.viewportWidth / 2))){
+            return Position.BOTTOM;
+        }else if(body.getPosition().y  > (camera.position.y + (camera.viewportWidth / 2))){
+            return Position.TOP;
+        }
+
+        return null;
+    }
 }

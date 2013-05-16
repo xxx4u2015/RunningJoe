@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.services.AssetsManager;
 import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
+import efficom.runningjoe.ui.GameOverScreen;
 
 public class RjWorld{
 	private Score score;
@@ -109,7 +109,14 @@ public class RjWorld{
 			// Increase the score 
 			score.addValue((int)this.joe.getSpeed() *10 * Gdx.app.getGraphics().getDeltaTime());
 			
-			joe.render();			
+			joe.render();
+
+            if(joe.isOutOfScreen()){
+                this.Pause();
+                RunningJoe.getInstance().setScreen( new GameOverScreen( RunningJoe.getInstance(), this.score ) );
+            }
+
+
 			this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
 		}
 		
