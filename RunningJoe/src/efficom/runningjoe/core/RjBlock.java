@@ -19,7 +19,7 @@ public class RjBlock extends AbstractGraphicItem {
 	 * Texture's coefficient
 	 */
 	private int blockNumber;
-	public static int BLOCK_WIDTH = 1;
+	public static int BLOCK_WIDTH = 16;
 	public static int BLOCK_HEIGHT = 16;
 
 	/**

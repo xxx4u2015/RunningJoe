@@ -22,11 +22,11 @@ public class Joe extends AbstractGraphicItem {
 	static final float DENSITY = 0.3f;
 	static final float FRICTION = 0.3f;
 	static final float RESTITUTION = 0.1f;
-	static final float JUMP_FORCE = 10.0f;
+	static final float JUMP_FORCE = 3.0f;
 	static final float INITIAL_SPEED = 1;
     static final int FRAME_WIDTH = 64;
     static final int FRAME_HEIGHT = 128;
-    private static final float BODY_WIDTH = 60;
+    private static final float BODY_WIDTH = 35;
     private static final int FRAME_COLS = 8;         // #1
     private static final int FRAME_ROWS = 2;
 
@@ -84,7 +84,7 @@ public class Joe extends AbstractGraphicItem {
 	{
         // Create the body and fixture
         CreateBody(initPos,0,BodyType.DynamicBody, true);
-        LoadFixture("data/joe.json", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+        LoadFixture("data/joe.json", "StandingJoe",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
 
         // Create the Texture
         this.animationFrames = createFrames(
