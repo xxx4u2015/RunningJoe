@@ -30,7 +30,7 @@ public class RjBlockList implements IRenderable{
         float camPos = this.world.getCamera().viewportWidth / 2 + this.world.getCamera().position.x;
         float lastBlockX = this.groundBlocks.size() == 0 ? 0 : this.groundBlocks.getLast().getPosition().x;
 
-        while (this.groundBlocks.size() == 0 || lastBlockX < camPos ){
+        while (this.groundBlocks.size() == 0 || lastBlockX < (camPos + 100) ){
             float posX = 0;
             // Find the position of the previous bloc
             if (this.groundBlocks.size() != 0) {

@@ -45,9 +45,10 @@ public class RjObstacle extends AbstractGraphicItem {
 
         // Create the Texture
         TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.img+".png")));
-        this.sprite = new Sprite(new Texture(
+        this.sprite = new Sprite(
+                new Texture(
                 Gdx.files.internal("images/obstacles/"+name+".png")));
-        LoadTexture(region, new Vector2(-this.width/2,-this.width/2));
+        LoadTexture(region, new Vector2(this.width/2,this.width/2),this.getScale(),this.getScale());
 
         infos = new GraphicItemInfos(this.img);
 
@@ -57,6 +58,10 @@ public class RjObstacle extends AbstractGraphicItem {
 
     public void drawObstacle(SpriteBatch spriteBatch){
         this.draw(spriteBatch);
+    }
+
+    public float getScale(){
+        return 1f;
     }
 
 }

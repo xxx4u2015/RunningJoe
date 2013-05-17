@@ -19,19 +19,29 @@ public class TextureWrapper{
     float originX;
     float originY;
     float rotation;
-    
+
+
     public TextureWrapper(TextureRegion region,Vector2 pos){
-         this.position=pos;
-         SetTextureRegion(region);
-    } 
+        scaleX=1;
+        scaleY=1;
+        this.init(region,pos);
+    }
+    public TextureWrapper(TextureRegion region,Vector2 pos,float scaleX, float scaleY){
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.init(region,pos);
+    }
+    public void init(TextureRegion region,Vector2 pos){
+        this.position=pos;
+        SetTextureRegion(region);
+
+    }
     public void SetTextureRegion(TextureRegion region){
          this.region=region;
          width=region.getRegionWidth();
          height=region.getRegionHeight();
          originX=width/2;
          originY=height/2;
-         scaleX=1;
-         scaleY=1;
     }
     public int GetWidth(){
        return width;
@@ -40,15 +50,16 @@ public class TextureWrapper{
          return height;
     } 
 
-    public void SetPosition(float x,float y){
-         position.set(x,y);
-    } 
     public void SetRotation(float r){
          rotation=r;
     }
-    
+
+    public void SetPosition(float x,float y){
+        position.set(x,y);
+    }
+
     public void Draw(SpriteBatch sp){
-         sp.draw(region,position.x-width/2, position.y-height/2,
+         sp.draw(region,position.x-width/2f, position.y-height/2f,
           originX, originY, width, height,
          scaleX, scaleY, rotation);
     }

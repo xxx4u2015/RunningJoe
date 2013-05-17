@@ -34,7 +34,7 @@ public class RjObstacleFactory {
         while(i.hasNext()){
             RjObstacle obstacle = i.next();
             try{
-                if((obstacle.ScreenPosition().toString().equals("LEFT")) || !(obstacle.ScreenPosition().toString().equals("BOTTOM"))){
+                if((obstacle.ScreenPosition().toString().equals("LEFT")) || (obstacle.ScreenPosition().toString().equals("BOTTOM"))){
                     obstacle.destroy();
                     i.remove();
                 }
@@ -48,13 +48,13 @@ public class RjObstacleFactory {
 
         // Standard bordered Random Method
         Random rand = new Random();
-        int choice = rand.nextInt(1 - 1 + 1) + 1;
+        int choice = rand.nextInt(2 - 1 + 1) + 1;
         RjObstacle obstacle;
 
         // Generate a Random RjObstacle following these rules
         switch(choice){
             case 1:
-                if(this.obstacleList.size()<1){
+                if(this.obstacleList.size()<4){
                     obstacle = new RjObstacleBall(world);
                     this.obstacleList.add(obstacle);
                 }
