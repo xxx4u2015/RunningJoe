@@ -70,7 +70,7 @@ public class RjBlock extends AbstractGraphicItem {
 
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(RunningJoe.PixToMeter(BLOCK_WIDTH), RunningJoe.PixToMeter(BLOCK_HEIGHT));
-        CreateFixture(groundBox, 0.5f, 0.5f,0.5f);
+        CreateFixture(groundBox, 0.5f, 0.5f,0.0f);
 		
 		LoadTexture(this.texture, new Vector2(0,0));
 	}
