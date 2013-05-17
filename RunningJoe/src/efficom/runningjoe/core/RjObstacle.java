@@ -39,7 +39,7 @@ public class RjObstacle extends AbstractGraphicItem {
     public void createObject(){
 
         // Create the body and fixture
-        CreateBody(new Vector2(this.ConvertToWorld(world.getCamera().position.x+world.getCamera().viewportWidth/2), 60), 0, BodyDef.BodyType.DynamicBody, false);
+        CreateBody(new Vector2(this.ConvertToWorld(world.getCamera().position.x+world.getCamera().viewportWidth), 140), 0, BodyDef.BodyType.DynamicBody, false);
         // Load Fixture from a Json
         LoadFixture("data/"+this.img+".json", this.name,this.density, this.friction, this.restitution,this.width);
 
@@ -48,10 +48,10 @@ public class RjObstacle extends AbstractGraphicItem {
         this.sprite = new Sprite(
                 new Texture(
                 Gdx.files.internal("images/obstacles/"+name+".png")));
+        System.out.println(this.img);
         LoadTexture(region, new Vector2(this.width/2,this.width/2),this.getScale(),this.getScale());
 
         infos = new GraphicItemInfos(this.img);
-
         this.body.setUserData(infos);
 
     }

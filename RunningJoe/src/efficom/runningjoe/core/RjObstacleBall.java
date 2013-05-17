@@ -26,10 +26,10 @@ public class RjObstacleBall extends RjObstacle {
         // Base image size is 128
         // Standard bordered Random Method
         Random rand = new Random();
-        this.scaleCoef = rand.nextInt(4 - 1 + 1) + 1;
+        this.scaleCoef = rand.nextInt(4 - 2 + 1) + 2;
         this.width = 128/scaleCoef;
 
-        this.density = 1f ;
+        this.density = 0.25f*scaleCoef ;
         this.friction = 0.4f;
         this.restitution = 0.5f;
 

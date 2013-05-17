@@ -48,29 +48,37 @@ public class RjObstacleFactory {
 
         // Standard bordered Random Method
         Random rand = new Random();
-        int choice = rand.nextInt(2 - 1 + 1) + 1;
+        int choice = rand.nextInt(3 - 1 + 1) + 1;
         RjObstacle obstacle;
-
+        obstacle = null;
         // Generate a Random RjObstacle following these rules
         switch(choice){
             case 1:
                 if(this.obstacleList.size()<4){
-                    obstacle = new RjObstacleBall(world);
-                    this.obstacleList.add(obstacle);
+                    if(Math.random()>0.6){
+                        obstacle = new RjObstacleBall(world);
+                        this.obstacleList.add(obstacle);
+                    }
                 }
-                else
-                    obstacle = null;
                 break;
             case 2:
                 if(containsCar == false){
-                    obstacle =  new RjObstacleCar(world);
-                    this.obstacleList.add(obstacle);
+                    if(this.obstacleList.size()<4){
+                        if(Math.random()>0.95){
+                            obstacle =  new RjObstacleCar(world);
+                            this.obstacleList.add(obstacle);
+                        }
+                    }
                 }
-                else
-                    obstacle = null;
                 break;
             case 3:
-                return new RjObstacleBox(world,"box");
+                if(this.obstacleList.size()<4){
+                    if(Math.random()>0.8){
+                        obstacle = new RjObstacleBox(world);
+                        this.obstacleList.add(obstacle);
+                    }
+                }
+                break;
             case 4:
                 return new RjObstacleCage(world,"cage");
             case 5:
