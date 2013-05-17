@@ -8,9 +8,9 @@ import efficom.runningjoe.RunningJoe;
 public abstract class AbstractMenuItemScreen extends AbstractScreen{	
 	private String title;
 	
-	public AbstractMenuItemScreen(RunningJoe game, String titleKey )
+	public AbstractMenuItemScreen(String titleKey )
     {
-        super( game );
+        super();
         this.title = this.getLanguagesManager().getString(titleKey);
     }
 	
@@ -22,8 +22,8 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
         // clear the screen with the given RGB color (black)
         Gdx.gl.glClearColor( 0.5f, 0.5f, 0.5f, 1f );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
-        
-        this.game.getWorld().render();
+
+        RunningJoe.getInstance().getWorld().render();
         
         // draw the actors
         stage.draw();
@@ -37,7 +37,7 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 	public void show()
 	{
 		super.show();
-		this.game.getWorld().render();
+		RunningJoe.getInstance().getWorld().render();
 		
 		// retrieve the default table actor
         this.getTable().add( 

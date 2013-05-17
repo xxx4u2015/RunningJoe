@@ -1,6 +1,5 @@
 package efficom.runningjoe.core;
 
-import java.util.Iterator;
 import java.util.Vector;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -18,6 +17,12 @@ import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 import efficom.runningjoe.ui.GameOverScreen;
 
+
+/**
+ * The RunningJoe World
+ *
+ * @author Guillaume BAIILEUL
+ */
 public class RjWorld{
 	private Score score;
 	private Joe joe;
@@ -28,7 +33,6 @@ public class RjWorld{
 	private RayHandler rayHandler;
     private RjBlockList listBlock;
     private RjObstacleFactory obstacleFactory;
-
 	private Vector<Background> vecBg;
     private Background foreground;
 
@@ -100,8 +104,7 @@ public class RjWorld{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		rayHandler.updateAndRender();
-		
-		
+
 		if (this.started) {
 			float deltaTime= Gdx.app.getGraphics().getDeltaTime();			
 			
@@ -116,9 +119,8 @@ public class RjWorld{
 
             if(joe.isOutOfScreen()){
                 this.Pause();
-                RunningJoe.getInstance().setScreen( new GameOverScreen( RunningJoe.getInstance(), this.score ) );
+                RunningJoe.getInstance().setScreen( new GameOverScreen( ) );
             }
-
 
 			this.camera.translate(RunningJoe.PixToMeter(this.joe.getSpeed()), 0);
 		}
@@ -130,11 +132,9 @@ public class RjWorld{
 		
 		// Draw bodies textures
 		spriteBatch.begin();
-		Iterator<Background> bgi = this.vecBg.iterator();
-		while(bgi.hasNext()){
-			Background bg = bgi.next();
-			bg.DrawTexture(spriteBatch);
-		}
+        for (Background bg : this.vecBg) {
+            bg.DrawTexture(spriteBatch);
+        }
 
         // Draw Joe in the World
 		joe.draw(spriteBatch);

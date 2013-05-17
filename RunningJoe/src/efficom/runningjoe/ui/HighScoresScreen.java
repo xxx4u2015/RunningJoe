@@ -14,9 +14,9 @@ import efficom.runningjoe.ws.userapi.ArrayOfString;
 public class HighScoresScreen extends AbstractMenuItemScreen{
 	private TextButton cancelButton;
 	
-	public HighScoresScreen(RunningJoe game )
+	public HighScoresScreen( )
 	{
-	 super( game, "HighScores" );       
+	 super( "HighScores" );
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
 	        	SoundManager.getInstance().play( RunningJoeSound.CLICK );
-	           	game.setScreen( new MainScreen( game ) );
+	           	RunningJoe.getInstance().setScreen( new MainScreen() );
 	           	return true;
 	        }
 	    });

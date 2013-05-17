@@ -18,9 +18,9 @@ public class OptionsScreen extends AbstractMenuItemScreen{
 	TextButton cancelButton, validateButton;
 	SelectBox langOption;
 	
-	public OptionsScreen(RunningJoe game)
+	public OptionsScreen()
 	{
-	 super( game, "Options" );       
+	 super("Options" );
 	}
 	
 	@Override
@@ -45,7 +45,7 @@ public class OptionsScreen extends AbstractMenuItemScreen{
 		    {
 				Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
 				SoundManager.getInstance().play( RunningJoeSound.CLICK );
-		        game.setScreen( new MainScreen( game ) );
+		        RunningJoe.getInstance().setScreen( new MainScreen() );
 		        return true;
 		    }
 		 });
@@ -66,7 +66,7 @@ public class OptionsScreen extends AbstractMenuItemScreen{
 		    	// Return to the main screen
 		     	Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
 		     	SoundManager.getInstance().play( RunningJoeSound.CLICK );
-		       	game.setScreen( new MainScreen( game ) );
+		       	RunningJoe.getInstance().setScreen( new MainScreen( ) );
 		       	return true;
 		    }
 		});

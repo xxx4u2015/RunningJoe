@@ -17,8 +17,8 @@ public class SplashScreen extends AbstractScreen
 {
     Image splashImage;
 
-    public SplashScreen(RunningJoe game){ 
-    	super( game );
+    public SplashScreen(){
+    	super();
     	splashImage = new Image(new Texture(Gdx.files.internal("images/splash.png")));
         splashImage.setFillParent( false );
     }
@@ -39,7 +39,7 @@ public class SplashScreen extends AbstractScreen
                     float delta )
                 {
                     // the last action will move to the next screen
-                    game.setScreen( new LoginScreen( game ) );
+                    RunningJoe.getInstance().setScreen( new LoginScreen( ) );
                     return true;
                 }
             } ) );

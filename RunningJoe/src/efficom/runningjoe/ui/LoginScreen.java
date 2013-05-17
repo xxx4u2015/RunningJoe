@@ -15,9 +15,9 @@ public class LoginScreen extends AbstractMenuItemScreen {
 	private TextButton connectButton, ignoreButton;
 	private TextField passwordText, playerText, errorText;
 	
-	public LoginScreen(RunningJoe game)
+	public LoginScreen()
 	{
-		super(game, "Login");       
+		super("Login");
 	}
 	
 	@Override
@@ -73,7 +73,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
 			{
 				Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
 				SoundManager.getInstance().play( RunningJoeSound.CLICK );
-				game.setScreen( new MainScreen( game ) );
+				RunningJoe.getInstance().setScreen( new MainScreen( ) );
 				return true;
 			}
 		});
@@ -96,7 +96,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
 	       		passwordText.getText());
 	       	
 				if(ret == null)
-					game.setScreen( new MainScreen( game ) );
+					RunningJoe.getInstance().setScreen( new MainScreen( ) );
 				else
 					errorText.setText(ret);	
 	       	

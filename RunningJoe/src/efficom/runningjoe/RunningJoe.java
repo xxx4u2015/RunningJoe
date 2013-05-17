@@ -103,9 +103,9 @@ public class RunningJoe extends Game
         // this approach avoids calling the screen's resize method repeatedly
         if( getScreen() == null ) {
         	if(RunningJoe.DEV_MODE)
-        		setScreen( new LoginScreen( this ) );
+        		setScreen( new LoginScreen() );
         	else
-        		setScreen( new SplashScreen( this ) );
+        		setScreen( new SplashScreen() );
         }
     }
 
@@ -162,7 +162,7 @@ public class RunningJoe extends Game
      */
     public void restart()
     {
-    	this.world = new RjWorld();    
+    	this.world = new RjWorld();
     }
 
 }

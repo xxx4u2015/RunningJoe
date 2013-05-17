@@ -13,58 +13,52 @@ import efficom.runningjoe.services.SoundManager;
 
 public class MainScreen extends AbstractScreen
 {
-	private RjWorld world;
 	private boolean menuDawn = false;
 	Label lblScore;
 	
-    public MainScreen(RunningJoe game )
+    public MainScreen()
     {
-        super( game ); 
-        world = game.getWorld();  
+        super();
         
-        lblScore = new Label(""+(int)this.world.getScore().getValue(), 
+        lblScore = new Label(""+(int)RunningJoe.getInstance().getWorld().getScore().getValue(),
 				this.labelStyle
 				);
     }
-    
-    public RjWorld getWorld(){
-    	return this.world;
-    }
-    
+
     @Override
     public void render(float delta)
     {
-    	this.world.render();
+        RunningJoe.getInstance().getWorld().render();
     	
     	// If the game has started handle the pressed keys
-    	if(world.isStarded() && !menuDawn){
+    	if(RunningJoe.getInstance().getWorld().isStarded() && !menuDawn){
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
-	        	this.world.getJoe().Jump();
+	        	RunningJoe.getInstance().getWorld().getJoe().Jump();
 	    	
 	    	
 		    // Move to the left
 		    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-		    	this.world.getJoe().Move(false, 5f);
+                RunningJoe.getInstance().getWorld().getJoe().Move(false, 5f);
 		    	
 		    // Move to the right
 		    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-		    		this.world.getJoe().Move(true, 5.0f);
+                RunningJoe.getInstance().getWorld().getJoe().Move(true, 5.0f);
 	        
 	        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
-	        	this.world.Pause();
+                RunningJoe.getInstance().getWorld().Pause();
     	}
         
-    	this.world.render();  
+    	RunningJoe.getInstance().getWorld().render();
     	super.render(delta); 
     	
-    	if(this.world.isStarded()){
+    	if(RunningJoe.getInstance().getWorld().isStarded()){
     		this.getTable().clear();
     		this.menuDawn = false;
     		
     		try{
 	    		this.lblScore.setText(
 	    				this.getLanguagesManager().getString("Score") + " : " + 
-	    				(int)this.getWorld().getScore().getValue()
+	    				(int)RunningJoe.getInstance().getWorld().getScore().getValue()
 	    			);
 	    		this.getTable().left().top();    		
 		    	this.getTable().add(this.lblScore);
@@ -79,10 +73,10 @@ public class MainScreen extends AbstractScreen
     @Override
     public void show(){
         super.show();
+
+        RunningJoe.getInstance().getWorld().render();
         
-        this.world.render();
-        
-        if(!this.world.isStarded()){    
+        if(!RunningJoe.getInstance().getWorld().isStarded()){
         	this.createMenu();
         }else{
         		
@@ -99,7 +93,7 @@ public class MainScreen extends AbstractScreen
 	        this.getTable().add( "Running Joe !" ).spaceBottom( 50 );
 	        this.getTable().row();
 	        
-	        if(this.world.getScore().getValue() > 0){
+	        if(RunningJoe.getInstance().getWorld().getScore().getValue() > 0){
 		        // register the button "start game"
 		        TextButton resumeGameButton = new TextButton( 
 		        		this.getLanguagesManager().getString("Resume"), 
@@ -111,8 +105,8 @@ public class MainScreen extends AbstractScreen
 		            {
 		        		Gdx.app.log( RunningJoe.LOG, "Game resume clicked: " + getName() );
 		        		SoundManager.getInstance().play( RunningJoeSound.CLICK );
-		                super.touchUp( event, x, y, pointer, button ); 
-		                world.Start();
+		                super.touchUp( event, x, y, pointer, button );
+                        RunningJoe.getInstance().getWorld().Start();
 		                return true;
 		            }
 		        });
@@ -134,8 +128,8 @@ public class MainScreen extends AbstractScreen
 	        		Gdx.app.log( RunningJoe.LOG, "Game start clicked: " + getName() );
 	        		SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	                super.touchUp( event, x, y, pointer, button );
-	                world = new RjWorld();	                
-	                world.Start();
+                    RunningJoe.getInstance().restart();
+                    RunningJoe.getInstance().getWorld().Start();
 	                return true;
 	            }
 	        });
@@ -157,7 +151,7 @@ public class MainScreen extends AbstractScreen
 	            	Gdx.app.log( RunningJoe.LOG, "Game options clicked: " + getName() );
 	                super.touchUp( event, x, y, pointer, button );
 	                SoundManager.getInstance().play( RunningJoeSound.CLICK );
-	                game.setScreen( new OptionsScreen( game ) );
+	                RunningJoe.getInstance().setScreen( new OptionsScreen() );
 	            	return true;
 	            }
 	        } );
@@ -176,7 +170,7 @@ public class MainScreen extends AbstractScreen
 	            	Gdx.app.log( RunningJoe.LOG, "High scores clicked: " + getName() );
 	            	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	                super.touchUp( event, x, y, pointer, button );            	
-	                game.setScreen( new HighScoresScreen( game ) );
+	                RunningJoe.getInstance().setScreen( new HighScoresScreen() );
 	            	return true;
 	            }
 	        } );

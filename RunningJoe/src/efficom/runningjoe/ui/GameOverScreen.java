@@ -15,10 +15,10 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	private TextButton validateButton, cancelButton;
 	private Score score;
 	
-	public GameOverScreen(RunningJoe game, Score score )
+	public GameOverScreen()
 	{
-		super( game, "GameOver" );
-		this.score = score;
+		super("GameOver");
+		this.score = RunningJoe.getInstance().getWorld().getScore();
 		
 		// Try to record the score
 		if(SoapManager.getInstance().getIsConnected()){
@@ -54,8 +54,8 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
 	           	SoundManager.getInstance().play( RunningJoeSound.CLICK );
-	           	game.restart();
-	           	game.setScreen( new MainScreen( game ) );
+	           	RunningJoe.getInstance().restart();
+	           	RunningJoe.getInstance().setScreen( new MainScreen() );
 	           	return true;
 	        }
 	    });
@@ -73,8 +73,8 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        {
 	        	Gdx.app.log( RunningJoe.LOG, "Restart clicked: " + getName() );
 	        	SoundManager.getInstance().play( RunningJoeSound.CLICK );
-	           	game.restart();
-	           	game.setScreen( new MainScreen( game ) );
+	           	RunningJoe.getInstance().restart();
+	           	RunningJoe.getInstance().setScreen( new MainScreen() );
 	           	return true;
 	        }
 	    });	    

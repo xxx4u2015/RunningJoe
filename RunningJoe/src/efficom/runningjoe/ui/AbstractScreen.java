@@ -24,8 +24,7 @@ import efficom.runningjoe.RunningJoe;
  */
 public abstract class AbstractScreen implements Screen
 {
-    // the fixed viewport dimensions (ratio: 1.6)    
-    protected final RunningJoe game;
+    // the fixed viewport dimensions (ratio: 1.6)
     protected final TextButtonStyle buttonStyle; 
     protected final Stage stage;
     protected final LabelStyle labelStyle;
@@ -38,11 +37,9 @@ public abstract class AbstractScreen implements Screen
     private SpriteBatch batch;
     private Skin skin;
     private TextureAtlas atlas;
-    private InputMultiplexer inputMultiplexer;    
 
-    public AbstractScreen(RunningJoe game )
-    {    	
-        this.game = game;
+    public AbstractScreen()
+    {
         // Language manager
         this.languageManager = LanguagesManager.getInstance();
         
@@ -83,11 +80,6 @@ public abstract class AbstractScreen implements Screen
         this.skin = new Skin();
         skin.add("default", labelStyle);
         
-    }
-    
-    protected InputMultiplexer getInputMultiplexer()
-    {
-    	return this.inputMultiplexer;
     }
     
     protected LanguagesManager getLanguagesManager()
