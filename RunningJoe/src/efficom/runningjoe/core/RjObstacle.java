@@ -3,6 +3,7 @@ package efficom.runningjoe.core;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -35,23 +36,32 @@ public class RjObstacle extends AbstractGraphicItem {
         this.name = name;
     }
 
-    public void createObject(float position){
+    public void createObject(){
 
         // Create the body and fixture
-        CreateBody(new Vector2(position,80),0,BodyDef.BodyType.DynamicBody, false);
+        CreateBody(new Vector2(this.ConvertToWorld(world.getCamera().position.x+world.getCamera().viewportWidth), 140), 0, BodyDef.BodyType.DynamicBody, false);
         // Load Fixture from a Json
         LoadFixture("data/"+this.img+".json", this.name,this.density, this.friction, this.restitution,this.width);
 
         // Create the Texture
         TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.img+".png")));
-        this.sprite = new Sprite(new Texture(
+        this.sprite = new Sprite(
+                new Texture(
                 Gdx.files.internal("images/obstacles/"+name+".png")));
-        LoadTexture(region, new Vector2(-this.width/2,-this.width/2));
+        System.out.println(this.img);
+        LoadTexture(region, new Vector2(this.width/2,this.width/2),this.getScale(),this.getScale());
 
         infos = new GraphicItemInfos(this.img);
-
         this.body.setUserData(infos);
 
+    }
+
+    public void drawObstacle(SpriteBatch spriteBatch){
+        this.draw(spriteBatch);
+    }
+
+    public float getScale(){
+        return 1f;
     }
 
 }

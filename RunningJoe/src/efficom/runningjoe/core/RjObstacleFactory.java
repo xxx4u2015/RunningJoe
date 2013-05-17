@@ -2,6 +2,7 @@ package efficom.runningjoe.core;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -29,39 +30,55 @@ public class RjObstacleFactory {
         containsCar=false;
 
         // Clean the world from out of screens' obstacles and draw
-        for (RjObstacle obstacle : this.obstacleList) {
-            obstacle.draw(spriteBatch);
-            if((obstacle.getClass().getSimpleName().equals("RjObstacleCar")) && ( containsCar == false) ){
-                containsCar=true;
+        Iterator<RjObstacle> i = this.obstacleList.iterator();
+        while(i.hasNext()){
+            RjObstacle obstacle = i.next();
+            try{
+                if((obstacle.ScreenPosition().toString().equals("LEFT")) || (obstacle.ScreenPosition().toString().equals("BOTTOM"))){
+                    obstacle.destroy();
+                    i.remove();
+                }
+            }catch(Exception e){
+                obstacle.drawObstacle(spriteBatch);
+                if((obstacle.getClass().getSimpleName().equals("RjObstacleCar")) && ( containsCar == false) ){
+                    containsCar=true;
+                }
             }
         }
 
         // Standard bordered Random Method
         Random rand = new Random();
-        int choice = rand.nextInt(2 - 1 + 1) + 1;
+        int choice = rand.nextInt(3 - 1 + 1) + 1;
         RjObstacle obstacle;
-
+        obstacle = null;
         // Generate a Random RjObstacle following these rules
         switch(choice){
             case 1:
-                if(this.obstacleList.size()<3){
-                    obstacle = new RjObstacleBall(world);
-                    this.obstacleList.add(obstacle);
+                if(this.obstacleList.size()<4){
+                    if(Math.random()>0.6){
+                        obstacle = new RjObstacleBall(world);
+                        this.obstacleList.add(obstacle);
+                    }
                 }
-                else
-                    obstacle = null;
                 break;
             case 2:
                 if(containsCar == false){
-                    System.out.println("create a CAR");
-                    obstacle =  new RjObstacleCar(world);
-                    this.obstacleList.add(obstacle);
+                    if(this.obstacleList.size()<4){
+                        if(Math.random()>0.95){
+                            obstacle =  new RjObstacleCar(world);
+                            this.obstacleList.add(obstacle);
+                        }
+                    }
                 }
-                else
-                    obstacle = null;
                 break;
             case 3:
-                return new RjObstacleBox(world,"box");
+                if(this.obstacleList.size()<4){
+                    if(Math.random()>0.8){
+                        obstacle = new RjObstacleBox(world);
+                        this.obstacleList.add(obstacle);
+                    }
+                }
+                break;
             case 4:
                 return new RjObstacleCage(world,"cage");
             case 5:
@@ -70,11 +87,9 @@ public class RjObstacleFactory {
                 obstacle =  null;
         }
 
-        // Create obstacle iun the world
+        // Create obstacle in the world
         if(obstacle!=null){
-            float position;
-            position = (float)680;
-            obstacle.createObject(position);
+            obstacle.createObject();
         }
 
         return obstacle;

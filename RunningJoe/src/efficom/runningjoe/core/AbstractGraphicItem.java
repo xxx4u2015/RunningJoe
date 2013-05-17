@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -100,11 +101,20 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 		// Create the body fixture automatically by using the loader.
 	    loader.attachFixture(body, fixtureName, fd, ConvertToBox(width));
 	}
-	
+
+    /**
+     * Add TextureWrapper to the Graphic Item
+     * @param region
+     * @param pos
+     */
 	public void LoadTexture(TextureRegion region, Vector2 pos)
 	{
-		tr = new TextureWrapper(region, pos);				
+		tr = new TextureWrapper(region, pos);
 	}
+    public void LoadTexture(TextureRegion region, Vector2 pos,float x, float y)
+    {
+        tr = new TextureWrapper(region, pos,x,y);
+    }
 	
 	float ConvertToBox(float x){
 		return RunningJoe.PixToMeter(x);
@@ -126,18 +136,18 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
                 camera.position.y - camera.viewportHeight /2
             );
 
-
-        Vector2 vecOffset = isLoadedFixture ? new Vector2(tr.width /2, tr.height /2) : new Vector2(0,0);
-    	
-    	// Calculate position
+        // Calculate position of the center of the body
         Vector2 vecPos = new Vector2(
-                ConvertToWorld(body.getPosition().x - vecCam.x) + vecOffset.x,
-                ConvertToWorld(body.getPosition().y - vecCam.y) + vecOffset.y);
+                ConvertToWorld(body.getWorldCenter().x - vecCam.x),
+                ConvertToWorld(body.getWorldCenter().y - vecCam.y));
+
 
     	this.tr.SetPosition(vecPos.x, vecPos.y);
-    	
+
+        this.tr.SetRotation(this.body.getAngle()* MathUtils.radiansToDegrees);
+
     	// Draw the texture
-    	this.tr.Draw(spriteBatch);    	
+    	this.tr.Draw(spriteBatch);
     }
 
     /**
@@ -195,5 +205,13 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         }
 
         return null;
+    }
+
+
+    /**
+     * Remove the Graphic Item From the World
+     */
+    public void destroy(){
+        this.world.getWorld().destroyBody(this.body);
     }
 }
