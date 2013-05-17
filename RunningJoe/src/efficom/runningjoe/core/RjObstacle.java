@@ -3,6 +3,7 @@ package efficom.runningjoe.core;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -35,10 +36,10 @@ public class RjObstacle extends AbstractGraphicItem {
         this.name = name;
     }
 
-    public void createObject(float position){
+    public void createObject(){
 
         // Create the body and fixture
-        CreateBody(new Vector2(position,80),0,BodyDef.BodyType.DynamicBody, false);
+        CreateBody(new Vector2(this.ConvertToWorld(world.getCamera().position.x+world.getCamera().viewportWidth/2), 60), 0, BodyDef.BodyType.DynamicBody, false);
         // Load Fixture from a Json
         LoadFixture("data/"+this.img+".json", this.name,this.density, this.friction, this.restitution,this.width);
 
@@ -52,6 +53,10 @@ public class RjObstacle extends AbstractGraphicItem {
 
         this.body.setUserData(infos);
 
+    }
+
+    public void drawObstacle(SpriteBatch spriteBatch){
+        this.draw(spriteBatch);
     }
 
 }

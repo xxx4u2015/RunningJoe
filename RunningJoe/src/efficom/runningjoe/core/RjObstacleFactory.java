@@ -2,6 +2,7 @@ package efficom.runningjoe.core;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -29,22 +30,31 @@ public class RjObstacleFactory {
         containsCar=false;
 
         // Clean the world from out of screens' obstacles and draw
-        for (RjObstacle obstacle : this.obstacleList) {
-            obstacle.draw(spriteBatch);
-            if((obstacle.getClass().getSimpleName().equals("RjObstacleCar")) && ( containsCar == false) ){
-                containsCar=true;
+        Iterator<RjObstacle> i = this.obstacleList.iterator();
+        while(i.hasNext()){
+            RjObstacle obstacle = i.next();
+            try{
+                if((obstacle.ScreenPosition().toString().equals("LEFT")) || !(obstacle.ScreenPosition().toString().equals("BOTTOM"))){
+                    obstacle.destroy();
+                    i.remove();
+                }
+            }catch(Exception e){
+                obstacle.drawObstacle(spriteBatch);
+                if((obstacle.getClass().getSimpleName().equals("RjObstacleCar")) && ( containsCar == false) ){
+                    containsCar=true;
+                }
             }
         }
 
         // Standard bordered Random Method
         Random rand = new Random();
-        int choice = rand.nextInt(2 - 1 + 1) + 1;
+        int choice = rand.nextInt(1 - 1 + 1) + 1;
         RjObstacle obstacle;
 
         // Generate a Random RjObstacle following these rules
         switch(choice){
             case 1:
-                if(this.obstacleList.size()<3){
+                if(this.obstacleList.size()<1){
                     obstacle = new RjObstacleBall(world);
                     this.obstacleList.add(obstacle);
                 }
@@ -53,7 +63,6 @@ public class RjObstacleFactory {
                 break;
             case 2:
                 if(containsCar == false){
-                    System.out.println("create a CAR");
                     obstacle =  new RjObstacleCar(world);
                     this.obstacleList.add(obstacle);
                 }
@@ -70,11 +79,9 @@ public class RjObstacleFactory {
                 obstacle =  null;
         }
 
-        // Create obstacle iun the world
+        // Create obstacle in the world
         if(obstacle!=null){
-            float position;
-            position = (float)680;
-            obstacle.createObject(position);
+            obstacle.createObject();
         }
 
         return obstacle;
