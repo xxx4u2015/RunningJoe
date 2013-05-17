@@ -31,7 +31,7 @@ public class RunningJoe extends Game
     public static RunningJoe instance;
 
     // whether we are in development mode
-    public static final boolean DEV_MODE = false;
+    public static final boolean DEV_MODE = true;
     public static Box2DDebugRenderer debugRenderer;
 
     // a libgdx helper class that logs the current FPS each second
@@ -48,8 +48,6 @@ public class RunningJoe extends Game
     public static RunningJoe getInstance(){return instance;}
     
     public RjWorld getWorld(){return this.world;}
-    
-
     
     // Game-related methods
 
@@ -85,7 +83,7 @@ public class RunningJoe extends Game
 		
     /**
      * Convert Meters to pixels
-     * @param meters
+     * @param meters The meters to convert in px
      * @return
      */
 	public static float MeterToPix(float meters)

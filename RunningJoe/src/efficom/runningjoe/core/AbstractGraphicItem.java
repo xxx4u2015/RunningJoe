@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import efficom.runningjoe.RunningJoe;
+import com.badlogic.gdx.physics.box2d.Shape;
 
 public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
     public enum Position{TOP, LEFT, BOTTOM, RIGHT}
@@ -34,9 +35,9 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	 * @param world RjWorld object the Graphic Item belongs to
 	 * @param name Name of the Graphic Item
 	 */
-	public AbstractGraphicItem(RjWorld world, String name){
+	public AbstractGraphicItem(RjWorld world, String name, GraphicItemType type){
 		this.world = world;
-        infos = new GraphicItemInfos(name);
+        infos = new GraphicItemInfos(name, type);
 	}
 	
 	/**
@@ -52,8 +53,11 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
 	    bodyDef.position.set(ConvertToBox(pos.x),ConvertToBox(pos.y));
 	    bodyDef.angle=angle;
 	    bodyDef.fixedRotation = rot;
+
 	    body = world.getWorld().createBody(bodyDef);
         body.setUserData(this.infos);
+
+
 	}
 	
 	public void CreateBody(Vector2 pos,float angle, BodyType bodyType){
@@ -65,16 +69,18 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
      * @param dens  Density from 0 to 1
      * @param fric  Friction from 0 to 1
      * @param rest  Restitution from à to 1
-     * @param width The width of the element
      */
-    /*public void CreateFixture(Shape shape, float dens, float fric, float rest, float width)
+    public void CreateFixture(Shape shape, float dens, float fric, float rest)
     {
         // Create a FixtureDef
         FixtureDef fd = new FixtureDef();
         fd.density = dens;
         fd.friction = fric;
         fd.restitution = rest;
-    } */
+        fd.shape = shape;
+
+        this.body.createFixture(fd);
+    }
 	
 	/***
 	 * Load fixture from a file
@@ -172,6 +178,33 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         
         return hasContact;
 	}
+
+    public boolean hasGroundContact()
+    {
+        boolean touch = false;
+
+        Iterator<Contact> it = RunningJoe.getInstance().getWorld().getWorld().getContactList().iterator();
+        while(it.hasNext() && !touch){
+            Contact item = it.next();
+
+            Fixture fA = item.getFixtureA();
+            Fixture fB = item.getFixtureB();
+
+            if((fB.getBody() == body || fA.getBody() == body)){
+                GraphicItemInfos infos;
+
+                if(fB.getBody() == body)
+                    infos = (GraphicItemInfos) fA.getBody().getUserData();
+                else
+                    infos = (GraphicItemInfos) fB.getBody().getUserData();
+
+                if(infos != null && infos.getType() == GraphicItemType.GROUND)
+                    touch = true;
+            }
+        }
+
+        return touch;
+    }
 
     /**
      * Return true item is out of screen

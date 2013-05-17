@@ -6,11 +6,14 @@ package efficom.runningjoe.core;
  * @author Guillaume BAILLEUL
  */
 public class GraphicItemInfos {
-    String name;
+    private String name;
+    private GraphicItemType type;
+
 	
-	public GraphicItemInfos(String name)
+	public GraphicItemInfos(String name, GraphicItemType type)
 	{
-		this.name = name;		
+		this.name = name;
+        this.type = type;
 	}
 
     public String getName() {
@@ -20,4 +23,6 @@ public class GraphicItemInfos {
     public void setName(String name) {
         this.name = name;
     }
+
+    public GraphicItemType getType(){return this.type;}
 }

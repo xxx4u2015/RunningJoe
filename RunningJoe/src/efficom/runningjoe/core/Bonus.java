@@ -34,7 +34,7 @@ public class Bonus extends AbstractGraphicItem {
 	 * @param name Name of the Graphic Item
 	 */
 	public Bonus(RjWorld world, String name) {
-		super(world, name);
+		super(world, name, GraphicItemType.BONUS);
 		// TODO Auto-generated constructor stub
 	}
 	

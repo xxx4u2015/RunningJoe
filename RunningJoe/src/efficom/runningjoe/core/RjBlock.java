@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * 
- * Class witch represents blocks for the ground or the roof of the game.
+ * Class witch represents blocks for the ground of the game.
  * 
  * @author Sylvain MERLIN
  */
@@ -34,7 +34,7 @@ public class RjBlock extends AbstractGraphicItem {
 	 * @param name Name of the Graphic Item
 	 */
 	public RjBlock(RjWorld world, String name, int blockNumber) {
-		super(world, name);
+		super(world, name, GraphicItemType.GROUND);
 
 		try{
 			this.blockNumber = blockNumber;
@@ -54,7 +54,7 @@ public class RjBlock extends AbstractGraphicItem {
                 BLOCK_HEIGHT * 6);
 		
 		this.body = null;
-		infos = new GraphicItemInfos(name);
+		infos = new GraphicItemInfos(name, GraphicItemType.GROUND);
 		
 	}
 	
@@ -66,20 +66,14 @@ public class RjBlock extends AbstractGraphicItem {
 	 */
 	public void generateRandomBlock(float position)
     {
-		BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.position.set(new Vector2(ConvertToBox(position), ConvertToBox(BLOCK_HEIGHT)));
-		this.body = this.world.getWorld().createBody(groundBodyDef);
-		
-		//CreateBody(new Vector2(position, 100), 0, BodyDef.BodyType.DynamicBody);
+		CreateBody(new Vector2(position, ConvertToBox(BLOCK_HEIGHT)), 0, BodyDef.BodyType.StaticBody);
+
 		PolygonShape groundBox = new PolygonShape();
 		groundBox.setAsBox(RunningJoe.PixToMeter(BLOCK_WIDTH), RunningJoe.PixToMeter(BLOCK_HEIGHT));
-		this.body.createFixture(groundBox, 0.0f);
+        CreateFixture(groundBox, 0.5f, 0.5f,0.5f);
 		
 		LoadTexture(this.texture, new Vector2(0,0));
-		GraphicItemInfos infosFloor = new GraphicItemInfos("Floor "+position);
-		this.body.setUserData(infosFloor);
 	}
-
 	
 	/**
 	 * Method to get the position of the block in the world.

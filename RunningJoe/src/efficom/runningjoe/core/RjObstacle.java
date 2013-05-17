@@ -32,7 +32,7 @@ public class RjObstacle extends AbstractGraphicItem {
      * @param name  Name of the Graphic Item
      */
     public RjObstacle(RjWorld world, String name) {
-        super(world, name);
+        super(world, name, GraphicItemType.OBSTACLE);
         this.name = name;
     }
 
@@ -50,10 +50,6 @@ public class RjObstacle extends AbstractGraphicItem {
                 Gdx.files.internal("images/obstacles/"+name+".png")));
         System.out.println(this.img);
         LoadTexture(region, new Vector2(this.width/2,this.width/2),this.getScale(),this.getScale());
-
-        infos = new GraphicItemInfos(this.img);
-        this.body.setUserData(infos);
-
     }
 
     public void drawObstacle(SpriteBatch spriteBatch){

@@ -19,9 +19,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public class Joe extends AbstractGraphicItem {
 	static final char JUMP_COUNT = 2;
 	private enum MoveState{JUMPING, RUNNING};
-	static final float DENSITY = 0.3f;
-	static final float FRICTION = 0.3f;
-	static final float RESTITUTION = 0.1f;
+	static final float DENSITY = 0.5f;
+	static final float FRICTION = 0.5f;
+	static final float RESTITUTION = 0.0f;
 	static final float JUMP_FORCE = 3.0f;
 	static final float INITIAL_SPEED = 1;
     static final int FRAME_WIDTH = 64;
@@ -45,7 +45,7 @@ public class Joe extends AbstractGraphicItem {
 	 * @param world
 	 */
 	public Joe(RjWorld world){		
-		super(world, "Joe");
+		super(world, "Joe", GraphicItemType.JOE);
 		
 		this.sprite = new Sprite(new Texture(
 				Gdx.files.internal("images/standingjoe.png")));
@@ -53,11 +53,9 @@ public class Joe extends AbstractGraphicItem {
 		initPos = new Vector2(
 	    		RunningJoe.SCREEN_WIDTH* 0.75f,
 	    		RjBlock.BLOCK_HEIGHT*10);
-		
-		//joelight = new PointLight(world.getRayHandler(), 5, new Color(0.5f,0.5f,0.5f,0.8f), 1, 0, 0);
-		//joelight.attachToBody(this.body, 0.0f, 0.0f);
-		
+
 		//this.createStandingJoe();
+        this.createBody();
         this.createRunningJoe();
 	}
 	
@@ -65,27 +63,24 @@ public class Joe extends AbstractGraphicItem {
 	 * Create the standing joe representation
 	 */
 	private void createStandingJoe() {
-	    // Create the body and fixture
-	    CreateBody(initPos,0,BodyType.DynamicBody, true);	      
-	    LoadFixture("data/joe.json","StandingJoe", DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
 	    
 	    // Create the Texture
 	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));
 	    LoadTexture(region, new Vector2(0,0));
-	    
-	    infos = new GraphicItemInfos("Joe");
-	    this.body.setUserData(infos);
 	}
+
+    private void createBody()
+    {
+        // Create the body and fixture
+        CreateBody(initPos,0,BodyType.DynamicBody, true);
+        LoadFixture("data/joe.json", "StandingJoe",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+    }
 
 	/**
 	 * Create the standing joe representation
 	 */
 	private void createRunningJoe()
 	{
-        // Create the body and fixture
-        CreateBody(initPos,0,BodyType.DynamicBody, true);
-        LoadFixture("data/joe.json", "StandingJoe",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
-
         // Create the Texture
         this.animationFrames = createFrames(
                 new Texture(Gdx.files.internal("images/runningjoe.png")),
@@ -94,11 +89,7 @@ public class Joe extends AbstractGraphicItem {
                 FRAME_WIDTH,
                 FRAME_HEIGHT);
 
-        //TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/runningjoe.png")), 0, 0, FRAME_WIDTH, FRAME_HEIGHT);
         LoadTexture(this.animationFrames[0], new Vector2(0,0));
-
-        infos = new GraphicItemInfos("Joe");
-        this.body.setUserData(infos);
 	}
 
     /**
@@ -133,8 +124,17 @@ public class Joe extends AbstractGraphicItem {
 	@SuppressWarnings("unused")
 	private void createJumpingJoe()
 	{
-		
-	}
+        // Create the Texture
+        this.animationFrames = createFrames(
+                new Texture(Gdx.files.internal("images/jumpingjoe.png")),
+                FRAME_ROWS,
+                FRAME_COLS,
+                FRAME_WIDTH,
+                FRAME_HEIGHT);
+
+        LoadTexture(this.animationFrames[0], new Vector2(0,0));
+
+    }
 	
 	/*
 	 * 
@@ -145,7 +145,7 @@ public class Joe extends AbstractGraphicItem {
 		Vector2 pos = this.body.getPosition();
     	Vector2 vel = new Vector2(0, JUMP_FORCE);        
         
-        if(this.jumpCount > 0) {
+        if(this.moveState != MoveState.JUMPING) {
         	this.jumpCount--;
             System.out.println("jump before: " + body.getLinearVelocity());
     		body.applyLinearImpulse(vel, pos);			
@@ -178,7 +178,7 @@ public class Joe extends AbstractGraphicItem {
 			 * they are differents change frixion fixture
 			 */		
 			MoveState oldState = this.moveState;
-			this.moveState = this.hasContact() ? MoveState.RUNNING : MoveState.JUMPING;
+			this.moveState = this.hasGroundContact() ? MoveState.RUNNING : MoveState.JUMPING;
 
             stateTime += Gdx.graphics.getDeltaTime();
             TextureRegion region = animation.getKeyFrame(stateTime, true);
@@ -189,15 +189,18 @@ public class Joe extends AbstractGraphicItem {
 			if( oldState != this.moveState){
 				// if came back to the ground
 				if(this.moveState == MoveState.RUNNING){
-					for(Fixture fix : body.getFixtureList())
-		        		fix.setFriction(1.0f);				
+					//for(Fixture fix : body.getFixtureList())
+		        	//	fix.setFriction(1.0f);
+
+                    this.createRunningJoe();
 					
 					// Reset the number of jump
 					this.jumpCount = JUMP_COUNT;
 				// if start jumping
 				}else{
-					for(Fixture fix : body.getFixtureList())
-		        		fix.setFriction(0.0f);
+                    createJumpingJoe();
+					//for(Fixture fix : body.getFixtureList())
+		        	//	fix.setFriction(0.0f);
 				}
 				
 				Gdx.app.log(RunningJoe.LOG, "Move has change from " + oldState + " to " + this.moveState);

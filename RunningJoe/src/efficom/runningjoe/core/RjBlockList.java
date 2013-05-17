@@ -43,7 +43,7 @@ public class RjBlockList implements IRenderable{
             int indexBlock = blockCounter++;
             RjBlock groundBody = new RjBlock(this.world, "Floor "+ posX, indexBlock);
             groundBody.generateRandomBlock(posX);
-            Gdx.app.log(RunningJoe.LOG, "Created block: " + posX + " number " + indexBlock );
+            //Gdx.app.log(RunningJoe.LOG, "Created block: " + posX + " number " + indexBlock );
 
             this.groundBlocks.addLast(groundBody);
             lastBlockX = this.groundBlocks.getLast().getPosition().x;
