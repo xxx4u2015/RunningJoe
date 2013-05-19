@@ -15,6 +15,7 @@ import java.util.Random;
 public class RjObstacleFactory {
 
     private LinkedList<RjObstacle> obstacleList;
+    private static int maxObstacle = 10;
 
     RjObstacleFactory(){
         this.obstacleList = new LinkedList<RjObstacle>();
@@ -26,8 +27,9 @@ public class RjObstacleFactory {
      * @return newBlock of type
      */
     public RjObstacle generateRjObstacles( RjWorld world , SpriteBatch spriteBatch){
-        boolean containsCar;
+        boolean containsCar,containsCage;
         containsCar=false;
+        containsCage=false;
 
         // Clean the world from out of screens' obstacles and draw
         Iterator<RjObstacle> i = this.obstacleList.iterator();
@@ -40,22 +42,25 @@ public class RjObstacleFactory {
                 }
             }catch(Exception e){
                 obstacle.drawObstacle(spriteBatch);
-                if((obstacle.getClass().getSimpleName().equals("RjObstacleCar")) && ( containsCar == false) ){
+                if(obstacle.getClass().getSimpleName().equals("RjObstacleCar")){
                     containsCar=true;
+                }
+                if(obstacle.getClass().getSimpleName().equals("RjObstacleCage")){
+                    containsCage=true;
                 }
             }
         }
 
         // Standard bordered Random Method
         Random rand = new Random();
-        int choice = rand.nextInt(3 - 1 + 1) + 1;
+        int choice = rand.nextInt(4 - 1 + 1) + 1;
         RjObstacle obstacle;
         obstacle = null;
         // Generate a Random RjObstacle following these rules
         switch(choice){
             case 1:
-                if(this.obstacleList.size()<4){
-                    if(Math.random()>0.6){
+                if(this.obstacleList.size()<maxObstacle){
+                    if(Math.random()>0.8){
                         obstacle = new RjObstacleBall(world);
                         this.obstacleList.add(obstacle);
                     }
@@ -63,7 +68,7 @@ public class RjObstacleFactory {
                 break;
             case 2:
                 if(containsCar == false){
-                    if(this.obstacleList.size()<4){
+                    if(this.obstacleList.size()<maxObstacle){
                         if(Math.random()>0.95){
                             obstacle =  new RjObstacleCar(world);
                             this.obstacleList.add(obstacle);
@@ -72,7 +77,7 @@ public class RjObstacleFactory {
                 }
                 break;
             case 3:
-                if(this.obstacleList.size()<4){
+                if(this.obstacleList.size()<maxObstacle){
                     if(Math.random()>0.8){
                         obstacle = new RjObstacleBox(world);
                         this.obstacleList.add(obstacle);
@@ -80,7 +85,15 @@ public class RjObstacleFactory {
                 }
                 break;
             case 4:
-                return new RjObstacleCage(world,"cage");
+                if(containsCage==false){
+                    if(this.obstacleList.size()<maxObstacle){
+                        if(Math.random()>0.98){
+                            obstacle = new RjObstacleCage(world);
+                            this.obstacleList.add(obstacle);
+                        }
+                    }
+                }
+                break;
             case 5:
                 return new RjObstacleTree(world,"tree");
             default:
@@ -90,6 +103,7 @@ public class RjObstacleFactory {
         // Create obstacle in the world
         if(obstacle!=null){
             obstacle.createObject();
+            obstacle.drawObstacle(spriteBatch);
         }
 
         return obstacle;

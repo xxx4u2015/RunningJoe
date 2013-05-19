@@ -1,5 +1,6 @@
 package efficom.runningjoe.core;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: smerlin
@@ -15,8 +16,16 @@ public class RjObstacleCage extends RjObstacle {
      * @param world RjWorld object the Graphic Item belongs to
      * @param name  Name of the Graphic Item
      */
-    public RjObstacleCage(RjWorld world, String name) {
-        super(world, name);
+    public RjObstacleCage(RjWorld world) {
+        super(world, "cage");
         this.img="cage";
+
+        this.width = 128;
+
+        this.density = 10f ;
+        this.friction = 0.2f;
+        this.restitution = 0.2f;
+
     }
+
 }
