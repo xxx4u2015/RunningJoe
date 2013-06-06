@@ -35,6 +35,7 @@ public class RjWorld{
     private RjObstacleFactory obstacleFactory;
 	private Vector<Background> vecBg;
     private Background foreground;
+    private Fire fire;
 
 	public RjWorld(){
 		camera = new OrthographicCamera(
@@ -64,6 +65,8 @@ public class RjWorld{
 		this.joe = new Joe(this);
 		this.score = new Score();		
 		this.createBackground();
+
+        this.fire = new Fire(this);
 		
 		Gdx.app.log("Running Joe", "GAME STARTED");
 	}
@@ -145,7 +148,10 @@ public class RjWorld{
 
         this.obstacleFactory.generateRjObstacles(this,spriteBatch);
 
+        fire.draw(spriteBatch);
+
         foreground.DrawTexture(spriteBatch);
+
 		spriteBatch.end();		
 	}
 	

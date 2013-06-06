@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import efficom.runningjoe.RunningJoe;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -129,13 +128,13 @@ public class Joe extends AbstractGraphicItem {
             }
         }
 
-        animation = new Animation(0.1f, frames);
+        animation = new Animation(0.05f, frames);
         stateTime = 0.0f;
 
         return frames;
     }
 	
-	/*
+	/**
 	 * 
 	 */
 	@SuppressWarnings("unused")

@@ -5,4 +5,4 @@ package efficom.runningjoe.core;
  *
  * @author Guillaume BAILLEUL
  */
-public enum GraphicItemType{GROUND, JOE, OBSTACLE,BONUS, UNKNOWN}
+public enum GraphicItemType{GROUND, JOE, OBSTACLE,BONUS, FIRE, UNKNOWN}
