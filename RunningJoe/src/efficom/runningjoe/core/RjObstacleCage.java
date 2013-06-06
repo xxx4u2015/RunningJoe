@@ -1,11 +1,7 @@
 package efficom.runningjoe.core;
 
 /**
- * Created with IntelliJ IDEA.
- * User: smerlin
- * Date: 15/05/13
- * Time: 15:03
- * To change this template use File | Settings | File Templates.
+ * @author Sylvain MERLIN
  */
 public class RjObstacleCage extends RjObstacle {
 

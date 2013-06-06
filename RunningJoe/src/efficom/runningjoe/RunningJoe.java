@@ -20,7 +20,8 @@ import efficom.runningjoe.ui.LoginScreen;
 public class RunningJoe extends Game
 {
     // constant useful for logging
-    public static final String LOG = RunningJoe.class.getSimpleName();
+    //public static final String LOG = RunningJoe.class.getSimpleName();
+    public static final String LOG = "RunningJoe";
     public static float SCREEN_WIDTH_ORIGINAL=800;
 	public static float SCREEN_HEIGHT_ORIGINAL=480;		
 	public static float SCREEN_WIDTH=800;
@@ -41,7 +42,6 @@ public class RunningJoe extends Game
  	
     public RunningJoe(){
     	GdxNativesLoader.load();
-
         instance = this;
     }
 
@@ -139,7 +139,7 @@ public class RunningJoe extends Game
     public void setScreen(Screen screen )
     {
         super.setScreen( screen );
-        Gdx.app.log( RunningJoe.LOG, "Setting screen: " + screen.getClass().getSimpleName() );
+        Gdx.app.log( RunningJoe.LOG, "Setting screen: ");
     }
 
     @Override

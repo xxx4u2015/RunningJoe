@@ -69,6 +69,7 @@ public class Background{
             TextureWrapper tr = iTr.next();
             tr.SetPosition(pos1.x + trWidth * (i+deleted), pos1.y);
             tr.Draw(spriteBatch);
+
             // Set a block to delete if not displayed anymore
             if( tr.position.x < -trWidth/2) toDelete = tr;
             i++;
@@ -81,8 +82,5 @@ public class Background{
             Gdx.app.log(RunningJoe.LOG, "Deleted background");
             this.deleted++;
         }
-
-
-    	
 	}
 }

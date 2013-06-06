@@ -3,11 +3,7 @@ package efficom.runningjoe.core;
 import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
- * User: smerlin
- * Date: 15/05/13
- * Time: 15:12
- * To change this template use File | Settings | File Templates.
+ * @author Sylvain MERLIN
  */
 public class RjObstacleBox extends RjObstacle {
 

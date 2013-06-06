@@ -9,13 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
 /**
- * Created with IntelliJ IDEA.
- * User: smerlin
- * Date: 15/05/13
- * Time: 11:01
- * To change this template use File | Settings | File Templates.
+ * @author Sylvain MERLIN
  */
-
 public class RjObstacle extends AbstractGraphicItem {
 
     protected float density;
@@ -42,8 +37,7 @@ public class RjObstacle extends AbstractGraphicItem {
         CreateBody(new Vector2(this.ConvertToWorld(world.getCamera().position.x+world.getCamera().viewportWidth), 140), 0, BodyDef.BodyType.DynamicBody, false);
         // Load Fixture from a Json
         LoadFixture("data/"+this.img+".json", this.name,this.density, this.friction, this.restitution,this.width);
-
-        // Create the Texture
+                                                 // Create the Texture
         TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/obstacles/"+this.img+".png")));
         this.sprite = new Sprite(
                 new Texture(

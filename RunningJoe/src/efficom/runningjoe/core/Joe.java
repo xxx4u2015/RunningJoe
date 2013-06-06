@@ -1,15 +1,20 @@
 package efficom.runningjoe.core;
 
-import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import efficom.runningjoe.RunningJoe;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /***
  * Joe the main character of RunningJoe
@@ -19,26 +24,27 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public class Joe extends AbstractGraphicItem {
 	static final char JUMP_COUNT = 2;
 	private enum MoveState{JUMPING, RUNNING};
-	static final float DENSITY = 0.5f;
+	static final float DENSITY = 0.2f;
 	static final float FRICTION = 0.5f;
 	static final float RESTITUTION = 0.0f;
-	static final float JUMP_FORCE = 3.0f;
+	static final float JUMP_FORCE = 0.8f;
 	static final float INITIAL_SPEED = 1;
     static final int FRAME_WIDTH = 64;
     static final int FRAME_HEIGHT = 128;
-    private static final float BODY_WIDTH = 35;
+    private static final float BODY_WIDTH = 512;
     private static final int FRAME_COLS = 8;         // #1
     private static final int FRAME_ROWS = 2;
+    private boolean waitRender = false;
 
     // Class attributes
 	private float speed = INITIAL_SPEED;
 	private MoveState moveState = MoveState.RUNNING;
 	private char jumpCount = JUMP_COUNT;
 	private Vector2 initPos;
-	private PointLight joelight;
     private TextureRegion[] animationFrames;
     private Animation animation;
     float stateTime;
+    boolean canJump = true;
 
     /***
 	 * Class constructor
@@ -54,7 +60,6 @@ public class Joe extends AbstractGraphicItem {
 	    		RunningJoe.SCREEN_WIDTH* 0.75f,
 	    		RjBlock.BLOCK_HEIGHT*10);
 
-		//this.createStandingJoe();
         this.createBody();
         this.createRunningJoe();
 	}
@@ -73,7 +78,18 @@ public class Joe extends AbstractGraphicItem {
     {
         // Create the body and fixture
         CreateBody(initPos,0,BodyType.DynamicBody, true);
-        LoadFixture("data/joe.json", "StandingJoe",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+        LoadFixture("data/joe.json", "Foot",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
+
+        // Define the infos of the foot
+        ArrayList<Fixture> fixList = body.getFixtureList();
+        Iterator<Fixture> it = fixList.listIterator();
+        GraphicItemInfos infos = new GraphicItemInfos("foot", GraphicItemType.JOE);
+        while (it.hasNext()){
+            Fixture fix = it.next();
+            fix.setUserData(infos);
+        }
+
+        LoadFixture("data/joe.json", "RunningJoe",DENSITY, FRICTION, RESTITUTION,BODY_WIDTH);
     }
 
 	/**
@@ -90,6 +106,7 @@ public class Joe extends AbstractGraphicItem {
                 FRAME_HEIGHT);
 
         LoadTexture(this.animationFrames[0], new Vector2(0,0));
+
 	}
 
     /**
@@ -145,18 +162,19 @@ public class Joe extends AbstractGraphicItem {
 		Vector2 pos = this.body.getPosition();
     	Vector2 vel = new Vector2(0, JUMP_FORCE);        
         
-        if(this.moveState != MoveState.JUMPING) {
+        if(this.moveState != MoveState.JUMPING && !waitRender) {
         	this.jumpCount--;
             System.out.println("jump before: " + body.getLinearVelocity());
     		body.applyLinearImpulse(vel, pos);			
-    		System.out.println("jump, " + body.getLinearVelocity());        	
+    		System.out.println("jump, " + body.getLinearVelocity());
+            waitRender = true;
         }
         
     }
 	
 	/**
 	 * Move	from left or right
-	 * @param True to run in this way -> False if this way <-
+	 * @param toright true to run in this way -> False if this way <-
 	 * @param coef
 	 */
 	public void Move(boolean toright, float coef)
@@ -174,11 +192,8 @@ public class Joe extends AbstractGraphicItem {
 	public void render()
 	{
 		if(this.world.isStarded()){
-			/* Define the movement state and compare it to the previous, if 
-			 * they are differents change frixion fixture
-			 */		
 			MoveState oldState = this.moveState;
-			this.moveState = this.hasGroundContact() ? MoveState.RUNNING : MoveState.JUMPING;
+			this.moveState = this.hasFootContact() ? MoveState.RUNNING : MoveState.JUMPING;
 
             stateTime += Gdx.graphics.getDeltaTime();
             TextureRegion region = animation.getKeyFrame(stateTime, true);
@@ -189,23 +204,20 @@ public class Joe extends AbstractGraphicItem {
 			if( oldState != this.moveState){
 				// if came back to the ground
 				if(this.moveState == MoveState.RUNNING){
-					//for(Fixture fix : body.getFixtureList())
-		        	//	fix.setFriction(1.0f);
-
                     this.createRunningJoe();
-					
 					// Reset the number of jump
+
 					this.jumpCount = JUMP_COUNT;
 				// if start jumping
 				}else{
                     createJumpingJoe();
-					//for(Fixture fix : body.getFixtureList())
-		        	//	fix.setFriction(0.0f);
 				}
 				
 				Gdx.app.log(RunningJoe.LOG, "Move has change from " + oldState + " to " + this.moveState);
 			}
-			
+
+            waitRender = false;
+
 			// Do the run
 			this.run();			
 		}
@@ -231,4 +243,30 @@ public class Joe extends AbstractGraphicItem {
 	{
 		return this.speed;
 	}
+
+    /**
+     *
+     * @return true if the foot has contact with a body
+     */
+    public boolean hasFootContact()
+    {
+        Iterator<Contact> it = RunningJoe.getInstance().getWorld().getWorld().getContactList().iterator();
+        while(it.hasNext()){
+            Contact item = it.next();
+
+            Fixture fA = item.getFixtureA();
+            Fixture fB = item.getFixtureB();
+
+            if((fB.getBody() == body || fA.getBody() == body) && (fA.getBody() != fB.getBody())){
+
+                GraphicItemInfos infos1 =  (GraphicItemInfos)fA.getUserData();
+                GraphicItemInfos infos2 =  (GraphicItemInfos)fB.getUserData();
+
+                if(infos1 != null && infos1.getName() == "foot")return true;
+                if(infos2 != null && infos2.getName() == "foot")return true;
+            }
+        }
+
+        return false;
+    }
 }

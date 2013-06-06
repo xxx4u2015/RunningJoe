@@ -21,6 +21,7 @@
       <string key="Return" value="Back" />
       <string key="Resume" value="Resume" />
       <string key="Score" value="Score" />
+       <string key="Register" value="Register" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Server connection failed." />
@@ -47,6 +48,7 @@
       <string key="Return" value="Retour" />
       <string key="Resume" value="Reprendre" />
       <string key="Score" value="Score" />
+      <string key="Register" value="Inscription" />
       
       <!-- Errors -->
       <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />

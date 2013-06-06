@@ -16,7 +16,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "UserApiService", targetNamespace = "http://efficom/runningjoe/ws/UserApi/", wsdlLocation = "http://grimfor.alwaysdata.net/RunningJoeServer/web/ws/UserApi?wsdl")
+@WebServiceClient(name = "UserApiService", targetNamespace = "http://efficom/runningjoe/ws/UserApi/", wsdlLocation = "http://runningjoeserver.guillaume-bailleul.fr/ws/UserApi?wsdl")
 public class UserApiService
     extends Service
 {
@@ -29,7 +29,7 @@ public class UserApiService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://grimfor.alwaysdata.net/RunningJoeServer/web/ws/UserApi?wsdl");
+            url = new URL("http://runningjoeserver.guillaume-bailleul.fr/ws/UserApi?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

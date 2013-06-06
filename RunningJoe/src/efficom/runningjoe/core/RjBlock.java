@@ -44,7 +44,7 @@ public class RjBlock extends AbstractGraphicItem {
 		}
 
         Texture texture = AssetsManager.getInstance().getGround();
-        int blockCapacity = texture.getWidth() /BLOCK_WIDTH;
+        int blockCapacity = texture.getWidth() /BLOCK_WIDTH - 1;
 
 		this.texture = new TextureRegion(
                 texture,

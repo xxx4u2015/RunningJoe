@@ -58,6 +58,7 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         body.setUserData(this.infos);
 
 
+
 	}
 	
 	public void CreateBody(Vector2 pos,float angle, BodyType bodyType){
@@ -146,7 +147,6 @@ public abstract class AbstractGraphicItem implements IDrawable, IRenderable{
         Vector2 vecPos = new Vector2(
                 ConvertToWorld(body.getWorldCenter().x - vecCam.x),
                 ConvertToWorld(body.getWorldCenter().y - vecCam.y));
-
 
     	this.tr.SetPosition(vecPos.x, vecPos.y);
 
