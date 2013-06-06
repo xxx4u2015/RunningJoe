@@ -47,8 +47,8 @@ public class SoapManager {
 	
 	/**
 	 * Try to log the user into the server
-	 * @param Name of the player
-	 * @param Password of the player
+	 * @param prmName of the player
+	 * @param prmPassword of the player
 	 * @return Success: null or error description
 	 */
 	public String Login(String prmName, String prmPassword)
@@ -75,10 +75,41 @@ public class SoapManager {
 		
 		return ret;				
 	}
+
+    /**
+     * Try to log the user into the server
+     * @param prmName of the player
+     * @param prmEmail email of the player
+     * @param prmPassword of the player
+     * @return Success: null or error description
+     */
+    public String Register(String prmName, String prmEmail, String prmPassword)
+    {
+        String ret = null;
+
+        try{
+            int result = userWs.register(prmName, prmEmail, prmPassword);
+            this.userId = result;
+
+            if(result < 0){
+                ret = this.userWs.errordescription(
+                        LanguagesManager.getInstance().getLanguage(), result);
+            }else{
+                ret = null;
+            }
+
+        }catch(Exception e){
+            ret = LanguagesManager.getInstance().getString("ConnectionProblem");
+            Gdx.app.log( RunningJoe.LOG, "Error while registrating user : "
+                    + e.getMessage());
+        }
+
+        return ret;
+    }
 	
 	/**
 	 * Try to record the score on the server
-	 * @param The score value
+	 * @param score score value
 	 * @return Success: null, Error: description
 	 */
 	public String RecordScore(double score)

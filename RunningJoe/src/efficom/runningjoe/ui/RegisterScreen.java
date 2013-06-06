@@ -12,8 +12,8 @@ import efficom.runningjoe.services.SoapManager;
 import efficom.runningjoe.services.SoundManager;
 
 public class RegisterScreen extends AbstractMenuItemScreen {
-    private TextButton connectButton, ignoreButton;
-    private TextField passwordText, playerText, errorText;
+    private TextButton registerButton, cancelButton;
+    private TextField passwordText, playerText, errorText, confirmText, emailText;
 
     public RegisterScreen()
     {
@@ -43,6 +43,19 @@ public class RegisterScreen extends AbstractMenuItemScreen {
 
         // PASSWORD ENTRIES-----------------------------------------------------
         // register the button login label
+        Label emailLabel = new Label(
+                this.getLanguagesManager().getString("Email"),
+                this.labelStyle
+        );
+        this.getTable().add(emailLabel).uniform().spaceBottom(10);
+
+        // register the button login label
+        emailText = new TextField(  "", this.textFieldStyle );
+        this.getTable().add(emailText).uniform().spaceBottom(10);
+        this.getTable().row();
+
+        // PASSWORD ENTRIES-----------------------------------------------------
+        // register the button login label
         Label passwordlabel = new Label(
                 this.getLanguagesManager().getString("Password"),
                 this.labelStyle
@@ -56,52 +69,87 @@ public class RegisterScreen extends AbstractMenuItemScreen {
         this.getTable().add(passwordText).uniform().spaceBottom(10);
         this.getTable().row();
 
+        // PASSWORD ENTRIES-----------------------------------------------------
+        // register the button login label
+        Label confirmLabel = new Label(
+                this.getLanguagesManager().getString("Confirm pass"),
+                this.labelStyle
+        );
+        this.getTable().add(confirmLabel).uniform().spaceBottom(10);
+
+        // register the button login label
+        confirmText = new TextField(  "", this.textFieldStyle );
+        confirmText.setPasswordCharacter('*');
+        confirmText.setPasswordMode(true);
+        this.getTable().add(confirmText).uniform().spaceBottom(10);
+        this.getTable().row();
+
         // ERROR FIELD----------------------------------------------------------
         errorText = new TextField("", this.textFieldStyle);
         this.getTable().add(errorText).uniform().spaceBottom(10).colspan(2);
         this.getTable().row();
 
-        // Ignore
-        ignoreButton = new TextButton(
-                this.getLanguagesManager().getString("Continue"),
+        // Connect button-------------------------------------------------------
+        registerButton = new TextButton(
+                this.getLanguagesManager().getString("Register") ,
                 this.buttonStyle
         );
-        super.getTable().add(ignoreButton).uniform().fill().spaceBottom( 10 );
-        ignoreButton.addListener( new InputListener() {
+        super.getTable().add(registerButton).uniform().fill().spaceRight( 10 );
+        registerButton.addListener( new InputListener() {
             @Override
             public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
             {
-                Gdx.app.log( RunningJoe.LOG, "Validate clicked: " + getName() );
+                Gdx.app.log( RunningJoe.LOG, "Register clicked: " + getName() );
                 SoundManager.getInstance().play( RunningJoeSound.CLICK );
-                RunningJoe.getInstance().setScreen( new MainScreen( ) );
+
+                // Password check
+                if(!confirmText.getText().equals(passwordText.getText())){
+                    errorText.setText("Password don't match.");
+                }else{
+                    if(playerText.getText().equals("") || emailText.getText().equals("") || passwordText.getText().equals("")){
+                        errorText.setText("Some fields are empty.");
+                    }else{
+
+                        if(emailText.getText().matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$"))
+                        {
+                            // Register
+                            String ret = SoapManager.getInstance().Register(
+                                    playerText.getText(),
+                                    emailText.getText(),
+                                    passwordText.getText());
+
+                            if(ret == null)
+                                RunningJoe.getInstance().setScreen( new LoginScreen());
+                            else
+                                errorText.setText(ret);
+                        }else{
+                            errorText.setText("Invalid email.");
+                        }
+
+                    }
+                }
+
                 return true;
             }
         });
 
-        // Connect button-------------------------------------------------------
-        connectButton = new TextButton(
-                this.getLanguagesManager().getString("Connect") ,
+        // Ignore
+        cancelButton = new TextButton(
+                this.getLanguagesManager().getString("Cancel"),
                 this.buttonStyle
         );
-        super.getTable().add(connectButton).uniform().fill().spaceRight( 10 );
-        connectButton.addListener( new InputListener() {
+        super.getTable().add(cancelButton).uniform().fill().spaceBottom( 10 );
+        cancelButton.addListener( new InputListener() {
             @Override
             public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
             {
                 Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
                 SoundManager.getInstance().play( RunningJoeSound.CLICK );
-
-                // Login logic--------------------------------------------------
-                String ret = SoapManager.getInstance().Login(playerText.getText(),
-                        passwordText.getText());
-
-                if(ret == null)
-                    RunningJoe.getInstance().setScreen( new MainScreen( ) );
-                else
-                    errorText.setText(ret);
-
+                RunningJoe.getInstance().setScreen( new LoginScreen( ) );
                 return true;
             }
         });
+
+
     }
 }

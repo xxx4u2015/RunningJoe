@@ -37,8 +37,8 @@ public class RunningJoe extends Game
 
     // a libgdx helper class that logs the current FPS each second
     private FPSLogger fpsLogger;
-    
     private RjWorld world;
+
  	
     public RunningJoe(){
     	GdxNativesLoader.load();

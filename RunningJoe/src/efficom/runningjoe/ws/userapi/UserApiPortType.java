@@ -21,8 +21,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
     ObjectFactory.class
 })
 public interface UserApiPortType {
-
-
     /**
      * 
      * @param email

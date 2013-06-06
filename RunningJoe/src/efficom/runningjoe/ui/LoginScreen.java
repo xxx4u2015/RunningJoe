@@ -12,7 +12,7 @@ import efficom.runningjoe.services.SoapManager;
 import efficom.runningjoe.services.SoundManager;
 
 public class LoginScreen extends AbstractMenuItemScreen {
-	private TextButton connectButton, ignoreButton;
+	private TextButton connectButton, ignoreButton, registerButton, forgottenButton;
 	private TextField passwordText, playerText, errorText;
 	
 	public LoginScreen()
@@ -63,7 +63,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
 	 
 		// Ignore
 		ignoreButton = new TextButton( 
-				this.getLanguagesManager().getString("Continue"),  
+				this.getLanguagesManager().getString("Anonymous"),
 				this.buttonStyle 
 				);
 		super.getTable().add(ignoreButton).uniform().fill().spaceBottom( 10 );
@@ -103,5 +103,42 @@ public class LoginScreen extends AbstractMenuItemScreen {
 				return true;
 			}
 		});
+
+        // ROW ---------------------------------------------------------------------------------------------------------
+        this.getTable().row();
+
+        // Register button ---------------------------------------------------------------------------------------------
+        registerButton = new TextButton(
+                this.getLanguagesManager().getString("Register"),
+                this.buttonStyle
+        );
+        super.getTable().add(registerButton).uniform().fill().spaceBottom( 10 );
+        registerButton.addListener( new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
+            {
+                Gdx.app.log( RunningJoe.LOG, "Register clicked: " + getName() );
+                SoundManager.getInstance().play( RunningJoeSound.CLICK );
+                RunningJoe.getInstance().setScreen( new RegisterScreen( ) );
+                return true;
+            }
+        });
+
+        // Forgotten button ---------------------------------------------------------------------------------------------
+        forgottenButton = new TextButton(
+                this.getLanguagesManager().getString("Forgotten"),
+                this.buttonStyle
+        );
+        super.getTable().add(forgottenButton).uniform().fill().spaceBottom( 10 );
+        forgottenButton.addListener( new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
+            {
+                Gdx.app.log( RunningJoe.LOG, "Forgottend clicked: " + getName() );
+                SoundManager.getInstance().play( RunningJoeSound.CLICK );
+                RunningJoe.getInstance().setScreen( new ForgottenScreen( ) );
+                return true;
+            }
+        });
 	}
 }

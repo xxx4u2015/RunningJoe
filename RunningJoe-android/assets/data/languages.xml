@@ -2,55 +2,65 @@
 <languages>
    <!-- English -->
    <language name="en_UK" >
-      <!--  Menu  -->
-      <string key="HighScores" value="High scores" />
-      <string key="Play" value="New game" />
-      <string key="Options" value="Options" />
-      <string key="Exit" value="Exit" />
-      <string key="Cancel" value="Cancel" />
-      <string key="Save" value="Save" />
-      <string key="Playername" value="Player name" />
-      <string key="Password" value="Password" />
-      <string key="Connect" value="Connection" />
-      <string key="Continue" value="Continue" />
-      <string key="Restart" value="Restart" />
-      <string key="MainMenu" value="Main menu" />
-      <string key="YourScoreIs" value="Your score is" />
-      <string key="GameOver" value="Game over" />
-      <string key="Login" value="Login" />
-      <string key="Return" value="Back" />
-      <string key="Resume" value="Resume" />
-      <string key="Score" value="Score" />
+       <!--  Menu  -->
+       <string key="HighScores" value="High scores" />
+       <string key="Play" value="New game" />
+       <string key="Options" value="Options" />
+       <string key="Exit" value="Exit" />
+       <string key="Cancel" value="Cancel" />
+       <string key="Save" value="Save" />
+       <string key="Playername" value="Player name" />
+       <string key="Password" value="Password" />
+       <string key="Connect" value="Connection" />
+       <string key="Continue" value="Continue" />
+       <string key="Restart" value="Restart" />
+       <string key="MainMenu" value="Main menu" />
+       <string key="YourScoreIs" value="Your score is" />
+       <string key="GameOver" value="Game over" />
+       <string key="Login" value="Login" />
+       <string key="Return" value="Back" />
+       <string key="Resume" value="Resume" />
+       <string key="Score" value="Score" />
        <string key="Register" value="Register" />
-      
+       <string key="Anonymous" value="Anonymous" />
+       <string key="Forgotten" value="Change password" />
+
+       <string key="Send" value="Send" />
+       <string key="Confirm pass" value="Password (confirm)" />
+
       <!-- Errors -->
       <string key="ConnectionProblem" value="Server connection failed." />
    </language>
    
    <!-- French -->
    <language name="fr_FR" >
-      <!--  Menu  -->
-      <string key="HighScores" value="Meilleurs scores" />
-      <string key="Play" value="Nouvelle partie" />
-      <string key="Options" value="Options" />
-      <string key="Exit" value="Quitter" />
-      <string key="Cancel" value="Annuler" />
-      <string key="Save" value="Sauvegarder" />
-      <string key="Playername" value="Joueur" />
-      <string key="Password" value="Mot de passe" />
-      <string key="Connect" value="Connexion" />
-      <string key="Continue" value="Continuer" />
-      <string key="Restart" value="Recommencer" />
-      <string key="MainMenu" value="Menu principal" />
-      <string key="YourScoreIs" value="Votre score est de" />
-      <string key="GameOver" value="Fin  de la partie" />
-      <string key="Login" value="Identification" />
-      <string key="Return" value="Retour" />
-      <string key="Resume" value="Reprendre" />
-      <string key="Score" value="Score" />
-      <string key="Register" value="Inscription" />
+       <!--  Menu  -->
+       <string key="HighScores" value="Meilleurs scores" />
+       <string key="Play" value="Nouvelle partie" />
+       <string key="Options" value="Options" />
+       <string key="Exit" value="Quitter" />
+       <string key="Cancel" value="Annuler" />
+       <string key="Save" value="Sauvegarder" />
+       <string key="Playername" value="Joueur" />
+       <string key="Password" value="Mot de passe" />
+       <string key="Connect" value="Connexion" />
+       <string key="Continue" value="Continuer" />
+       <string key="Restart" value="Recommencer" />
+       <string key="MainMenu" value="Menu principal" />
+       <string key="YourScoreIs" value="Votre score est de" />
+       <string key="GameOver" value="Fin  de la partie" />
+       <string key="Login" value="Identification" />
+       <string key="Return" value="Retour" />
+       <string key="Resume" value="Reprendre" />
+       <string key="Score" value="Score" />
+       <string key="Register" value="Inscription" />
+       <string key="Anonymous" value="Anonyme" />
+       <string key="Forgotten" value="Changer password" />
+       <string key="Send" value="Envoyer" />
+       <string key="Confirm pass" value="Mot de passe" />
+
       
-      <!-- Errors -->
-      <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />
+       <!-- Errors -->
+       <string key="ConnectionProblem" value="Impossible de se connecter au serveur." />
    </language>
 </languages>
