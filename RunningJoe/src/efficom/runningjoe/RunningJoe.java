@@ -39,7 +39,6 @@ public class RunningJoe extends Game
     private FPSLogger fpsLogger;
     private RjWorld world;
 
- 	
     public RunningJoe(){
     	GdxNativesLoader.load();
         instance = this;
