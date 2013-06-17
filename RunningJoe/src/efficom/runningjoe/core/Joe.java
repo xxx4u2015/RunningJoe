@@ -26,7 +26,7 @@ public class Joe extends AbstractGraphicItem {
 	static final float DENSITY = 0.2f;
 	static final float FRICTION = 0.5f;
 	static final float RESTITUTION = 0.0f;
-	static final float JUMP_FORCE = 0.8f;
+	static final float JUMP_FORCE = 0.7f;
 	static final float INITIAL_SPEED = 1;
     static final int FRAME_WIDTH = 64;
     static final int FRAME_HEIGHT = 128;
@@ -163,9 +163,12 @@ public class Joe extends AbstractGraphicItem {
         
         if(this.moveState != MoveState.JUMPING && !waitRender) {
         	this.jumpCount--;
-            System.out.println("jump before: " + body.getLinearVelocity());
+
+            body.setLinearVelocity(this.body.getLinearVelocity().x, 10);
+
+            /*System.out.println("jump before: " + body.getLinearVelocity());
     		body.applyLinearImpulse(vel, pos);			
-    		System.out.println("jump, " + body.getLinearVelocity());
+    		System.out.println("jump, " + body.getLinearVelocity());*/
             waitRender = true;
         }
         
@@ -177,12 +180,15 @@ public class Joe extends AbstractGraphicItem {
 	 * @param coef
 	 */
 	public void Move(boolean toright, float coef)
-	{		
-		if(moveState != MoveState.JUMPING){
-			Vector2 vel = this.body.getLinearVelocity();
-	        vel.x = toright ? speed * coef: -speed * coef;
-	        body.setLinearVelocity(vel);	
-		}
+	{
+        Vector2 vel = this.body.getLinearVelocity();
+        vel.x = toright ? speed * coef: -speed * coef;
+
+		if(moveState == MoveState.JUMPING)
+            vel.x = vel.x * 0.3f;
+
+
+        body.setLinearVelocity(vel);
 	}
 	
 	/*

@@ -17,7 +17,6 @@ import efficom.runningjoe.services.MusicManager;
 import efficom.runningjoe.services.MusicManager.RunningJoeMusic;
 import efficom.runningjoe.ui.GameOverScreen;
 
-
 /**
  * The RunningJoe World
  *
