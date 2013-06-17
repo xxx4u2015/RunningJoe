@@ -185,8 +185,7 @@ public class Joe extends AbstractGraphicItem {
         vel.x = toright ? speed * coef: -speed * coef;
 
 		if(moveState == MoveState.JUMPING)
-            vel.x = vel.x * 0.3f;
-
+            vel.x = vel.x * 0.7f;
 
         body.setLinearVelocity(vel);
 	}
