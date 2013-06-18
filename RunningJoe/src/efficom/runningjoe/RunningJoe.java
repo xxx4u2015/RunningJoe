@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import efficom.runningjoe.core.RjWorld;
-import efficom.runningjoe.services.AssetsManager;
-import efficom.runningjoe.services.SoundManager;
-import efficom.runningjoe.services.MusicManager;
-import efficom.runningjoe.services.ProfileManager;
+import efficom.runningjoe.services.*;
 import efficom.runningjoe.ui.SplashScreen;
 import efficom.runningjoe.ui.LoginScreen;
 
@@ -68,6 +65,7 @@ public class RunningJoe extends Game
         this.fpsLogger = new FPSLogger();
         
         world = new RjWorld();
+
     }
     
     /**

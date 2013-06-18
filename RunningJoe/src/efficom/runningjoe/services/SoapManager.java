@@ -3,16 +3,19 @@ package efficom.runningjoe.services;
 import com.badlogic.gdx.Gdx;
 import efficom.runningjoe.RunningJoe;
 import efficom.runningjoe.ws.userapi.*;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class SoapManager {
 	private static volatile SoapManager instance = null;
-	UserApiPortType userWs;
+    UserApiPortType2 portType2;
 	int userId = -1;
 	String name = null;
 	
 	private SoapManager(){
-		super();
-		this.connect();		
+        portType2 = new UserApiPortType2();
 	}
 	
 	public final static SoapManager getInstance() {
@@ -25,17 +28,7 @@ public class SoapManager {
          }                
         return instance;
     }
-	
-	private void connect(){
-		try{
-			UserApiService userWsService = new UserApiService();		
-			userWs = userWsService.getUserApiPort();
-			
-		}catch(Exception e){
-			Gdx.app.log( RunningJoe.LOG, "Error while trying to connect : "
-					+ e.getMessage());			
-		}
-	}
+
 	
 	/**
 	 * @return Return true if the client is connected
@@ -54,24 +47,27 @@ public class SoapManager {
 	public String Login(String prmName, String prmPassword)
 	{
 		String ret = null;
-		
-		try{
-			int result = userWs.login(prmName, prmPassword);
-			this.userId = result;
-			
-			if(result > 0){
-				this.userId = result;
-				this.name = prmName;
-			}else{
-				ret = this.userWs.errordescription(
-				LanguagesManager.getInstance().getLanguage(), result);
-			}
-			
-		}catch(Exception e){
-			ret = LanguagesManager.getInstance().getString("ConnectionProblem");
-			Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
-					+ e.getMessage());
-		}
+
+        try {
+            int error = portType2.login(prmName, prmPassword);
+
+            this.userId = error;
+
+            if(error < 0){
+                ret = this.portType2.errordescription(
+                        LanguagesManager.getInstance().getLanguage(), error);
+            }else{
+                this.userId = error;
+                this.name = prmName;
+
+                ret = null;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 		
 		return ret;				
 	}
@@ -87,21 +83,22 @@ public class SoapManager {
     {
         String ret = null;
 
-        try{
-            int result = userWs.register(prmName, prmEmail, prmPassword);
-            this.userId = result;
+        try {
+            int error = portType2.register(prmName, prmEmail, prmPassword);
 
-            if(result < 0){
-                ret = this.userWs.errordescription(
-                        LanguagesManager.getInstance().getLanguage(), result);
+            this.userId = error;
+
+            if(error < 0){
+                ret = this.portType2.errordescription(
+                        LanguagesManager.getInstance().getLanguage(), error);
             }else{
                 ret = null;
             }
 
-        }catch(Exception e){
-            ret = LanguagesManager.getInstance().getString("ConnectionProblem");
-            Gdx.app.log( RunningJoe.LOG, "Error while registrating user : "
-                    + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         return ret;
@@ -115,64 +112,47 @@ public class SoapManager {
 	public String RecordScore(double score)
 	{
 		String ret = null;
-		
-		try{
-			int result = userWs.recordscore(this.name, (int)score);
-			
-			if(result < 0){								
-				ret = this.userWs.errordescription(
-						LanguagesManager.getInstance().getLanguage(), result);
-				Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
-						+ ret);
-			}else{
-				Gdx.app.log( RunningJoe.LOG, "Score recorded");				
-			}
-			
-		}catch(Exception e){
-			ret = LanguagesManager.getInstance().getString("ConnectionProblem");
-			Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
-					+ e.getMessage());
-		}
+
+        try {
+            int error = portType2.recordscore(this.name, (int)score);
+
+            if(error < 0){
+                ret = this.portType2.errordescription(
+                        LanguagesManager.getInstance().getLanguage(), error);
+                Gdx.app.log( RunningJoe.LOG, "Error while recording result : "
+                        + ret);
+            }else{
+                Gdx.app.log( RunningJoe.LOG, "Score recorded");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 		
 		return ret;			
 	}
 	
+
 	/**
 	 * Retrieving high scores from the web service
 	 * @return Array of score
 	 */
-	public ArrayOfScore GetHighScores()
+	public ArrayList<String> GetHighScoresStrings()
 	{
-		try{
-			ArrayOfScore result = userWs.highscores(10, 0);
-			Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");			
-			return result;
-			
-		}catch(Exception e){
-			Gdx.app.log( RunningJoe.LOG, "Error while retrieving highscores : "
-					+ e.getMessage());
-			
-			return null;
-		}		
-	}
-	
-	/**
-	 * Retrieving high scores from the web service
-	 * @return Array of score
-	 */
-	public ArrayOfString GetHighScoresStrings()
-	{		
-		try{
-			ArrayOfString result = userWs.highscoresstring(10,0);
-			Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");			
-			return result;
-			
-		}catch(Exception e){
-			Gdx.app.log( RunningJoe.LOG, "Error while retrieving highscores : "
-					+ e.getMessage());
-			
-			return null;
-		}
+        try {
+            ArrayList<String> result = portType2.highscoresstring(10, 0);
+            Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return null;
 	}
 	
 

@@ -11,6 +11,8 @@ import efficom.runningjoe.services.SoapManager;
 import efficom.runningjoe.services.SoundManager;
 import efficom.runningjoe.ws.userapi.ArrayOfString;
 
+import java.util.ArrayList;
+
 public class HighScoresScreen extends AbstractMenuItemScreen{
 	private TextButton cancelButton;
 	
@@ -28,9 +30,9 @@ public class HighScoresScreen extends AbstractMenuItemScreen{
 	
 	private void createScores()
 	{
-		ArrayOfString scores = SoapManager.getInstance().GetHighScoresStrings();
+		ArrayList<String> scores = SoapManager.getInstance().GetHighScoresStrings();
 		if(scores!=null){
-			for(String item: scores.getItem()){				
+			for(String item: scores){
 				Label lbl = new Label(item, this.labelStyle);	
 				super.getTable().add(lbl).uniform().fill().spaceRight( 10 ).colspan(2);
 				this.getTable().row();				

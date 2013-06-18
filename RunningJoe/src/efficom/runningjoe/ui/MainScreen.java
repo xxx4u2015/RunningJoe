@@ -40,8 +40,6 @@ public class MainScreen extends AbstractScreen
 		    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
                 RunningJoe.getInstance().getWorld().getJoe().Move(false, 5f);
 
-
-
             if(Gdx.input.getAccelerometerY() < -2f)
                 RunningJoe.getInstance().getWorld().getJoe().Move(false, 5f);
 		    	
@@ -129,7 +127,8 @@ public class MainScreen extends AbstractScreen
 	        TextButton startGameButton = new TextButton( 
 	        		this.getLanguagesManager().getString("Play"), 
 	        		this.buttonStyle 
-	        );        
+	        );
+
 	        startGameButton.addListener( new InputListener() {         	    		
 	        	@Override
 	            public boolean touchDown( InputEvent event, float x, float y, int pointer, int button )

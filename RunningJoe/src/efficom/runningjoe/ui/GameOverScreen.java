@@ -29,7 +29,7 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	@Override
 	public void show(){
 		super.show();
-		this.createMenu();	 
+		this.createMenu();
 	}
 	
 	private void createMenu()
