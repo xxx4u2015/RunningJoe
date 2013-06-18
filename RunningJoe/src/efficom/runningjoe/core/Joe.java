@@ -8,10 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import efficom.runningjoe.RunningJoe;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -67,7 +65,6 @@ public class Joe extends AbstractGraphicItem {
 	 * Create the standing joe representation
 	 */
 	private void createStandingJoe() {
-	    
 	    // Create the Texture
 	    TextureRegion region = new TextureRegion(new Texture(Gdx.files.internal("images/standingjoe.png")));
 	    LoadTexture(region, new Vector2(0,0));

@@ -34,15 +34,24 @@ public class MainScreen extends AbstractScreen
     	if(RunningJoe.getInstance().getWorld().isStarded() && !menuDawn){
 	    	if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.justTouched())
 	        	RunningJoe.getInstance().getWorld().getJoe().Jump();
-	    	
+
 	    	
 		    // Move to the left
 		    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                RunningJoe.getInstance().getWorld().getJoe().Move(false, 5f);
+
+
+
+            if(Gdx.input.getAccelerometerY() < -2f)
                 RunningJoe.getInstance().getWorld().getJoe().Move(false, 5f);
 		    	
 		    // Move to the right
 		    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
                 RunningJoe.getInstance().getWorld().getJoe().Move(true, 5.0f);
+
+            if(Gdx.input.getAccelerometerY() > 2f)
+                RunningJoe.getInstance().getWorld().getJoe().Move(true, 5.0f);
+
 	        
 	        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyPressed(Input.Keys.MENU))
                 RunningJoe.getInstance().getWorld().Pause();

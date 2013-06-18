@@ -84,11 +84,11 @@ public class RjWorld{
 		this.vecBg.add( new Background(this, region, 1f)	);
 		
 	}
-	
+
 	public boolean isStarded() {
 		return this.started;
 	}
-	
+
 	public Score getScore(){return this.score;}
 
 	public Joe getJoe() {
