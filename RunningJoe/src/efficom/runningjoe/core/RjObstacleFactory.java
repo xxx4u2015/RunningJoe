@@ -67,7 +67,7 @@ public class RjObstacleFactory {
                 }
                 break;
             case 2:
-                if(containsCar == false){
+                if(!containsCar){
                     if(this.obstacleList.size()<maxObstacle){
                         if(Math.random()>0.95){
                             obstacle =  new RjObstacleCar(world);
@@ -85,7 +85,7 @@ public class RjObstacleFactory {
                 }
                 break;
             case 4:
-                if(containsCage==false){
+                if(!containsCage){
                     if(this.obstacleList.size()<maxObstacle){
                         if(Math.random()>0.98){
                             obstacle = new RjObstacleCage(world);
