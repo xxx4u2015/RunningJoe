@@ -1,12 +1,7 @@
 package efficom.runningjoe.ws.userapi;
 
 import org.ksoap2.serialization.SoapObject;
-import efficom.runningjoe.ws.userapi.UserApiService2;
 import org.xmlpull.v1.XmlPullParserException;
-
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
