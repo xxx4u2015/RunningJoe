@@ -1,14 +1,7 @@
 package efficom.runningjoe.ws.userapi;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.Dictionary;
 import java.util.Map;
-
-import com.badlogic.gdx.Gdx;
-import efficom.runningjoe.RunningJoe;
-import javafx.util.Pair;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
