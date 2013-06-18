@@ -18,8 +18,8 @@ public class RjObstacleCage extends RjObstacle {
 
         this.width = 128;
 
-        this.density = 10f ;
-        this.friction = 0.2f;
+        this.density = 2.5f ;
+        this.friction = 0.6f;
         this.restitution = 0.2f;
 
     }
