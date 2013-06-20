@@ -56,10 +56,9 @@ public class GameOverScreen extends AbstractMenuItemScreen{
             {
                 Gdx.app.log( RunningJoe.LOG, "Restart clicked: " + getName() );
                 SoundManager.getInstance().play( RunningJoeSound.CLICK );
-                RunningJoe.getInstance().setScreen( new MainScreen() );
                 RunningJoe.getInstance().restart();
+                RunningJoe.getInstance().setScreen( new MainScreen() );
                 RunningJoe.getInstance().getWorld().Start();
-
                 return true;
             }
         });
