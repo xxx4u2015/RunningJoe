@@ -10,7 +10,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/bodyeditor-loader.jar"/>
 	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/bodyeditor-loader-sources.jar"/>
-	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/box2dlights.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/box2dlights.jar"/>
 	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/box2dlights-sources.jar"/>
 	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/gdx.jar"/>
 	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/gdx-natives.jar"/>
