@@ -47,18 +47,18 @@ public class LoginScreen extends AbstractMenuItemScreen {
 				this.getLanguagesManager().getString("Password"), 
 				this.labelStyle
 				);
-		this.getTable().add(passwordlabel).uniform().spaceBottom(10);
+		this.getTable().add(passwordlabel);
 	        
 		// register the button login label
 		passwordText = new TextField(  "", this.textFieldStyle );		 
 		passwordText.setPasswordCharacter('*');
 		passwordText.setPasswordMode(true);
-		this.getTable().add(passwordText).uniform().spaceBottom(10);
+		this.getTable().add(passwordText);
 		this.getTable().row();
 	 
 		// ERROR FIELD----------------------------------------------------------
-		errorText = new TextField("", this.textFieldStyle);
-		this.getTable().add(errorText).uniform().spaceBottom(10).colspan(2);
+		errorText = new TextField("", this.transtextFieldStyle);
+		this.getTable().add(errorText).uniform().spaceBottom(10).colspan(2).fill();
 		this.getTable().row();
 	 
 		// Ignore
@@ -108,7 +108,7 @@ public class LoginScreen extends AbstractMenuItemScreen {
         this.getTable().row();
 
         // Register button ---------------------------------------------------------------------------------------------
-        registerButton = new TextButton(
+        /*registerButton = new TextButton(
                 this.getLanguagesManager().getString("Register"),
                 this.buttonStyle
         );
@@ -122,10 +122,10 @@ public class LoginScreen extends AbstractMenuItemScreen {
                 RunningJoe.getInstance().setScreen( new RegisterScreen( ) );
                 return true;
             }
-        });
+        });*/
 
         // Forgotten button ---------------------------------------------------------------------------------------------
-        forgottenButton = new TextButton(
+        /*forgottenButton = new TextButton(
                 this.getLanguagesManager().getString("Forgotten"),
                 this.buttonStyle
         );
@@ -139,6 +139,6 @@ public class LoginScreen extends AbstractMenuItemScreen {
                 RunningJoe.getInstance().setScreen( new ForgottenScreen( ) );
                 return true;
             }
-        });
+        });*/
 	}
 }

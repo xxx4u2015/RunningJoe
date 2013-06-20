@@ -146,7 +146,7 @@ public class MainScreen extends AbstractScreen
 	        this.getTable().row();
 	        
 	        // register the button "options"
-	        TextButton optionsButton = new TextButton( 
+	        /*TextButton optionsButton = new TextButton( 
 	        		this.getLanguagesManager().getString("Options"), 
 	        		this.buttonStyle 
 	        );
@@ -162,7 +162,7 @@ public class MainScreen extends AbstractScreen
 	                RunningJoe.getInstance().setScreen( new OptionsScreen() );
 	            	return true;
 	            }
-	        } );
+	        } );*/
 	
 	        // register the button "high scores"
 	        TextButton highScoresButton = new TextButton( 

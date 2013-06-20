@@ -6,23 +6,23 @@ package efficom.runningjoe.core;
  * @author Guillaume BAILLEUL
  */
 public class Score {
-	private double value = 0;
+	private float value = 0;
 	
 	public Score()
 	{
 		this.value = 0;	
 	}
 	
-	public Score(double initValue)
+	public Score(int initValue)
 	{
 		this.value = initValue;
 	}
 	
-	public double getValue(){
-		return this.value;
+	public int getValue(){
+		return (int)this.value;
 	}
 	
-	public void addValue(double value){
+	public void addValue(float value){
 		this.value += value;
 	}
 	

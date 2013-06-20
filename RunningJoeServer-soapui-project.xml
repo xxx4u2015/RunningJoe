@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="RunningJoeServer" resourceRoot="" soapui-version="4.5.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="UserApiBinding" type="wsdl" bindingName="{http://efficom/runningjoe/ws/UserApi/}UserApiBinding" soapVersion="1_1" anonymous="optional" definition="http://runningjoe.grimfor.fr/ws/userapi?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://runningjoe.grimfor.fr/ws/userapi?wsdl"><con:part><con:url>http://runningjoe.grimfor.fr/ws/userapi?wsdl</con:url><con:content><![CDATA[<definitions name="UserApi" targetNamespace="http://efficom/runningjoe/ws/UserApi/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://efficom/runningjoe/ws/UserApi/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <portType name="UserApiPortType">
+    <operation name="register" parameterOrder="name email password">
+      <input message="tns:registerRequest"/>
+      <output message="tns:registerResponse"/>
+    </operation>
+    <operation name="login" parameterOrder="name password">
+      <input message="tns:loginRequest"/>
+      <output message="tns:loginResponse"/>
+    </operation>
+    <operation name="changepassword" parameterOrder="user oldpassword newpassword">
+      <input message="tns:changepasswordRequest"/>
+      <output message="tns:changepasswordResponse"/>
+    </operation>
+    <operation name="forgottenpassword" parameterOrder="email">
+      <input message="tns:forgottenpasswordRequest"/>
+      <output message="tns:forgottenpasswordResponse"/>
+    </operation>
+    <operation name="errordescription" parameterOrder="lang number">
+      <input message="tns:errordescriptionRequest"/>
+      <output message="tns:errordescriptionResponse"/>
+    </operation>
+    <operation name="recordscore" parameterOrder="name scorevalue">
+      <input message="tns:recordscoreRequest"/>
+      <output message="tns:recordscoreResponse"/>
+    </operation>
+    <operation name="highscores" parameterOrder="limit offset">
+      <input message="tns:highscoresRequest"/>
+      <output message="tns:highscoresResponse"/>
+    </operation>
+    <operation name="highscoresstring" parameterOrder="limit offset">
+      <input message="tns:highscoresstringRequest"/>
+      <output message="tns:highscoresstringResponse"/>
+    </operation>
+    <operation name="range" parameterOrder="id">
+      <input message="tns:rangeRequest"/>
+      <output message="tns:rangeResponse"/>
+    </operation>
+  </portType>
+  <binding name="UserApiBinding" type="tns:UserApiPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="register">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/register"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="name email password"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="login">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/login"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="name password"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="changepassword">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/changepassword"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="user oldpassword newpassword"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="forgottenpassword">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/forgottenpassword"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="email"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="errordescription">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/errordescription"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="lang number"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="recordscore">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/recordscore"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="name scorevalue"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="highscores">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/highscores"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="limit offset"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="highscoresstring">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/highscoresstring"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="limit offset"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+    <operation name="range">
+      <soap:operation soapAction="http://efficom/runningjoe/ws/UserApi/range"/>
+      <input>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="id"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://efficom/runningjoe/ws/UserApi/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="UserApiService">
+    <port name="UserApiPort" binding="tns:UserApiBinding">
+      <soap:address location="http://runningjoe.grimfor.fr/ws/userapi"/>
+    </port>
+  </service>
+  <message name="registerRequest">
+    <part name="name" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="registerResponse">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <message name="loginRequest">
+    <part name="name" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="loginResponse">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <message name="changepasswordRequest">
+    <part name="user" type="xsd:string"/>
+    <part name="oldpassword" type="xsd:string"/>
+    <part name="newpassword" type="xsd:string"/>
+  </message>
+  <message name="changepasswordResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="forgottenpasswordRequest">
+    <part name="email" type="xsd:string"/>
+  </message>
+  <message name="forgottenpasswordResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="errordescriptionRequest">
+    <part name="lang" type="xsd:string"/>
+    <part name="number" type="xsd:int"/>
+  </message>
+  <message name="errordescriptionResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="recordscoreRequest">
+    <part name="name" type="xsd:string"/>
+    <part name="scorevalue" type="xsd:int"/>
+  </message>
+  <message name="recordscoreResponse">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <types>
+    <xsd:schema targetNamespace="http://efficom/runningjoe/ws/UserApi/">
+      <xsd:complexType name="User">
+        <xsd:all>
+          <xsd:element name="username" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Score">
+        <xsd:all>
+          <xsd:element name="date" type="xsd:dateTime"/>
+          <xsd:element name="user" type="tns:User"/>
+          <xsd:element name="score" type="xsd:int"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfScore">
+        <xsd:sequence>
+          <xsd:element name="item" type="tns:Score" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="highscoresRequest">
+    <part name="limit" type="xsd:int"/>
+    <part name="offset" type="xsd:int"/>
+  </message>
+  <message name="highscoresResponse">
+    <part name="return" type="tns:ArrayOfScore"/>
+  </message>
+  <message name="highscoresstringRequest">
+    <part name="limit" type="xsd:int"/>
+    <part name="offset" type="xsd:int"/>
+  </message>
+  <message name="highscoresstringResponse">
+    <part name="return" type="tns:ArrayOfString"/>
+  </message>
+  <message name="rangeRequest">
+    <part name="id" type="xsd:int"/>
+  </message>
+  <message name="rangeResponse">
+    <part name="return" type="xsd:int"/>
+  </message>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/changepassword" name="changepassword" bindingOperationName="changepassword" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:changepassword>
+         <user>?</user>
+         <oldpassword>?</oldpassword>
+         <newpassword>?</newpassword>
+      </user:changepassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/changepassword"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/errordescription" name="errordescription" bindingOperationName="errordescription" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:errordescription>
+         <lang>?</lang>
+         <number>?</number>
+      </user:errordescription>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/errordescription"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/forgottenpassword" name="forgottenpassword" bindingOperationName="forgottenpassword" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:forgottenpassword>
+         <email>?</email>
+      </user:forgottenpassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/forgottenpassword"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/highscores" name="highscores" bindingOperationName="highscores" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:highscores>
+         <limit>?</limit>
+         <offset>?</offset>
+      </user:highscores>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/highscores"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/highscoresstring" name="highscoresstring" bindingOperationName="highscoresstring" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:highscoresstring>
+         <limit>3</limit>
+         <offset>1</offset>
+      </user:highscoresstring>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/highscoresstring"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/login" name="login" bindingOperationName="login" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:login>
+         <name>user21</name>
+         <password>user12</password>
+      </user:login>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/login"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/range" name="range" bindingOperationName="range" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:range>
+         <id>?</id>
+      </user:range>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/range"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/recordscore" name="recordscore" bindingOperationName="recordscore" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:recordscore>
+         <name>user1</name>
+         <scorevalue>4</scorevalue>
+      </user:recordscore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/recordscore"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://efficom/runningjoe/ws/UserApi/register" name="register" bindingOperationName="register" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://runningjoe.grimfor.fr/ws/userapi</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://efficom/runningjoe/ws/UserApi/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:register>
+         <name>user2</name>
+         <email>user2@yopmail.com</email>
+         <password>user2</password>
+      </user:register>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://efficom/runningjoe/ws/UserApi/register"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/RunningJoe"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="/RunningJoe/libs/gdx.jar" sourcepath="/RunningJoe/libs/gdx-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/bodyeditor-loader.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/bodyeditor-loader-sources.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/box2dlights.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/box2dlights-sources.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/gdx.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/tween-engine-api.jar"/>
+	<classpathentry kind="lib" path="C:/users/Guillaume/Dropbox/Projets/RunningJoe/RunningJoe/libs/tween-engine-api-sources.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

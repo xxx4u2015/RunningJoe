@@ -1,12 +1,11 @@
 package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,8 +27,8 @@ public abstract class AbstractScreen implements Screen
     // the fixed viewport dimensions (ratio: 1.6)
     protected final TextButtonStyle buttonStyle; 
     protected final Stage stage;
-    protected final LabelStyle labelStyle;
-    protected final TextFieldStyle textFieldStyle;
+    protected final LabelStyle labelStyle, titleStyle;
+    protected final TextFieldStyle textFieldStyle, transtextFieldStyle;
     protected final SelectBoxStyle selectBoxStyle;
     
     private LanguagesManager languageManager;    
@@ -48,7 +47,7 @@ public abstract class AbstractScreen implements Screen
       	font.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE);
       	
       	titlefont = new BitmapFont(Gdx.files.internal("fonts/decibel_2.fnt"), false);
-      	titlefont.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE * 2);
+      	titlefont.setScale(1/RunningJoe.BOX2D_HEIGHT_SCALE * 1.5f );
       	     	
         
         this.stage = new Stage(RunningJoe.SCREEN_WIDTH, RunningJoe.SCREEN_HEIGHT, true);
@@ -61,6 +60,11 @@ public abstract class AbstractScreen implements Screen
         this.buttonStyle.fontColor = Color.WHITE;
         this.buttonStyle.pressedOffsetY = 1f;
         this.buttonStyle.downFontColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+
+        //Title style
+        titleStyle = new LabelStyle();
+        titleStyle.font = titlefont;
+        titleStyle.fontColor = Color.WHITE;
         
         //Label style        
         labelStyle = new LabelStyle();
@@ -68,9 +72,18 @@ public abstract class AbstractScreen implements Screen
         labelStyle.fontColor = Color.WHITE;
         
         //Text field style
+        Skin textboxskin = new Skin();
+        textboxskin.add("textfieldback", new Texture(Gdx.files.internal("images/ui/textfield.png")));
+        textboxskin.add("font", font);
+
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = font;
         textFieldStyle.fontColor = Color.WHITE;
+        textFieldStyle.background  =  textboxskin.getDrawable("textfieldback");
+
+        transtextFieldStyle = new TextFieldStyle();
+        transtextFieldStyle.font = font;
+        transtextFieldStyle.fontColor = Color.WHITE;
         
         // Select Box style
         this.selectBoxStyle = new SelectBoxStyle();

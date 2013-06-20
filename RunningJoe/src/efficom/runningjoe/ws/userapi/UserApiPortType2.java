@@ -66,7 +66,11 @@ public class UserApiPortType2 {
                 params
         );
 
-        return Integer.parseInt(ret.toString());
+        try{
+            return Integer.parseInt(ret.toString());
+        }catch(Exception ex){
+            return 0;
+        }
     }
 
     public ArrayList<String> highscoresstring(int limit, int offset) throws IOException, XmlPullParserException {

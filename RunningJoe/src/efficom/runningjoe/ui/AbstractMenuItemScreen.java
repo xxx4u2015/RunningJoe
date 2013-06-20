@@ -2,11 +2,13 @@ package efficom.runningjoe.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import efficom.runningjoe.RunningJoe;
 
 public abstract class AbstractMenuItemScreen extends AbstractScreen{	
 	private String title;
+    protected Label titleLabel;
 	
 	public AbstractMenuItemScreen(String titleKey )
     {
@@ -31,7 +33,6 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
         // draw the table debug lines
         if(RunningJoe.DEV_MODE )Table.drawDebug( stage );        
     }
-
 	
 	@Override
 	public void show()
@@ -40,8 +41,12 @@ public abstract class AbstractMenuItemScreen extends AbstractScreen{
 		RunningJoe.getInstance().getWorld().render();
 		
 		// retrieve the default table actor
-        this.getTable().add( 
-        		this.getLanguagesManager().getString(title)).spaceBottom(50).colspan(2);
+        this.titleLabel = new Label(
+                this.getLanguagesManager().getString(title),
+                this.titleStyle
+        );
+
+        this.getTable().add(this.titleLabel).spaceBottom(50).colspan(2);
         this.getTable().row();		
 	}
 }

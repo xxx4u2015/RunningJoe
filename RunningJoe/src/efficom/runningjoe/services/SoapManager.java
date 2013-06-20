@@ -109,12 +109,12 @@ public class SoapManager {
 	 * @param score score value
 	 * @return Success: null, Error: description
 	 */
-	public String RecordScore(double score)
+	public String RecordScore(int score)
 	{
 		String ret = null;
 
         try {
-            int error = portType2.recordscore(this.name, (int)score);
+            int error = portType2.recordscore(this.name, score);
 
             if(error < 0){
                 ret = this.portType2.errordescription(
@@ -142,7 +142,7 @@ public class SoapManager {
 	public ArrayList<String> GetHighScoresStrings()
 	{
         try {
-            ArrayList<String> result = portType2.highscoresstring(10, 0);
+            ArrayList<String> result = portType2.highscoresstring(6, 0);
             Gdx.app.log( RunningJoe.LOG, "Highscores retrieved");
             return result;
 
@@ -154,6 +154,4 @@ public class SoapManager {
 
         return null;
 	}
-	
-
 }

@@ -39,9 +39,30 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 				this.labelStyle
 				);
 		super.getTable().add(lbl).colspan(2).center();
-		this.getTable().row();	
-		
-		cancelButton = new TextButton( 
+		this.getTable().row();
+
+        validateButton = new TextButton(
+                this.getLanguagesManager().getString("Restart") ,
+                this.buttonStyle
+        );
+
+        super.getTable().add(validateButton).spaceTop(20);
+        this.getTable().row();
+
+
+        validateButton.addListener( new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
+            {
+                Gdx.app.log( RunningJoe.LOG, "Restart clicked: " + getName() );
+                SoundManager.getInstance().play( RunningJoeSound.CLICK );
+                RunningJoe.getInstance().restart();
+                RunningJoe.getInstance().setScreen( new MainScreen() );
+                return true;
+            }
+        });
+
+        cancelButton = new TextButton(
 	       		this.getLanguagesManager().getString("MainMenu") , 
 	       		this.buttonStyle 
 				);
@@ -55,28 +76,11 @@ public class GameOverScreen extends AbstractMenuItemScreen{
 	        	Gdx.app.log( RunningJoe.LOG, "Cancel clicked: " + getName() );
 	           	SoundManager.getInstance().play( RunningJoeSound.CLICK );
 	           	RunningJoe.getInstance().restart();
+	           	RunningJoe.getInstance().getWorld().Start();
 	           	RunningJoe.getInstance().setScreen( new MainScreen() );
 	           	return true;
 	        }
 	    });
-	    
-	    validateButton = new TextButton( 
-	       		this.getLanguagesManager().getString("Restart") , 
-	       		this.buttonStyle 
-				);
-		
-	    super.getTable().add(validateButton).spaceTop(20);
-	    
-	    validateButton.addListener( new InputListener() {
-	        @Override
-	        public boolean touchDown(InputEvent event,float x, float y, int pointer, int button )
-	        {
-	        	Gdx.app.log( RunningJoe.LOG, "Restart clicked: " + getName() );
-	        	SoundManager.getInstance().play( RunningJoeSound.CLICK );
-	           	RunningJoe.getInstance().restart();
-	           	RunningJoe.getInstance().setScreen( new MainScreen() );
-	           	return true;
-	        }
-	    });	    
+
 	}
 }
